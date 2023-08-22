@@ -24,7 +24,10 @@ protected:
   bool is_on;
 
   // A protected default constructor.
-  led_base() : is_on(false) { }
+  led_base() : is_on(false) {
+      std::cout << ("base constructor") << std::endl;
+  }
+   
 
 private:
   // Private non-implemented copy constructor.

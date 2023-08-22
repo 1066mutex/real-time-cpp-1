@@ -45,7 +45,7 @@ public:
     // Ensure that unsigned_type is unsigned.
     static_assert(type_is_signed == false,
                   "error: type must be unsigned");
-
+    //! get the number of bytes to send
     constexpr std::size_t count =
       std::numeric_limits<unsigned_type>::digits / 8;
 

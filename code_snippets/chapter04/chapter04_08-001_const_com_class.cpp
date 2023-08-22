@@ -72,7 +72,7 @@ private:
   friend void com_recv_isr();
 };
 
-bool wakeup(const communication& com) // Emohasize: com is a comst reference.
+bool wakeup(const communication& com) // Emohasize: com is a const reference.
 {
   // Call the const send_byte function on a const reference.
   return com.send_byte(0x12U);

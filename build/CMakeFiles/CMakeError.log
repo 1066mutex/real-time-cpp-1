@@ -1,0 +1,62 @@
+Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" failed.
+Compiler: /usr/bin/arm-none-eabi-g++ 
+Build flags: 
+Id flags:  
+
+The output was:
+1
+/usr/share/gcc-arm-none-eabi-10.3-2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/bin/ld: /usr/share/gcc-arm-none-eabi-10.3-2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/libc.a(lib_a-exit.o): in function `exit':
+exit.c:(.text.exit+0x2c): undefined reference to `_exit'
+collect2: error: ld returned 1 exit status
+
+
+Determining if the CXX compiler works failed with the following output:
+Change Dir: /mnt/c/Users/Itai/Documents/Embedded_New/example_projects/real-time-cpp/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/gmake cmTC_0bc9c/fast && gmake: Warning: File 'Makefile' has modification time 0.78 s in the future
+/usr/bin/gmake -f CMakeFiles/cmTC_0bc9c.dir/build.make CMakeFiles/cmTC_0bc9c.dir/build
+gmake[1]: Entering directory '/mnt/c/Users/Itai/Documents/Embedded_New/example_projects/real-time-cpp/build/CMakeFiles/CMakeTmp'
+gmake[1]: Warning: File 'CMakeFiles/cmTC_0bc9c.dir/flags.make' has modification time 0.76 s in the future
+Building CXX object CMakeFiles/cmTC_0bc9c.dir/testCXXCompiler.cxx.obj
+/usr/bin/arm-none-eabi-g++     -o CMakeFiles/cmTC_0bc9c.dir/testCXXCompiler.cxx.obj -c /mnt/c/Users/Itai/Documents/Embedded_New/example_projects/real-time-cpp/build/CMakeFiles/CMakeTmp/testCXXCompiler.cxx
+Linking CXX static library libcmTC_0bc9c.a
+/usr/bin/cmake -P CMakeFiles/cmTC_0bc9c.dir/cmake_clean_target.cmake
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_0bc9c.dir/link.txt --verbose=1
+arm-none-eabi-ar qc libcmTC_0bc9c.a  CMakeFiles/cmTC_0bc9c.dir/testCXXCompiler.cxx.obj
+Error running link command: No such file or directory
+gmake[1]: *** [CMakeFiles/cmTC_0bc9c.dir/build.make:88: libcmTC_0bc9c.a] Error 2
+gmake[1]: Leaving directory '/mnt/c/Users/Itai/Documents/Embedded_New/example_projects/real-time-cpp/build/CMakeFiles/CMakeTmp'
+gmake: *** [Makefile:121: cmTC_0bc9c/fast] Error 2
+
+
+
+Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" failed.
+Compiler: /usr/bin/arm-none-eabi-g++ 
+Build flags: 
+Id flags:  
+
+The output was:
+1
+/usr/share/gcc-arm-none-eabi-10.3-2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/bin/ld: /usr/share/gcc-arm-none-eabi-10.3-2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/libc.a(lib_a-exit.o): in function `exit':
+exit.c:(.text.exit+0x2c): undefined reference to `_exit'
+collect2: error: ld returned 1 exit status
+
+
+Determining if the CXX compiler works failed with the following output:
+Change Dir: /mnt/c/Users/Itai/Documents/Embedded_New/example_projects/real-time-cpp/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/gmake cmTC_46be0/fast && /usr/bin/gmake -f CMakeFiles/cmTC_46be0.dir/build.make CMakeFiles/cmTC_46be0.dir/build
+gmake[1]: Entering directory '/mnt/c/Users/Itai/Documents/Embedded_New/example_projects/real-time-cpp/build/CMakeFiles/CMakeTmp'
+Building CXX object CMakeFiles/cmTC_46be0.dir/testCXXCompiler.cxx.obj
+/usr/bin/arm-none-eabi-g++     -o CMakeFiles/cmTC_46be0.dir/testCXXCompiler.cxx.obj -c /mnt/c/Users/Itai/Documents/Embedded_New/example_projects/real-time-cpp/build/CMakeFiles/CMakeTmp/testCXXCompiler.cxx
+Linking CXX static library libcmTC_46be0.a
+/usr/bin/cmake -P CMakeFiles/cmTC_46be0.dir/cmake_clean_target.cmake
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_46be0.dir/link.txt --verbose=1
+arm-none-eabi-ar qc libcmTC_46be0.a  CMakeFiles/cmTC_46be0.dir/testCXXCompiler.cxx.obj
+Error running link command: No such file or directory
+gmake[1]: *** [CMakeFiles/cmTC_46be0.dir/build.make:88: libcmTC_46be0.a] Error 2
+gmake[1]: Leaving directory '/mnt/c/Users/Itai/Documents/Embedded_New/example_projects/real-time-cpp/build/CMakeFiles/CMakeTmp'
+gmake: *** [Makefile:121: cmTC_46be0/fast] Error 2
+
+
+
