@@ -22,8 +22,8 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-#ifndef _SOC_GPIO_STRUCT_H_
-#define _SOC_GPIO_STRUCT_H_
+#ifndef XTENSA32_FROM_SDK_SOC_GPIO_STRUCT_H_
+#define XTENSA32_FROM_SDK_SOC_GPIO_STRUCT_H_
 
 #include <stdint.h>
 
@@ -226,4 +226,4 @@ extern gpio_dev_t GPIO;
 }
 #endif
 
-#endif  /* _SOC_GPIO_STRUCT_H_ */
+#endif // XTENSA32_FROM_SDK_SOC_GPIO_STRUCT_H_
