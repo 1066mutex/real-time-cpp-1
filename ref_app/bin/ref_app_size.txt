@@ -1,0 +1,22 @@
+bin/ref_app.elf  :
+section             size        addr
+.isr_vector          512   134217728
+.startup              48   134218240
+.text               2756   134218288
+.ARM.extab             0   134221044
+.exidx                 8   134221044
+.ARM.attributes       50   134221052
+.data                  4   536870912
+.bss                 144   536870920
+.debug_info       193039           0
+.debug_abbrev      20463           0
+.debug_loc          5402           0
+.debug_aranges      1520           0
+.debug_ranges       2344           0
+.debug_line        21531           0
+.debug_str         61303           0
+.comment              73           0
+.debug_frame        2252           0
+Total             311449
+
+

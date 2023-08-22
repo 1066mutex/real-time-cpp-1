@@ -35,7 +35,17 @@ public:
     return send_byte_is_ok;
   }
 
+
   // Add a template send_uint function.
+  /**
+   * @brief The type of unsigned_type is intended to be a
+   *        right-shift-capable unsigned integral type
+   * 
+   * @tparam unsigned_type 
+   * @param  u                
+   * @return true             
+   * @return false            
+   */
   template<typename unsigned_type>
   bool send_uint(const unsigned_type& u) const
   {

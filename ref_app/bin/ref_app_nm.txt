@@ -1,0 +1,88 @@
+08000000 00000200 D __isr_vector
+08000000 A _rom_begin
+08000200 00000020 T __my_startup
+08000230 T _ctors_begin
+08000238 T _ctors_end
+08000238 00000134 T memcpy
+0800036c T __aeabi_uldivmod
+0800039c 000002d0 T __udivmoddi4
+0800066c 00000002 W __aeabi_idiv0
+0800066c 00000002 W __aeabi_ldiv0
+08000670 00000038 T _ZN3app9benchmark9task_initEv
+080006a8 0000002c T _ZN3app9benchmark9task_funcEv
+080006d4 00000004 T _ZN3app9benchmark8run_noneEv
+080006d8 00000010 T _ZN3app3led9task_initEv
+080006e8 00000030 T _ZN3app3led9task_funcEv
+08000718 00000018 t _GLOBAL__sub_I__ZN3app3led9task_initEv
+08000730 0000008c T _ZN4mcal3cpu4initEv
+080007bc 00000008 t _ZN12_GLOBAL__N_118gpt_is_initializedEv
+080007c4 0000001c T __sys_tick_handler
+080007e0 00000036 T _ZN4mcal3gpt4initEPKv
+08000818 00000054 T _ZN4mcal3gpt6secure16get_time_elapsedEv
+0800086c 00000004 T _ZN4mcal3irq4initEPKv
+08000870 00000004 W _ZNK4mcal3led22led_boolean_state_base11state_is_onEv
+08000874 00000002 t __tcf_0
+08000876 00000002 W _ZN4mcal3led8led_portINS_4port8port_pinImmLm1073872896ELm5EEEED1Ev
+08000876 00000002 W _ZN4mcal3led8led_portINS_4port8port_pinImmLm1073872896ELm5EEEED2Ev
+08000878 00000018 W _ZN4mcal3led8led_portINS_4port8port_pinImmLm1073872896ELm5EEEE6toggleEv
+08000890 0000000c W _ZN4mcal3led8led_portINS_4port8port_pinImmLm1073872896ELm5EEEED0Ev
+0800089c 00000060 T _ZN4mcal3led4led0Ev
+080008fc 000000b4 T _ZN4mcal3osc4initEPKv
+080009b0 00000014 T _ZN4mcal4port4initEPKv
+080009c4 00000002 T _ZN4mcal3spi4initEPKv
+080009c8 00000028 T _ZN4mcal3wdg4initEPKv
+080009f0 00000010 T _ZN4mcal3wdg6secure7triggerEv
+08000a00 00000018 T _ZN4mcal4initEv
+08000a18 0000004c T _ZN2os8start_osEv
+08000a64 00000070 t _GLOBAL__sub_I__ZN2os8start_osEv
+08000ad4 00000030 T _ZN2os18task_control_block7executeERKj
+08000b04 00000002 T _ZN3sys4idle9task_initEv
+08000b06 00000004 T _ZN3sys4idle9task_funcEv
+08000b0a 00000002 T _ZN3sys3mon9task_initEv
+08000b0c 00000002 T _ZN3sys3mon9task_funcEv
+08000b0e 0000000e T main
+08000b1c 00000002 T _ZdlPv
+08000b1e 00000004 T atexit
+08000b22 0000009e T _ZN4mcal3osc6detail24stm32f4xx_clock_settingsC1Eth
+08000b22 0000009e T _ZN4mcal3osc6detail24stm32f4xx_clock_settingsC2Eth
+08000bc0 00000002 T _ZN4mcal3osc6detail24stm32f4xx_clock_settingsD1Ev
+08000bc0 00000002 T _ZN4mcal3osc6detail24stm32f4xx_clock_settingsD2Ev
+08000bc4 00000034 T _ZN3crt8init_ramEv
+08000bf8 0000001c T _ZN3crt10init_ctorsEv
+08000c14 00000004 T __vector_unused_irq
+08000c18 00000004 T __nmi_handler
+08000c1c 00000004 T __hard_fault_handler
+08000c20 00000004 T __mem_manage_handler
+08000c24 00000004 T __bus_fault_handler
+08000c28 00000004 T __usage_fault_handler
+08000c2c 00000004 T __svc_handler
+08000c30 00000004 T __debug_mon_handler
+08000c34 00000004 T __pend_sv_handler
+08000c38 000000a4 T memset
+08000cdc 00000018 V _ZTVN4mcal3led8led_portINS_4port8port_pinImmLm1073872896ELm5EEEEE
+08000cfc A _rom_data_begin
+08010000 A _rom_end
+20000000 00000004 d _ZZnwjE7get_ptr
+20000000 D _data_begin
+20000004 D _data_end
+20000008 00000004 b _ZN12_GLOBAL__N_113app_led_timerE
+20000008 B _bss_begin
+20000010 00000008 b _ZN12_GLOBAL__N_120mcal_gpt_system_tickE
+20000018 00000001 b _ZZN12_GLOBAL__N_118gpt_is_initializedEvE7is_init
+2000001c 00000004 b _ZGVZN4mcal3led4led0EvE2l0
+20000020 00000008 b _ZZN4mcal3led4led0EvE2l0
+20000028 00000004 b _ZGVZN4mcal3pwm4pwm0EvE10init_is_ok
+2000002c 00000004 b _ZGVZN4mcal3pwm4pwm0EvE3pwm
+20000030 00000001 b _ZZN4mcal3pwm4pwm0EvE10init_is_ok
+20000034 00000008 b _ZZN4mcal3pwm4pwm0EvE3pwm
+2000003c 00000004 b _ZGVZN4mcal3spi4spi0EvE3com
+20000040 00000008 b _ZZN4mcal3spi4spi0EvE3com
+20000048 0000003c b _ZN12_GLOBAL__N_112os_task_listE
+20000084 00000004 b _ZN12_GLOBAL__N_113os_task_indexE
+20000088 00000008 b _ZZnwjE6buffer
+20000090 00000004 B __errno
+20000094 00000001 B __fdlib_version
+20000098 B _bss_end
+20007000 A _stack_begin
+20007ffc A __initial_stack_pointer
+20008000 A _stack_end

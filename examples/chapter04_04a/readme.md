@@ -43,7 +43,7 @@ void app::led::task_func()
   if(app_led_timer.timeout())
   {
     app_led_timer.start_interval(app_led_one_sec);
-
+    //! using enhanced (range based) for loop to loop through the array of LEDs
     for(typename app_led_ref_type::type& led : app_led_base_class_refs)
     {
       led.toggle();

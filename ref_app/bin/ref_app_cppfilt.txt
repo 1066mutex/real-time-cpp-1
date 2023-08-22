@@ -1,0 +1,88 @@
+08000000 00000200 D __isr_vector
+08000000 A _rom_begin
+08000200 00000020 T __my_startup
+08000230 T _ctors_begin
+08000238 T _ctors_end
+08000238 00000134 T memcpy
+0800036c T __aeabi_uldivmod
+0800039c 000002d0 T __udivmoddi4
+0800066c 00000002 W __aeabi_idiv0
+0800066c 00000002 W __aeabi_ldiv0
+08000670 00000038 T app::benchmark::task_init()
+080006a8 0000002c T app::benchmark::task_func()
+080006d4 00000004 T app::benchmark::run_none()
+080006d8 00000010 T app::led::task_init()
+080006e8 00000030 T app::led::task_func()
+08000718 00000018 t _GLOBAL__sub_I__ZN3app3led9task_initEv
+08000730 0000008c T mcal::cpu::init()
+080007bc 00000008 t (anonymous namespace)::gpt_is_initialized()
+080007c4 0000001c T __sys_tick_handler
+080007e0 00000036 T mcal::gpt::init(void const*)
+08000818 00000054 T mcal::gpt::secure::get_time_elapsed()
+0800086c 00000004 T mcal::irq::init(void const*)
+08000870 00000004 W mcal::led::led_boolean_state_base::state_is_on() const
+08000874 00000002 t __tcf_0
+08000876 00000002 W mcal::led::led_port<mcal::port::port_pin<unsigned long, unsigned long, 1073872896ul, 5ul> >::~led_port()
+08000876 00000002 W mcal::led::led_port<mcal::port::port_pin<unsigned long, unsigned long, 1073872896ul, 5ul> >::~led_port()
+08000878 00000018 W mcal::led::led_port<mcal::port::port_pin<unsigned long, unsigned long, 1073872896ul, 5ul> >::toggle()
+08000890 0000000c W mcal::led::led_port<mcal::port::port_pin<unsigned long, unsigned long, 1073872896ul, 5ul> >::~led_port()
+0800089c 00000060 T mcal::led::led0()
+080008fc 000000b4 T mcal::osc::init(void const*)
+080009b0 00000014 T mcal::port::init(void const*)
+080009c4 00000002 T mcal::spi::init(void const*)
+080009c8 00000028 T mcal::wdg::init(void const*)
+080009f0 00000010 T mcal::wdg::secure::trigger()
+08000a00 00000018 T mcal::init()
+08000a18 0000004c T os::start_os()
+08000a64 00000070 t _GLOBAL__sub_I__ZN2os8start_osEv
+08000ad4 00000030 T os::task_control_block::execute(unsigned int const&)
+08000b04 00000002 T sys::idle::task_init()
+08000b06 00000004 T sys::idle::task_func()
+08000b0a 00000002 T sys::mon::task_init()
+08000b0c 00000002 T sys::mon::task_func()
+08000b0e 0000000e T main
+08000b1c 00000002 T operator delete(void*)
+08000b1e 00000004 T atexit
+08000b22 0000009e T mcal::osc::detail::stm32f4xx_clock_settings::stm32f4xx_clock_settings(unsigned short, unsigned char)
+08000b22 0000009e T mcal::osc::detail::stm32f4xx_clock_settings::stm32f4xx_clock_settings(unsigned short, unsigned char)
+08000bc0 00000002 T mcal::osc::detail::stm32f4xx_clock_settings::~stm32f4xx_clock_settings()
+08000bc0 00000002 T mcal::osc::detail::stm32f4xx_clock_settings::~stm32f4xx_clock_settings()
+08000bc4 00000034 T crt::init_ram()
+08000bf8 0000001c T crt::init_ctors()
+08000c14 00000004 T __vector_unused_irq
+08000c18 00000004 T __nmi_handler
+08000c1c 00000004 T __hard_fault_handler
+08000c20 00000004 T __mem_manage_handler
+08000c24 00000004 T __bus_fault_handler
+08000c28 00000004 T __usage_fault_handler
+08000c2c 00000004 T __svc_handler
+08000c30 00000004 T __debug_mon_handler
+08000c34 00000004 T __pend_sv_handler
+08000c38 000000a4 T memset
+08000cdc 00000018 V vtable for mcal::led::led_port<mcal::port::port_pin<unsigned long, unsigned long, 1073872896ul, 5ul> >
+08000cfc A _rom_data_begin
+08010000 A _rom_end
+20000000 00000004 d operator new(unsigned int)::get_ptr
+20000000 D _data_begin
+20000004 D _data_end
+20000008 00000004 b (anonymous namespace)::app_led_timer
+20000008 B _bss_begin
+20000010 00000008 b (anonymous namespace)::mcal_gpt_system_tick
+20000018 00000001 b (anonymous namespace)::gpt_is_initialized()::is_init
+2000001c 00000004 b guard variable for mcal::led::led0()::l0
+20000020 00000008 b mcal::led::led0()::l0
+20000028 00000004 b guard variable for mcal::pwm::pwm0()::init_is_ok
+2000002c 00000004 b guard variable for mcal::pwm::pwm0()::pwm
+20000030 00000001 b mcal::pwm::pwm0()::init_is_ok
+20000034 00000008 b mcal::pwm::pwm0()::pwm
+2000003c 00000004 b guard variable for mcal::spi::spi0()::com
+20000040 00000008 b mcal::spi::spi0()::com
+20000048 0000003c b (anonymous namespace)::os_task_list
+20000084 00000004 b (anonymous namespace)::os_task_index
+20000088 00000008 b operator new(unsigned int)::buffer
+20000090 00000004 B __errno
+20000094 00000001 B __fdlib_version
+20000098 B _bss_end
+20007000 A _stack_begin
+20007ffc A __initial_stack_pointer
+20008000 A _stack_end

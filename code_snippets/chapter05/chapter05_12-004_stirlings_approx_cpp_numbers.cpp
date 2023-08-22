@@ -22,10 +22,12 @@ T tgamma_order_2(T x)
   const T      one_over_x = T(1.0L) / x;
   const T sqrt_one_over_x = sqrt(one_over_x);
 
+//! not in the book the term0 is square root of 2pi/x this can also be solved
+//  as square root of 2pi * square root of 1/x
   const T term0 =    sqrt(T(2.0L) * std::numbers::pi_v<T>)
                    * sqrt_one_over_x;
-  const T term1 = (  sqrt(std::numbers::pi_v<T> / T(2.0L))
-                   * (  sqrt_one_over_x
+  const T term1 = (sqrt(std::numbers::pi_v<T> / T(2.0L))
+                   * (sqrt_one_over_x
                       * one_over_x))
                   / T(6.0L);
 

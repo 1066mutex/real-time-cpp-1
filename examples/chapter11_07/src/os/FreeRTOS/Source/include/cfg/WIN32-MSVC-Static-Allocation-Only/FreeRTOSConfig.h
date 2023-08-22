@@ -25,8 +25,8 @@
  * 1 tab == 4 spaces!
  */
 
-#ifndef FREERTOS_CONFIG_H
-#define FREERTOS_CONFIG_H
+#ifndef INCLUDE_CFG_WIN32_MSVC_STATIC_ALLOCATION_ONLY_FREERTOSCONFIG_H_
+#define INCLUDE_CFG_WIN32_MSVC_STATIC_ALLOCATION_ONLY_FREERTOSCONFIG_H_
 
 /*-----------------------------------------------------------
  * Application specific definitions.
@@ -80,4 +80,4 @@ to exclude the API function. */
 #define INCLUDE_vTaskDelayUntil         0
 #define INCLUDE_vTaskDelay              1
 
-#endif /* FREERTOS_CONFIG_H */
+#endif // INCLUDE_CFG_WIN32_MSVC_STATIC_ALLOCATION_ONLY_FREERTOSCONFIG_H_

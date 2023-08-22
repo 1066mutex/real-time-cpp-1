@@ -1,0 +1,1777 @@
+
+bin/ref_app.elf:     file format elf32-littlearm
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .isr_vector   00000200  08000000  08000000  00010000  2**2
+                  CONTENTS, ALLOC, LOAD, DATA
+  1 .startup      00000030  08000200  08000200  00010200  2**2
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  2 .text         00000ac4  08000230  08000230  00010230  2**2
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  3 .ARM.extab    00000000  08000cf4  08000cf4  00020004  2**0
+                  CONTENTS
+  4 .exidx        00000008  08000cf4  08000cf4  00010cf4  2**2
+                  CONTENTS, ALLOC, LOAD, READONLY, DATA
+  5 .ARM.attributes 00000032  08000cfc  08000cfc  00020004  2**0
+                  CONTENTS, READONLY
+  6 .data         00000004  20000000  08000cfc  00020000  2**2
+                  CONTENTS, ALLOC, LOAD, DATA
+  7 .bss          00000090  20000008  08000d00  00020008  2**3
+                  ALLOC
+  8 .debug_info   0002f20f  00000000  00000000  00020036  2**0
+                  CONTENTS, READONLY, DEBUGGING, OCTETS
+  9 .debug_abbrev 00004fef  00000000  00000000  0004f245  2**0
+                  CONTENTS, READONLY, DEBUGGING, OCTETS
+ 10 .debug_loc    0000151a  00000000  00000000  00054234  2**0
+                  CONTENTS, READONLY, DEBUGGING, OCTETS
+ 11 .debug_aranges 000005f0  00000000  00000000  0005574e  2**0
+                  CONTENTS, READONLY, DEBUGGING, OCTETS
+ 12 .debug_ranges 00000928  00000000  00000000  00055d3e  2**0
+                  CONTENTS, READONLY, DEBUGGING, OCTETS
+ 13 .debug_line   0000541b  00000000  00000000  00056666  2**0
+                  CONTENTS, READONLY, DEBUGGING, OCTETS
+ 14 .debug_str    0000ef77  00000000  00000000  0005ba81  2**0
+                  CONTENTS, READONLY, DEBUGGING, OCTETS
+ 15 .comment      00000049  00000000  00000000  0006a9f8  2**0
+                  CONTENTS, READONLY
+ 16 .debug_frame  000008cc  00000000  00000000  0006aa44  2**2
+                  CONTENTS, READONLY, DEBUGGING, OCTETS
+
+Disassembly of section .startup:
+
+08000200 <__my_startup>:
+}
+
+extern "C" void __my_startup() __attribute__((used, noinline));
+
+void __my_startup()
+{
+ 8000200:	b508      	push	{r3, lr}
+  // The stack pointer is automatically loaded from
+  // the base position of the interrupt vector table.
+  // So we do nothing here.
+
+  // Chip init: Watchdog, port, and oscillator.
+  mcal::cpu::init();
+ 8000202:	f000 fa95 	bl	8000730 <_ZN4mcal3cpu4initEv>
+
+  // Initialize statics from ROM to RAM.
+  // Zero-clear default-initialized static RAM.
+  crt::init_ram();
+ 8000206:	f000 fcdd 	bl	8000bc4 <_ZN3crt8init_ramEv>
+  mcal::wdg::secure::trigger();
+ 800020a:	f000 fbf1 	bl	80009f0 <_ZN4mcal3wdg6secure7triggerEv>
+
+  // Call all ctor initializations.
+  crt::init_ctors();
+ 800020e:	f000 fcf3 	bl	8000bf8 <_ZN3crt10init_ctorsEv>
+  mcal::wdg::secure::trigger();
+ 8000212:	f000 fbed 	bl	80009f0 <_ZN4mcal3wdg6secure7triggerEv>
+
+  // Jump to main (and never return).
+  asm volatile("ldr r3, =main");
+ 8000216:	4b02      	ldr	r3, [pc, #8]	; (8000220 <__my_startup+0x20>)
+  asm volatile("blx r3");
+ 8000218:	4798      	blx	r3
+
+  // Catch an unexpected return from main.
+  for(;;)
+  {
+    // Replace with a loud error if desired.
+    mcal::wdg::secure::trigger();
+ 800021a:	f000 fbe9 	bl	80009f0 <_ZN4mcal3wdg6secure7triggerEv>
+  for(;;)
+ 800021e:	e7fc      	b.n	800021a <__my_startup+0x1a>
+ 8000220:	08000b0f 	.word	0x08000b0f
+ 8000224:	55555555 	.word	0x55555555
+ 8000228:	55555555 	.word	0x55555555
+ 800022c:	55555555 	.word	0x55555555
+
+Disassembly of section .text:
+
+08000230 <_ctors_begin>:
+ 8000230:	08000719 	.word	0x08000719
+ 8000234:	08000a65 	.word	0x08000a65
+
+08000238 <memcpy>:
+ 8000238:	4684      	mov	ip, r0
+ 800023a:	ea41 0300 	orr.w	r3, r1, r0
+ 800023e:	f013 0303 	ands.w	r3, r3, #3
+ 8000242:	d16d      	bne.n	8000320 <memcpy+0xe8>
+ 8000244:	3a40      	subs	r2, #64	; 0x40
+ 8000246:	d341      	bcc.n	80002cc <memcpy+0x94>
+ 8000248:	f851 3b04 	ldr.w	r3, [r1], #4
+ 800024c:	f840 3b04 	str.w	r3, [r0], #4
+ 8000250:	f851 3b04 	ldr.w	r3, [r1], #4
+ 8000254:	f840 3b04 	str.w	r3, [r0], #4
+ 8000258:	f851 3b04 	ldr.w	r3, [r1], #4
+ 800025c:	f840 3b04 	str.w	r3, [r0], #4
+ 8000260:	f851 3b04 	ldr.w	r3, [r1], #4
+ 8000264:	f840 3b04 	str.w	r3, [r0], #4
+ 8000268:	f851 3b04 	ldr.w	r3, [r1], #4
+ 800026c:	f840 3b04 	str.w	r3, [r0], #4
+ 8000270:	f851 3b04 	ldr.w	r3, [r1], #4
+ 8000274:	f840 3b04 	str.w	r3, [r0], #4
+ 8000278:	f851 3b04 	ldr.w	r3, [r1], #4
+ 800027c:	f840 3b04 	str.w	r3, [r0], #4
+ 8000280:	f851 3b04 	ldr.w	r3, [r1], #4
+ 8000284:	f840 3b04 	str.w	r3, [r0], #4
+ 8000288:	f851 3b04 	ldr.w	r3, [r1], #4
+ 800028c:	f840 3b04 	str.w	r3, [r0], #4
+ 8000290:	f851 3b04 	ldr.w	r3, [r1], #4
+ 8000294:	f840 3b04 	str.w	r3, [r0], #4
+ 8000298:	f851 3b04 	ldr.w	r3, [r1], #4
+ 800029c:	f840 3b04 	str.w	r3, [r0], #4
+ 80002a0:	f851 3b04 	ldr.w	r3, [r1], #4
+ 80002a4:	f840 3b04 	str.w	r3, [r0], #4
+ 80002a8:	f851 3b04 	ldr.w	r3, [r1], #4
+ 80002ac:	f840 3b04 	str.w	r3, [r0], #4
+ 80002b0:	f851 3b04 	ldr.w	r3, [r1], #4
+ 80002b4:	f840 3b04 	str.w	r3, [r0], #4
+ 80002b8:	f851 3b04 	ldr.w	r3, [r1], #4
+ 80002bc:	f840 3b04 	str.w	r3, [r0], #4
+ 80002c0:	f851 3b04 	ldr.w	r3, [r1], #4
+ 80002c4:	f840 3b04 	str.w	r3, [r0], #4
+ 80002c8:	3a40      	subs	r2, #64	; 0x40
+ 80002ca:	d2bd      	bcs.n	8000248 <memcpy+0x10>
+ 80002cc:	3230      	adds	r2, #48	; 0x30
+ 80002ce:	d311      	bcc.n	80002f4 <memcpy+0xbc>
+ 80002d0:	f851 3b04 	ldr.w	r3, [r1], #4
+ 80002d4:	f840 3b04 	str.w	r3, [r0], #4
+ 80002d8:	f851 3b04 	ldr.w	r3, [r1], #4
+ 80002dc:	f840 3b04 	str.w	r3, [r0], #4
+ 80002e0:	f851 3b04 	ldr.w	r3, [r1], #4
+ 80002e4:	f840 3b04 	str.w	r3, [r0], #4
+ 80002e8:	f851 3b04 	ldr.w	r3, [r1], #4
+ 80002ec:	f840 3b04 	str.w	r3, [r0], #4
+ 80002f0:	3a10      	subs	r2, #16
+ 80002f2:	d2ed      	bcs.n	80002d0 <memcpy+0x98>
+ 80002f4:	320c      	adds	r2, #12
+ 80002f6:	d305      	bcc.n	8000304 <memcpy+0xcc>
+ 80002f8:	f851 3b04 	ldr.w	r3, [r1], #4
+ 80002fc:	f840 3b04 	str.w	r3, [r0], #4
+ 8000300:	3a04      	subs	r2, #4
+ 8000302:	d2f9      	bcs.n	80002f8 <memcpy+0xc0>
+ 8000304:	3204      	adds	r2, #4
+ 8000306:	d008      	beq.n	800031a <memcpy+0xe2>
+ 8000308:	07d2      	lsls	r2, r2, #31
+ 800030a:	bf1c      	itt	ne
+ 800030c:	f811 3b01 	ldrbne.w	r3, [r1], #1
+ 8000310:	f800 3b01 	strbne.w	r3, [r0], #1
+ 8000314:	d301      	bcc.n	800031a <memcpy+0xe2>
+ 8000316:	880b      	ldrh	r3, [r1, #0]
+ 8000318:	8003      	strh	r3, [r0, #0]
+ 800031a:	4660      	mov	r0, ip
+ 800031c:	4770      	bx	lr
+ 800031e:	bf00      	nop
+ 8000320:	2a08      	cmp	r2, #8
+ 8000322:	d313      	bcc.n	800034c <memcpy+0x114>
+ 8000324:	078b      	lsls	r3, r1, #30
+ 8000326:	d08d      	beq.n	8000244 <memcpy+0xc>
+ 8000328:	f010 0303 	ands.w	r3, r0, #3
+ 800032c:	d08a      	beq.n	8000244 <memcpy+0xc>
+ 800032e:	f1c3 0304 	rsb	r3, r3, #4
+ 8000332:	1ad2      	subs	r2, r2, r3
+ 8000334:	07db      	lsls	r3, r3, #31
+ 8000336:	bf1c      	itt	ne
+ 8000338:	f811 3b01 	ldrbne.w	r3, [r1], #1
+ 800033c:	f800 3b01 	strbne.w	r3, [r0], #1
+ 8000340:	d380      	bcc.n	8000244 <memcpy+0xc>
+ 8000342:	f831 3b02 	ldrh.w	r3, [r1], #2
+ 8000346:	f820 3b02 	strh.w	r3, [r0], #2
+ 800034a:	e77b      	b.n	8000244 <memcpy+0xc>
+ 800034c:	3a04      	subs	r2, #4
+ 800034e:	d3d9      	bcc.n	8000304 <memcpy+0xcc>
+ 8000350:	3a01      	subs	r2, #1
+ 8000352:	f811 3b01 	ldrb.w	r3, [r1], #1
+ 8000356:	f800 3b01 	strb.w	r3, [r0], #1
+ 800035a:	d2f9      	bcs.n	8000350 <memcpy+0x118>
+ 800035c:	780b      	ldrb	r3, [r1, #0]
+ 800035e:	7003      	strb	r3, [r0, #0]
+ 8000360:	784b      	ldrb	r3, [r1, #1]
+ 8000362:	7043      	strb	r3, [r0, #1]
+ 8000364:	788b      	ldrb	r3, [r1, #2]
+ 8000366:	7083      	strb	r3, [r0, #2]
+ 8000368:	4660      	mov	r0, ip
+ 800036a:	4770      	bx	lr
+
+0800036c <__aeabi_uldivmod>:
+ 800036c:	b953      	cbnz	r3, 8000384 <__aeabi_uldivmod+0x18>
+ 800036e:	b94a      	cbnz	r2, 8000384 <__aeabi_uldivmod+0x18>
+ 8000370:	2900      	cmp	r1, #0
+ 8000372:	bf08      	it	eq
+ 8000374:	2800      	cmpeq	r0, #0
+ 8000376:	bf1c      	itt	ne
+ 8000378:	f04f 31ff 	movne.w	r1, #4294967295	; 0xffffffff
+ 800037c:	f04f 30ff 	movne.w	r0, #4294967295	; 0xffffffff
+ 8000380:	f000 b974 	b.w	800066c <__aeabi_idiv0>
+ 8000384:	f1ad 0c08 	sub.w	ip, sp, #8
+ 8000388:	e96d ce04 	strd	ip, lr, [sp, #-16]!
+ 800038c:	f000 f806 	bl	800039c <__udivmoddi4>
+ 8000390:	f8dd e004 	ldr.w	lr, [sp, #4]
+ 8000394:	e9dd 2302 	ldrd	r2, r3, [sp, #8]
+ 8000398:	b004      	add	sp, #16
+ 800039a:	4770      	bx	lr
+
+0800039c <__udivmoddi4>:
+ 800039c:	e92d 47f0 	stmdb	sp!, {r4, r5, r6, r7, r8, r9, sl, lr}
+ 80003a0:	9d08      	ldr	r5, [sp, #32]
+ 80003a2:	4604      	mov	r4, r0
+ 80003a4:	468e      	mov	lr, r1
+ 80003a6:	2b00      	cmp	r3, #0
+ 80003a8:	d14d      	bne.n	8000446 <__udivmoddi4+0xaa>
+ 80003aa:	428a      	cmp	r2, r1
+ 80003ac:	4694      	mov	ip, r2
+ 80003ae:	d969      	bls.n	8000484 <__udivmoddi4+0xe8>
+ 80003b0:	fab2 f282 	clz	r2, r2
+ 80003b4:	b152      	cbz	r2, 80003cc <__udivmoddi4+0x30>
+ 80003b6:	fa01 f302 	lsl.w	r3, r1, r2
+ 80003ba:	f1c2 0120 	rsb	r1, r2, #32
+ 80003be:	fa20 f101 	lsr.w	r1, r0, r1
+ 80003c2:	fa0c fc02 	lsl.w	ip, ip, r2
+ 80003c6:	ea41 0e03 	orr.w	lr, r1, r3
+ 80003ca:	4094      	lsls	r4, r2
+ 80003cc:	ea4f 481c 	mov.w	r8, ip, lsr #16
+ 80003d0:	0c21      	lsrs	r1, r4, #16
+ 80003d2:	fbbe f6f8 	udiv	r6, lr, r8
+ 80003d6:	fa1f f78c 	uxth.w	r7, ip
+ 80003da:	fb08 e316 	mls	r3, r8, r6, lr
+ 80003de:	ea41 4303 	orr.w	r3, r1, r3, lsl #16
+ 80003e2:	fb06 f107 	mul.w	r1, r6, r7
+ 80003e6:	4299      	cmp	r1, r3
+ 80003e8:	d90a      	bls.n	8000400 <__udivmoddi4+0x64>
+ 80003ea:	eb1c 0303 	adds.w	r3, ip, r3
+ 80003ee:	f106 30ff 	add.w	r0, r6, #4294967295	; 0xffffffff
+ 80003f2:	f080 811f 	bcs.w	8000634 <__udivmoddi4+0x298>
+ 80003f6:	4299      	cmp	r1, r3
+ 80003f8:	f240 811c 	bls.w	8000634 <__udivmoddi4+0x298>
+ 80003fc:	3e02      	subs	r6, #2
+ 80003fe:	4463      	add	r3, ip
+ 8000400:	1a5b      	subs	r3, r3, r1
+ 8000402:	b2a4      	uxth	r4, r4
+ 8000404:	fbb3 f0f8 	udiv	r0, r3, r8
+ 8000408:	fb08 3310 	mls	r3, r8, r0, r3
+ 800040c:	ea44 4403 	orr.w	r4, r4, r3, lsl #16
+ 8000410:	fb00 f707 	mul.w	r7, r0, r7
+ 8000414:	42a7      	cmp	r7, r4
+ 8000416:	d90a      	bls.n	800042e <__udivmoddi4+0x92>
+ 8000418:	eb1c 0404 	adds.w	r4, ip, r4
+ 800041c:	f100 33ff 	add.w	r3, r0, #4294967295	; 0xffffffff
+ 8000420:	f080 810a 	bcs.w	8000638 <__udivmoddi4+0x29c>
+ 8000424:	42a7      	cmp	r7, r4
+ 8000426:	f240 8107 	bls.w	8000638 <__udivmoddi4+0x29c>
+ 800042a:	4464      	add	r4, ip
+ 800042c:	3802      	subs	r0, #2
+ 800042e:	ea40 4006 	orr.w	r0, r0, r6, lsl #16
+ 8000432:	1be4      	subs	r4, r4, r7
+ 8000434:	2600      	movs	r6, #0
+ 8000436:	b11d      	cbz	r5, 8000440 <__udivmoddi4+0xa4>
+ 8000438:	40d4      	lsrs	r4, r2
+ 800043a:	2300      	movs	r3, #0
+ 800043c:	e9c5 4300 	strd	r4, r3, [r5]
+ 8000440:	4631      	mov	r1, r6
+ 8000442:	e8bd 87f0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, r9, sl, pc}
+ 8000446:	428b      	cmp	r3, r1
+ 8000448:	d909      	bls.n	800045e <__udivmoddi4+0xc2>
+ 800044a:	2d00      	cmp	r5, #0
+ 800044c:	f000 80ef 	beq.w	800062e <__udivmoddi4+0x292>
+ 8000450:	2600      	movs	r6, #0
+ 8000452:	e9c5 0100 	strd	r0, r1, [r5]
+ 8000456:	4630      	mov	r0, r6
+ 8000458:	4631      	mov	r1, r6
+ 800045a:	e8bd 87f0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, r9, sl, pc}
+ 800045e:	fab3 f683 	clz	r6, r3
+ 8000462:	2e00      	cmp	r6, #0
+ 8000464:	d14a      	bne.n	80004fc <__udivmoddi4+0x160>
+ 8000466:	428b      	cmp	r3, r1
+ 8000468:	d302      	bcc.n	8000470 <__udivmoddi4+0xd4>
+ 800046a:	4282      	cmp	r2, r0
+ 800046c:	f200 80f9 	bhi.w	8000662 <__udivmoddi4+0x2c6>
+ 8000470:	1a84      	subs	r4, r0, r2
+ 8000472:	eb61 0303 	sbc.w	r3, r1, r3
+ 8000476:	2001      	movs	r0, #1
+ 8000478:	469e      	mov	lr, r3
+ 800047a:	2d00      	cmp	r5, #0
+ 800047c:	d0e0      	beq.n	8000440 <__udivmoddi4+0xa4>
+ 800047e:	e9c5 4e00 	strd	r4, lr, [r5]
+ 8000482:	e7dd      	b.n	8000440 <__udivmoddi4+0xa4>
+ 8000484:	b902      	cbnz	r2, 8000488 <__udivmoddi4+0xec>
+ 8000486:	deff      	udf	#255	; 0xff
+ 8000488:	fab2 f282 	clz	r2, r2
+ 800048c:	2a00      	cmp	r2, #0
+ 800048e:	f040 8092 	bne.w	80005b6 <__udivmoddi4+0x21a>
+ 8000492:	eba1 010c 	sub.w	r1, r1, ip
+ 8000496:	ea4f 471c 	mov.w	r7, ip, lsr #16
+ 800049a:	fa1f fe8c 	uxth.w	lr, ip
+ 800049e:	2601      	movs	r6, #1
+ 80004a0:	0c20      	lsrs	r0, r4, #16
+ 80004a2:	fbb1 f3f7 	udiv	r3, r1, r7
+ 80004a6:	fb07 1113 	mls	r1, r7, r3, r1
+ 80004aa:	ea40 4101 	orr.w	r1, r0, r1, lsl #16
+ 80004ae:	fb0e f003 	mul.w	r0, lr, r3
+ 80004b2:	4288      	cmp	r0, r1
+ 80004b4:	d908      	bls.n	80004c8 <__udivmoddi4+0x12c>
+ 80004b6:	eb1c 0101 	adds.w	r1, ip, r1
+ 80004ba:	f103 38ff 	add.w	r8, r3, #4294967295	; 0xffffffff
+ 80004be:	d202      	bcs.n	80004c6 <__udivmoddi4+0x12a>
+ 80004c0:	4288      	cmp	r0, r1
+ 80004c2:	f200 80cb 	bhi.w	800065c <__udivmoddi4+0x2c0>
+ 80004c6:	4643      	mov	r3, r8
+ 80004c8:	1a09      	subs	r1, r1, r0
+ 80004ca:	b2a4      	uxth	r4, r4
+ 80004cc:	fbb1 f0f7 	udiv	r0, r1, r7
+ 80004d0:	fb07 1110 	mls	r1, r7, r0, r1
+ 80004d4:	ea44 4401 	orr.w	r4, r4, r1, lsl #16
+ 80004d8:	fb0e fe00 	mul.w	lr, lr, r0
+ 80004dc:	45a6      	cmp	lr, r4
+ 80004de:	d908      	bls.n	80004f2 <__udivmoddi4+0x156>
+ 80004e0:	eb1c 0404 	adds.w	r4, ip, r4
+ 80004e4:	f100 31ff 	add.w	r1, r0, #4294967295	; 0xffffffff
+ 80004e8:	d202      	bcs.n	80004f0 <__udivmoddi4+0x154>
+ 80004ea:	45a6      	cmp	lr, r4
+ 80004ec:	f200 80bb 	bhi.w	8000666 <__udivmoddi4+0x2ca>
+ 80004f0:	4608      	mov	r0, r1
+ 80004f2:	eba4 040e 	sub.w	r4, r4, lr
+ 80004f6:	ea40 4003 	orr.w	r0, r0, r3, lsl #16
+ 80004fa:	e79c      	b.n	8000436 <__udivmoddi4+0x9a>
+ 80004fc:	f1c6 0720 	rsb	r7, r6, #32
+ 8000500:	40b3      	lsls	r3, r6
+ 8000502:	fa22 fc07 	lsr.w	ip, r2, r7
+ 8000506:	ea4c 0c03 	orr.w	ip, ip, r3
+ 800050a:	fa20 f407 	lsr.w	r4, r0, r7
+ 800050e:	fa01 f306 	lsl.w	r3, r1, r6
+ 8000512:	431c      	orrs	r4, r3
+ 8000514:	40f9      	lsrs	r1, r7
+ 8000516:	ea4f 491c 	mov.w	r9, ip, lsr #16
+ 800051a:	fa00 f306 	lsl.w	r3, r0, r6
+ 800051e:	fbb1 f8f9 	udiv	r8, r1, r9
+ 8000522:	0c20      	lsrs	r0, r4, #16
+ 8000524:	fa1f fe8c 	uxth.w	lr, ip
+ 8000528:	fb09 1118 	mls	r1, r9, r8, r1
+ 800052c:	ea40 4101 	orr.w	r1, r0, r1, lsl #16
+ 8000530:	fb08 f00e 	mul.w	r0, r8, lr
+ 8000534:	4288      	cmp	r0, r1
+ 8000536:	fa02 f206 	lsl.w	r2, r2, r6
+ 800053a:	d90b      	bls.n	8000554 <__udivmoddi4+0x1b8>
+ 800053c:	eb1c 0101 	adds.w	r1, ip, r1
+ 8000540:	f108 3aff 	add.w	sl, r8, #4294967295	; 0xffffffff
+ 8000544:	f080 8088 	bcs.w	8000658 <__udivmoddi4+0x2bc>
+ 8000548:	4288      	cmp	r0, r1
+ 800054a:	f240 8085 	bls.w	8000658 <__udivmoddi4+0x2bc>
+ 800054e:	f1a8 0802 	sub.w	r8, r8, #2
+ 8000552:	4461      	add	r1, ip
+ 8000554:	1a09      	subs	r1, r1, r0
+ 8000556:	b2a4      	uxth	r4, r4
+ 8000558:	fbb1 f0f9 	udiv	r0, r1, r9
+ 800055c:	fb09 1110 	mls	r1, r9, r0, r1
+ 8000560:	ea44 4101 	orr.w	r1, r4, r1, lsl #16
+ 8000564:	fb00 fe0e 	mul.w	lr, r0, lr
+ 8000568:	458e      	cmp	lr, r1
+ 800056a:	d908      	bls.n	800057e <__udivmoddi4+0x1e2>
+ 800056c:	eb1c 0101 	adds.w	r1, ip, r1
+ 8000570:	f100 34ff 	add.w	r4, r0, #4294967295	; 0xffffffff
+ 8000574:	d26c      	bcs.n	8000650 <__udivmoddi4+0x2b4>
+ 8000576:	458e      	cmp	lr, r1
+ 8000578:	d96a      	bls.n	8000650 <__udivmoddi4+0x2b4>
+ 800057a:	3802      	subs	r0, #2
+ 800057c:	4461      	add	r1, ip
+ 800057e:	ea40 4008 	orr.w	r0, r0, r8, lsl #16
+ 8000582:	fba0 9402 	umull	r9, r4, r0, r2
+ 8000586:	eba1 010e 	sub.w	r1, r1, lr
+ 800058a:	42a1      	cmp	r1, r4
+ 800058c:	46c8      	mov	r8, r9
+ 800058e:	46a6      	mov	lr, r4
+ 8000590:	d356      	bcc.n	8000640 <__udivmoddi4+0x2a4>
+ 8000592:	d053      	beq.n	800063c <__udivmoddi4+0x2a0>
+ 8000594:	b15d      	cbz	r5, 80005ae <__udivmoddi4+0x212>
+ 8000596:	ebb3 0208 	subs.w	r2, r3, r8
+ 800059a:	eb61 010e 	sbc.w	r1, r1, lr
+ 800059e:	fa01 f707 	lsl.w	r7, r1, r7
+ 80005a2:	fa22 f306 	lsr.w	r3, r2, r6
+ 80005a6:	40f1      	lsrs	r1, r6
+ 80005a8:	431f      	orrs	r7, r3
+ 80005aa:	e9c5 7100 	strd	r7, r1, [r5]
+ 80005ae:	2600      	movs	r6, #0
+ 80005b0:	4631      	mov	r1, r6
+ 80005b2:	e8bd 87f0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, r9, sl, pc}
+ 80005b6:	f1c2 0320 	rsb	r3, r2, #32
+ 80005ba:	40d8      	lsrs	r0, r3
+ 80005bc:	fa0c fc02 	lsl.w	ip, ip, r2
+ 80005c0:	fa21 f303 	lsr.w	r3, r1, r3
+ 80005c4:	4091      	lsls	r1, r2
+ 80005c6:	4301      	orrs	r1, r0
+ 80005c8:	ea4f 471c 	mov.w	r7, ip, lsr #16
+ 80005cc:	fa1f fe8c 	uxth.w	lr, ip
+ 80005d0:	fbb3 f0f7 	udiv	r0, r3, r7
+ 80005d4:	fb07 3610 	mls	r6, r7, r0, r3
+ 80005d8:	0c0b      	lsrs	r3, r1, #16
+ 80005da:	ea43 4306 	orr.w	r3, r3, r6, lsl #16
+ 80005de:	fb00 f60e 	mul.w	r6, r0, lr
+ 80005e2:	429e      	cmp	r6, r3
+ 80005e4:	fa04 f402 	lsl.w	r4, r4, r2
+ 80005e8:	d908      	bls.n	80005fc <__udivmoddi4+0x260>
+ 80005ea:	eb1c 0303 	adds.w	r3, ip, r3
+ 80005ee:	f100 38ff 	add.w	r8, r0, #4294967295	; 0xffffffff
+ 80005f2:	d22f      	bcs.n	8000654 <__udivmoddi4+0x2b8>
+ 80005f4:	429e      	cmp	r6, r3
+ 80005f6:	d92d      	bls.n	8000654 <__udivmoddi4+0x2b8>
+ 80005f8:	3802      	subs	r0, #2
+ 80005fa:	4463      	add	r3, ip
+ 80005fc:	1b9b      	subs	r3, r3, r6
+ 80005fe:	b289      	uxth	r1, r1
+ 8000600:	fbb3 f6f7 	udiv	r6, r3, r7
+ 8000604:	fb07 3316 	mls	r3, r7, r6, r3
+ 8000608:	ea41 4103 	orr.w	r1, r1, r3, lsl #16
+ 800060c:	fb06 f30e 	mul.w	r3, r6, lr
+ 8000610:	428b      	cmp	r3, r1
+ 8000612:	d908      	bls.n	8000626 <__udivmoddi4+0x28a>
+ 8000614:	eb1c 0101 	adds.w	r1, ip, r1
+ 8000618:	f106 38ff 	add.w	r8, r6, #4294967295	; 0xffffffff
+ 800061c:	d216      	bcs.n	800064c <__udivmoddi4+0x2b0>
+ 800061e:	428b      	cmp	r3, r1
+ 8000620:	d914      	bls.n	800064c <__udivmoddi4+0x2b0>
+ 8000622:	3e02      	subs	r6, #2
+ 8000624:	4461      	add	r1, ip
+ 8000626:	1ac9      	subs	r1, r1, r3
+ 8000628:	ea46 4600 	orr.w	r6, r6, r0, lsl #16
+ 800062c:	e738      	b.n	80004a0 <__udivmoddi4+0x104>
+ 800062e:	462e      	mov	r6, r5
+ 8000630:	4628      	mov	r0, r5
+ 8000632:	e705      	b.n	8000440 <__udivmoddi4+0xa4>
+ 8000634:	4606      	mov	r6, r0
+ 8000636:	e6e3      	b.n	8000400 <__udivmoddi4+0x64>
+ 8000638:	4618      	mov	r0, r3
+ 800063a:	e6f8      	b.n	800042e <__udivmoddi4+0x92>
+ 800063c:	454b      	cmp	r3, r9
+ 800063e:	d2a9      	bcs.n	8000594 <__udivmoddi4+0x1f8>
+ 8000640:	ebb9 0802 	subs.w	r8, r9, r2
+ 8000644:	eb64 0e0c 	sbc.w	lr, r4, ip
+ 8000648:	3801      	subs	r0, #1
+ 800064a:	e7a3      	b.n	8000594 <__udivmoddi4+0x1f8>
+ 800064c:	4646      	mov	r6, r8
+ 800064e:	e7ea      	b.n	8000626 <__udivmoddi4+0x28a>
+ 8000650:	4620      	mov	r0, r4
+ 8000652:	e794      	b.n	800057e <__udivmoddi4+0x1e2>
+ 8000654:	4640      	mov	r0, r8
+ 8000656:	e7d1      	b.n	80005fc <__udivmoddi4+0x260>
+ 8000658:	46d0      	mov	r8, sl
+ 800065a:	e77b      	b.n	8000554 <__udivmoddi4+0x1b8>
+ 800065c:	3b02      	subs	r3, #2
+ 800065e:	4461      	add	r1, ip
+ 8000660:	e732      	b.n	80004c8 <__udivmoddi4+0x12c>
+ 8000662:	4630      	mov	r0, r6
+ 8000664:	e709      	b.n	800047a <__udivmoddi4+0xde>
+ 8000666:	4464      	add	r4, ip
+ 8000668:	3802      	subs	r0, #2
+ 800066a:	e742      	b.n	80004f2 <__udivmoddi4+0x156>
+
+0800066c <__aeabi_idiv0>:
+ 800066c:	4770      	bx	lr
+ 800066e:	bf00      	nop
+
+08000670 <_ZN3app9benchmark9task_initEv>:
+      {
+        static register_value_type
+                    reg_get() { volatile register_value_type* pa = reinterpret_cast<register_value_type*>(address); return *pa; }
+
+        static void reg_set() { volatile register_value_type* pa = reinterpret_cast<volatile register_value_type*>(address); *pa =       value; }
+        static void reg_and() { volatile register_value_type* pa = reinterpret_cast<volatile register_value_type*>(address); *pa = *pa & value; }
+ 8000670:	4b0c      	ldr	r3, [pc, #48]	; (80006a4 <_ZN3app9benchmark9task_initEv+0x34>)
+ 8000672:	f8d3 280c 	ldr.w	r2, [r3, #2060]	; 0x80c
+ 8000676:	f422 3240 	bic.w	r2, r2, #196608	; 0x30000
+ 800067a:	f8c3 280c 	str.w	r2, [r3, #2060]	; 0x80c
+        static void reg_or () { volatile register_value_type* pa = reinterpret_cast<volatile register_value_type*>(address); *pa = *pa | value; }
+ 800067e:	f8d3 2808 	ldr.w	r2, [r3, #2056]	; 0x808
+ 8000682:	f442 3240 	orr.w	r2, r2, #196608	; 0x30000
+ 8000686:	f8c3 2808 	str.w	r2, [r3, #2056]	; 0x808
+
+          *pa = register_value_type(register_value_type(reg_get() & register_value_type(~mask_value)) | register_value_type(value & mask_value));
+        }
+
+        static void bit_set() { volatile register_value_type* pa = reinterpret_cast<volatile register_value_type*>(address); *pa = *pa | static_cast<register_value_type>(1ULL << value); }
+        static void bit_clr() { volatile register_value_type* pa = reinterpret_cast<volatile register_value_type*>(address); *pa = *pa & static_cast<register_value_type>(~static_cast<register_value_type>(1ULL << value)); }
+ 800068a:	f8d3 2804 	ldr.w	r2, [r3, #2052]	; 0x804
+ 800068e:	f422 7280 	bic.w	r2, r2, #256	; 0x100
+ 8000692:	f8c3 2804 	str.w	r2, [r3, #2052]	; 0x804
+        static void reg_or () { volatile register_value_type* pa = reinterpret_cast<volatile register_value_type*>(address); *pa = *pa | value; }
+ 8000696:	f8d3 2800 	ldr.w	r2, [r3, #2048]	; 0x800
+ 800069a:	f442 3280 	orr.w	r2, r2, #65536	; 0x10000
+ 800069e:	f8c3 2800 	str.w	r2, [r3, #2048]	; 0x800
+
+void app::benchmark::task_init()
+{
+  // Set the benchmark port pin direction to output.
+  port_type::set_direction_output();
+}
+ 80006a2:	4770      	bx	lr
+ 80006a4:	40020000 	.word	0x40020000
+
+080006a8 <_ZN3app9benchmark9task_funcEv>:
+
+void app::benchmark::task_func()
+{
+ 80006a8:	b510      	push	{r4, lr}
+        static void bit_set() { volatile register_value_type* pa = reinterpret_cast<volatile register_value_type*>(address); *pa = *pa | static_cast<register_value_type>(1ULL << value); }
+ 80006aa:	4c09      	ldr	r4, [pc, #36]	; (80006d0 <_ZN3app9benchmark9task_funcEv+0x28>)
+ 80006ac:	f8d4 3814 	ldr.w	r3, [r4, #2068]	; 0x814
+ 80006b0:	f443 7380 	orr.w	r3, r3, #256	; 0x100
+ 80006b4:	f8c4 3814 	str.w	r3, [r4, #2068]	; 0x814
+
+  // Run the benchmark (if enabled via compiler switch).
+
+  #if(APP_BENCHMARK_TYPE == APP_BENCHMARK_TYPE_NONE)
+
+  const bool result_is_ok = app::benchmark::run_none();
+ 80006b8:	f000 f80c 	bl	80006d4 <_ZN3app9benchmark8run_noneEv>
+        static void bit_clr() { volatile register_value_type* pa = reinterpret_cast<volatile register_value_type*>(address); *pa = *pa & static_cast<register_value_type>(~static_cast<register_value_type>(1ULL << value)); }
+ 80006bc:	f8d4 3814 	ldr.w	r3, [r4, #2068]	; 0x814
+ 80006c0:	f423 7380 	bic.w	r3, r3, #256	; 0x100
+ 80006c4:	f8c4 3814 	str.w	r3, [r4, #2068]	; 0x814
+  #endif
+
+  // Set the benchmark port pin level to low.
+  port_type::set_pin_low();
+
+  if(result_is_ok == false)
+ 80006c8:	b908      	cbnz	r0, 80006ce <_ZN3app9benchmark9task_funcEv+0x26>
+
+  void init();
+
+  inline void post_init() { }
+
+  inline void nop() { asm volatile("nop"); }
+ 80006ca:	bf00      	nop
+ 80006cc:	e7fd      	b.n	80006ca <_ZN3app9benchmark9task_funcEv+0x22>
+    for(;;)
+    {
+      mcal::cpu::nop();
+    }
+  }
+}
+ 80006ce:	bd10      	pop	{r4, pc}
+ 80006d0:	40020000 	.word	0x40020000
+
+080006d4 <_ZN3app9benchmark8run_noneEv>:
+bool app::benchmark::run_none()
+{
+  const bool result_is_ok = true;
+
+  return result_is_ok;
+}
+ 80006d4:	2001      	movs	r0, #1
+ 80006d6:	4770      	bx	lr
+
+080006d8 <_ZN3app3led9task_initEv>:
+
+  timer_type app_led_timer(timer_type::seconds(1U));
+}
+
+void app::led::task_init()
+{
+ 80006d8:	b510      	push	{r4, lr}
+  mcal::led::led0().toggle();
+ 80006da:	f000 f8df 	bl	800089c <_ZN4mcal3led4led0Ev>
+ 80006de:	6803      	ldr	r3, [r0, #0]
+}
+ 80006e0:	e8bd 4010 	ldmia.w	sp!, {r4, lr}
+  mcal::led::led0().toggle();
+ 80006e4:	681b      	ldr	r3, [r3, #0]
+ 80006e6:	4718      	bx	r3
+
+080006e8 <_ZN3app3led9task_funcEv>:
+
+void app::led::task_func()
+{
+ 80006e8:	b510      	push	{r4, lr}
+    private:
+      tick_type my_tick;
+
+      static tick_type my_now()
+      {
+        return static_cast<tick_type>(mcal::gpt::secure::get_time_elapsed());
+ 80006ea:	f000 f895 	bl	8000818 <_ZN4mcal3gpt6secure16get_time_elapsedEv>
+        const tick_type delta = my_now() - my_tick;
+ 80006ee:	4a09      	ldr	r2, [pc, #36]	; (8000714 <_ZN3app3led9task_funcEv+0x2c>)
+ 80006f0:	6813      	ldr	r3, [r2, #0]
+ 80006f2:	1ac0      	subs	r0, r0, r3
+  if(app_led_timer.timeout())
+ 80006f4:	2800      	cmp	r0, #0
+ 80006f6:	db0b      	blt.n	8000710 <_ZN3app3led9task_funcEv+0x28>
+        my_tick += tick_value;
+ 80006f8:	f503 2374 	add.w	r3, r3, #999424	; 0xf4000
+ 80006fc:	f503 7310 	add.w	r3, r3, #576	; 0x240
+ 8000700:	6013      	str	r3, [r2, #0]
+  {
+    app_led_timer.start_interval(timer_type::seconds(1U));
+
+    mcal::led::led0().toggle();
+ 8000702:	f000 f8cb 	bl	800089c <_ZN4mcal3led4led0Ev>
+ 8000706:	6803      	ldr	r3, [r0, #0]
+  }
+}
+ 8000708:	e8bd 4010 	ldmia.w	sp!, {r4, lr}
+    mcal::led::led0().toggle();
+ 800070c:	681b      	ldr	r3, [r3, #0]
+ 800070e:	4718      	bx	r3
+}
+ 8000710:	bd10      	pop	{r4, pc}
+ 8000712:	bf00      	nop
+ 8000714:	20000008 	.word	0x20000008
+
+08000718 <_GLOBAL__sub_I__ZN3app3led9task_initEv>:
+ 8000718:	b508      	push	{r3, lr}
+        return static_cast<tick_type>(mcal::gpt::secure::get_time_elapsed());
+ 800071a:	f000 f87d 	bl	8000818 <_ZN4mcal3gpt6secure16get_time_elapsedEv>
+      timer(const tick_type& tick_value) : my_tick(my_now() + tick_value) { }
+ 800071e:	4b03      	ldr	r3, [pc, #12]	; (800072c <_GLOBAL__sub_I__ZN3app3led9task_initEv+0x14>)
+ 8000720:	f500 2074 	add.w	r0, r0, #999424	; 0xf4000
+ 8000724:	f500 7010 	add.w	r0, r0, #576	; 0x240
+ 8000728:	6018      	str	r0, [r3, #0]
+ 800072a:	bd08      	pop	{r3, pc}
+ 800072c:	20000008 	.word	0x20000008
+
+08000730 <_ZN4mcal3cpu4initEv>:
+        static void reg_or () { volatile register_value_type* pa = reinterpret_cast<volatile register_value_type*>(address); *pa = *pa | value; }
+ 8000730:	f04f 22e0 	mov.w	r2, #3758153728	; 0xe000e000
+#include <mcal_port.h>
+#include <mcal_reg.h>
+#include <mcal_wdg.h>
+
+void mcal::cpu::init()
+{
+ 8000734:	b508      	push	{r3, lr}
+ 8000736:	f8d2 3d88 	ldr.w	r3, [r2, #3464]	; 0xd88
+ 800073a:	f443 0370 	orr.w	r3, r3, #15728640	; 0xf00000
+ 800073e:	f8c2 3d88 	str.w	r3, [r2, #3464]	; 0xd88
+ 8000742:	4b1b      	ldr	r3, [pc, #108]	; (80007b0 <_ZN4mcal3cpu4initEv+0x80>)
+ 8000744:	f8d3 2800 	ldr.w	r2, [r3, #2048]	; 0x800
+        static void reg_set() { volatile register_value_type* pa = reinterpret_cast<volatile register_value_type*>(address); *pa =       value; }
+ 8000748:	2000      	movs	r0, #0
+        static void reg_or () { volatile register_value_type* pa = reinterpret_cast<volatile register_value_type*>(address); *pa = *pa | value; }
+ 800074a:	f042 0201 	orr.w	r2, r2, #1
+ 800074e:	f8c3 2800 	str.w	r2, [r3, #2048]	; 0x800
+        static void reg_set() { volatile register_value_type* pa = reinterpret_cast<volatile register_value_type*>(address); *pa =       value; }
+ 8000752:	f8c3 0808 	str.w	r0, [r3, #2056]	; 0x808
+        static void reg_and() { volatile register_value_type* pa = reinterpret_cast<volatile register_value_type*>(address); *pa = *pa & value; }
+ 8000756:	f8d3 2800 	ldr.w	r2, [r3, #2048]	; 0x800
+ 800075a:	f022 7284 	bic.w	r2, r2, #17301504	; 0x1080000
+ 800075e:	f422 3280 	bic.w	r2, r2, #65536	; 0x10000
+ 8000762:	f8c3 2800 	str.w	r2, [r3, #2048]	; 0x800
+        static void reg_set() { volatile register_value_type* pa = reinterpret_cast<volatile register_value_type*>(address); *pa =       value; }
+ 8000766:	4a13      	ldr	r2, [pc, #76]	; (80007b4 <_ZN4mcal3cpu4initEv+0x84>)
+ 8000768:	f8c3 2804 	str.w	r2, [r3, #2052]	; 0x804
+        static void reg_and() { volatile register_value_type* pa = reinterpret_cast<volatile register_value_type*>(address); *pa = *pa & value; }
+ 800076c:	f8d3 2800 	ldr.w	r2, [r3, #2048]	; 0x800
+ 8000770:	f422 2280 	bic.w	r2, r2, #262144	; 0x40000
+ 8000774:	f8c3 2800 	str.w	r2, [r3, #2048]	; 0x800
+        static void reg_set() { volatile register_value_type* pa = reinterpret_cast<volatile register_value_type*>(address); *pa =       value; }
+ 8000778:	f240 7205 	movw	r2, #1797	; 0x705
+ 800077c:	f8c3 080c 	str.w	r0, [r3, #2060]	; 0x80c
+ 8000780:	f8c3 2c00 	str.w	r2, [r3, #3072]	; 0xc00
+        static void reg_or () { volatile register_value_type* pa = reinterpret_cast<volatile register_value_type*>(address); *pa = *pa | value; }
+ 8000784:	f8d3 2840 	ldr.w	r2, [r3, #2112]	; 0x840
+ 8000788:	f042 5280 	orr.w	r2, r2, #268435456	; 0x10000000
+ 800078c:	f8c3 2840 	str.w	r2, [r3, #2112]	; 0x840
+ 8000790:	4a09      	ldr	r2, [pc, #36]	; (80007b8 <_ZN4mcal3cpu4initEv+0x88>)
+ 8000792:	6813      	ldr	r3, [r2, #0]
+ 8000794:	f443 4340 	orr.w	r3, r3, #49152	; 0xc000
+ 8000798:	6013      	str	r3, [r2, #0]
+  mcal::reg::reg_access_static<std::uint32_t,
+                               std::uint32_t,
+                               mcal::reg::pwr_cr,
+                               UINT32_C(0x0000C000)>::reg_or();
+
+  mcal::wdg::init(nullptr);
+ 800079a:	f000 f915 	bl	80009c8 <_ZN4mcal3wdg4initEPKv>
+  mcal::port::init(nullptr);
+ 800079e:	2000      	movs	r0, #0
+ 80007a0:	f000 f906 	bl	80009b0 <_ZN4mcal4port4initEPKv>
+  mcal::osc::init(nullptr);
+}
+ 80007a4:	e8bd 4008 	ldmia.w	sp!, {r3, lr}
+  mcal::osc::init(nullptr);
+ 80007a8:	2000      	movs	r0, #0
+ 80007aa:	f000 b8a7 	b.w	80008fc <_ZN4mcal3osc4initEPKv>
+ 80007ae:	bf00      	nop
+ 80007b0:	40023000 	.word	0x40023000
+ 80007b4:	24003010 	.word	0x24003010
+ 80007b8:	40007000 	.word	0x40007000
+
+080007bc <_ZN12_GLOBAL__N_118gpt_is_initializedEv>:
+  bool& gpt_is_initialized()
+  {
+    static bool is_init { };
+
+    return is_init;
+  }
+ 80007bc:	4800      	ldr	r0, [pc, #0]	; (80007c0 <_ZN12_GLOBAL__N_118gpt_is_initializedEv+0x4>)
+ 80007be:	4770      	bx	lr
+ 80007c0:	20000018 	.word	0x20000018
+
+080007c4 <__sys_tick_handler>:
+}
+
+extern "C" void __sys_tick_handler(void) __attribute__((used, noinline));
+
+extern "C" void __sys_tick_handler(void)
+{
+ 80007c4:	b510      	push	{r4, lr}
+  // Increment the 64-bit system tick with 0x01000000, representing (2^24) [microseconds/168].
+
+  mcal_gpt_system_tick =
+    static_cast<mcal::gpt::value_type>
+    (
+      mcal_gpt_system_tick + UINT32_C(0x01000000)
+ 80007c6:	4c05      	ldr	r4, [pc, #20]	; (80007dc <__sys_tick_handler+0x18>)
+ 80007c8:	e9d4 2300 	ldrd	r2, r3, [r4]
+ 80007cc:	f112 7080 	adds.w	r0, r2, #16777216	; 0x1000000
+ 80007d0:	f143 0100 	adc.w	r1, r3, #0
+  mcal_gpt_system_tick =
+ 80007d4:	e9c4 0100 	strd	r0, r1, [r4]
+    );
+}
+ 80007d8:	bd10      	pop	{r4, pc}
+ 80007da:	bf00      	nop
+ 80007dc:	20000010 	.word	0x20000010
+
+080007e0 <_ZN4mcal3gpt4initEPKv>:
+
+void mcal::gpt::init(const config_type*)
+{
+ 80007e0:	b508      	push	{r3, lr}
+  if(gpt_is_initialized() == false)
+ 80007e2:	f7ff ffeb 	bl	80007bc <_ZN12_GLOBAL__N_118gpt_is_initializedEv>
+ 80007e6:	7802      	ldrb	r2, [r0, #0]
+ 80007e8:	b9a2      	cbnz	r2, 8000814 <_ZN4mcal3gpt4initEPKv+0x34>
+        static void reg_set() { volatile register_value_type* pa = reinterpret_cast<volatile register_value_type*>(address); *pa =       value; }
+ 80007ea:	f04f 23e0 	mov.w	r3, #3758153728	; 0xe000e000
+ 80007ee:	f06f 417f 	mvn.w	r1, #4278190080	; 0xff000000
+ 80007f2:	611a      	str	r2, [r3, #16]
+ 80007f4:	6159      	str	r1, [r3, #20]
+ 80007f6:	619a      	str	r2, [r3, #24]
+        static void reg_or () { volatile register_value_type* pa = reinterpret_cast<volatile register_value_type*>(address); *pa = *pa | value; }
+ 80007f8:	691a      	ldr	r2, [r3, #16]
+ 80007fa:	f042 0204 	orr.w	r2, r2, #4
+ 80007fe:	611a      	str	r2, [r3, #16]
+ 8000800:	691a      	ldr	r2, [r3, #16]
+ 8000802:	f042 0202 	orr.w	r2, r2, #2
+ 8000806:	611a      	str	r2, [r3, #16]
+ 8000808:	691a      	ldr	r2, [r3, #16]
+ 800080a:	f042 0201 	orr.w	r2, r2, #1
+ 800080e:	611a      	str	r2, [r3, #16]
+    mcal::reg::reg_access_static<std::uint32_t, std::uint32_t, mcal::reg::sys_tick_ctrl, UINT32_C(2)>::reg_or();
+
+    // Enable sys tick timer.
+    mcal::reg::reg_access_static<std::uint32_t, std::uint32_t, mcal::reg::sys_tick_ctrl, UINT32_C(1)>::reg_or();
+
+    gpt_is_initialized() = true;
+ 8000810:	2301      	movs	r3, #1
+ 8000812:	7003      	strb	r3, [r0, #0]
+  }
+}
+ 8000814:	bd08      	pop	{r3, pc}
+	...
+
+08000818 <_ZN4mcal3gpt6secure16get_time_elapsedEv>:
+
+mcal::gpt::value_type mcal::gpt::secure::get_time_elapsed()
+{
+ 8000818:	b538      	push	{r3, r4, r5, lr}
+  if(gpt_is_initialized())
+ 800081a:	f7ff ffcf 	bl	80007bc <_ZN12_GLOBAL__N_118gpt_is_initializedEv>
+ 800081e:	7803      	ldrb	r3, [r0, #0]
+ 8000820:	b1f3      	cbz	r3, 8000860 <_ZN4mcal3gpt6secure16get_time_elapsedEv+0x48>
+      timer_register_type(  UINT32_C(0x00FFFFFF)
+                          - mcal::reg::reg_access_static<timer_address_type,
+                                                         timer_register_type,
+                                                         mcal::reg::sys_tick_val>::reg_get());
+
+    const std::uint64_t system_tick_gpt = mcal_gpt_system_tick;
+ 8000822:	4a11      	ldr	r2, [pc, #68]	; (8000868 <_ZN4mcal3gpt6secure16get_time_elapsedEv+0x50>)
+                    reg_get() { volatile register_value_type* pa = reinterpret_cast<register_value_type*>(address); return *pa; }
+ 8000824:	f04f 21e0 	mov.w	r1, #3758153728	; 0xe000e000
+                                                         mcal::reg::sys_tick_val>::reg_get());
+ 8000828:	f06f 407f 	mvn.w	r0, #4278190080	; 0xff000000
+ 800082c:	698b      	ldr	r3, [r1, #24]
+    const std::uint64_t system_tick_gpt = mcal_gpt_system_tick;
+ 800082e:	e9d2 4500 	ldrd	r4, r5, [r2]
+ 8000832:	6989      	ldr	r1, [r1, #24]
+                                                         mcal::reg::sys_tick_val>::reg_get());
+ 8000834:	1ac3      	subs	r3, r0, r3
+    // Handle reverse counting for sys tick counting down.
+    const timer_register_type   sys_tick_val_2 =
+      timer_register_type(  UINT32_C(0x00FFFFFF)
+                          - mcal::reg::reg_access_static<timer_address_type,
+                                                         timer_register_type,
+                                                         mcal::reg::sys_tick_val>::reg_get());
+ 8000836:	1a40      	subs	r0, r0, r1
+
+    // Perform the consistency check.
+    const std::uint64_t consistent_tick =
+      ((sys_tick_val_2 >= sys_tick_val_1) ? static_cast<std::uint64_t>(system_tick_gpt      | sys_tick_val_1)
+ 8000838:	4283      	cmp	r3, r0
+                                          : static_cast<std::uint64_t>(mcal_gpt_system_tick | sys_tick_val_2));
+ 800083a:	bf89      	itett	hi
+ 800083c:	e9d2 2300 	ldrdhi	r2, r3, [r2]
+      ((sys_tick_val_2 >= sys_tick_val_1) ? static_cast<std::uint64_t>(system_tick_gpt      | sys_tick_val_1)
+ 8000840:	ea43 0004 	orrls.w	r0, r3, r4
+ 8000844:	4310      	orrhi	r0, r2
+ 8000846:	4619      	movhi	r1, r3
+ 8000848:	bf98      	it	ls
+ 800084a:	4629      	movls	r1, r5
+
+    // Perform scaling and include a rounding correction.
+    const mcal::gpt::value_type consistent_microsecond_tick =
+      static_cast<mcal::gpt::value_type>
+      (
+        static_cast<std::uint64_t>(consistent_tick + UINT32_C(84)) / UINT32_C(168)
+ 800084c:	3054      	adds	r0, #84	; 0x54
+    const mcal::gpt::value_type consistent_microsecond_tick =
+ 800084e:	f04f 02a8 	mov.w	r2, #168	; 0xa8
+ 8000852:	f04f 0300 	mov.w	r3, #0
+ 8000856:	f141 0100 	adc.w	r1, r1, #0
+ 800085a:	f7ff fd87 	bl	800036c <__aeabi_uldivmod>
+  }
+  else
+  {
+    return static_cast<mcal::gpt::value_type>(0U);
+  }
+}
+ 800085e:	bd38      	pop	{r3, r4, r5, pc}
+    return static_cast<mcal::gpt::value_type>(0U);
+ 8000860:	2000      	movs	r0, #0
+ 8000862:	4601      	mov	r1, r0
+ 8000864:	e7fb      	b.n	800085e <_ZN4mcal3gpt6secure16get_time_elapsedEv+0x46>
+ 8000866:	bf00      	nop
+ 8000868:	20000010 	.word	0x20000010
+
+0800086c <_ZN4mcal3irq4initEPKv>:
+    namespace irq
+    {
+      typedef void config_type;
+      void init(const config_type*);
+
+      inline void enable_all () { asm volatile("cpsie i"); }
+ 800086c:	b662      	cpsie	i
+
+void mcal::irq::init(const config_type*)
+{
+  // Enable all global interrupts.
+  mcal::irq::enable_all();
+}
+ 800086e:	4770      	bx	lr
+
+08000870 <_ZNK4mcal3led22led_boolean_state_base11state_is_onEv>:
+    {
+      // Toggle the LED state.
+      is_on = (!is_on);
+    }
+
+    virtual bool state_is_on() const { return is_on; }
+ 8000870:	7900      	ldrb	r0, [r0, #4]
+ 8000872:	4770      	bx	lr
+
+08000874 <__tcf_0>:
+                                              mcal::reg::gpioa_base,
+                                              UINT32_C(5)>;
+
+  using led0_led_type = mcal::led::led_port<led0_port_type>;
+
+  static led0_led_type l0;
+ 8000874:	4770      	bx	lr
+
+08000876 <_ZN4mcal3led8led_portINS_4port8port_pinImmLm1073872896ELm5EEEED1Ev>:
+    {
+      port_type::set_pin_low();
+      port_type::set_direction_output();
+    }
+
+    virtual ~led_port() = default;
+ 8000876:	4770      	bx	lr
+
+08000878 <_ZN4mcal3led8led_portINS_4port8port_pinImmLm1073872896ELm5EEEE6toggleEv>:
+      is_on = (!is_on);
+ 8000878:	7903      	ldrb	r3, [r0, #4]
+        static void bit_not() { volatile register_value_type* pa = reinterpret_cast<volatile register_value_type*>(address); *pa = *pa ^ static_cast<register_value_type>(1ULL << value); }
+ 800087a:	4a04      	ldr	r2, [pc, #16]	; (800088c <_ZN4mcal3led8led_portINS_4port8port_pinImmLm1073872896ELm5EEEE6toggleEv+0x14>)
+ 800087c:	f083 0301 	eor.w	r3, r3, #1
+ 8000880:	7103      	strb	r3, [r0, #4]
+ 8000882:	6953      	ldr	r3, [r2, #20]
+ 8000884:	f083 0320 	eor.w	r3, r3, #32
+ 8000888:	6153      	str	r3, [r2, #20]
+    virtual void toggle()
+    {
+      led_boolean_state_base::toggle();
+
+      port_type::toggle_pin();
+    }
+ 800088a:	4770      	bx	lr
+ 800088c:	40020000 	.word	0x40020000
+
+08000890 <_ZN4mcal3led8led_portINS_4port8port_pinImmLm1073872896ELm5EEEED0Ev>:
+    virtual ~led_port() = default;
+ 8000890:	b510      	push	{r4, lr}
+ 8000892:	4604      	mov	r4, r0
+ 8000894:	f000 f942 	bl	8000b1c <_ZdlPv>
+ 8000898:	4620      	mov	r0, r4
+ 800089a:	bd10      	pop	{r4, pc}
+
+0800089c <_ZN4mcal3led4led0Ev>:
+ 800089c:	4912      	ldr	r1, [pc, #72]	; (80008e8 <_ZN4mcal3led4led0Ev+0x4c>)
+{
+ 800089e:	b508      	push	{r3, lr}
+  static led0_led_type l0;
+ 80008a0:	680b      	ldr	r3, [r1, #0]
+ 80008a2:	f013 0301 	ands.w	r3, r3, #1
+ 80008a6:	d11d      	bne.n	80008e4 <_ZN4mcal3led4led0Ev+0x48>
+    led_boolean_state_base() : is_on(false) { }
+ 80008a8:	4a10      	ldr	r2, [pc, #64]	; (80008ec <_ZN4mcal3led4led0Ev+0x50>)
+ 80008aa:	4811      	ldr	r0, [pc, #68]	; (80008f0 <_ZN4mcal3led4led0Ev+0x54>)
+ 80008ac:	7113      	strb	r3, [r2, #4]
+    {
+ 80008ae:	4b11      	ldr	r3, [pc, #68]	; (80008f4 <_ZN4mcal3led4led0Ev+0x58>)
+ 80008b0:	6013      	str	r3, [r2, #0]
+        static void bit_clr() { volatile register_value_type* pa = reinterpret_cast<volatile register_value_type*>(address); *pa = *pa & static_cast<register_value_type>(~static_cast<register_value_type>(1ULL << value)); }
+ 80008b2:	4b11      	ldr	r3, [pc, #68]	; (80008f8 <_ZN4mcal3led4led0Ev+0x5c>)
+ 80008b4:	695a      	ldr	r2, [r3, #20]
+ 80008b6:	f022 0220 	bic.w	r2, r2, #32
+ 80008ba:	615a      	str	r2, [r3, #20]
+        static void reg_and() { volatile register_value_type* pa = reinterpret_cast<volatile register_value_type*>(address); *pa = *pa & value; }
+ 80008bc:	68da      	ldr	r2, [r3, #12]
+ 80008be:	f422 6240 	bic.w	r2, r2, #3072	; 0xc00
+ 80008c2:	60da      	str	r2, [r3, #12]
+        static void reg_or () { volatile register_value_type* pa = reinterpret_cast<volatile register_value_type*>(address); *pa = *pa | value; }
+ 80008c4:	689a      	ldr	r2, [r3, #8]
+ 80008c6:	f442 6240 	orr.w	r2, r2, #3072	; 0xc00
+ 80008ca:	609a      	str	r2, [r3, #8]
+        static void bit_clr() { volatile register_value_type* pa = reinterpret_cast<volatile register_value_type*>(address); *pa = *pa & static_cast<register_value_type>(~static_cast<register_value_type>(1ULL << value)); }
+ 80008cc:	685a      	ldr	r2, [r3, #4]
+ 80008ce:	f022 0220 	bic.w	r2, r2, #32
+ 80008d2:	605a      	str	r2, [r3, #4]
+        static void reg_or () { volatile register_value_type* pa = reinterpret_cast<volatile register_value_type*>(address); *pa = *pa | value; }
+ 80008d4:	681a      	ldr	r2, [r3, #0]
+ 80008d6:	f442 6280 	orr.w	r2, r2, #1024	; 0x400
+ 80008da:	601a      	str	r2, [r3, #0]
+ 80008dc:	2301      	movs	r3, #1
+ 80008de:	600b      	str	r3, [r1, #0]
+ 80008e0:	f000 f91d 	bl	8000b1e <atexit>
+
+  return l0;
+}
+ 80008e4:	4801      	ldr	r0, [pc, #4]	; (80008ec <_ZN4mcal3led4led0Ev+0x50>)
+ 80008e6:	bd08      	pop	{r3, pc}
+ 80008e8:	2000001c 	.word	0x2000001c
+ 80008ec:	20000020 	.word	0x20000020
+ 80008f0:	08000875 	.word	0x08000875
+ 80008f4:	08000ce4 	.word	0x08000ce4
+ 80008f8:	40020000 	.word	0x40020000
+
+080008fc <_ZN4mcal3osc4initEPKv>:
+    }
+  }
+}
+
+void mcal::osc::init(const config_type*)
+{
+ 80008fc:	b51f      	push	{r0, r1, r2, r3, r4, lr}
+ 80008fe:	4c2b      	ldr	r4, [pc, #172]	; (80009ac <_ZN4mcal3osc4initEPKv+0xb0>)
+ 8000900:	f8d4 3800 	ldr.w	r3, [r4, #2048]	; 0x800
+ 8000904:	f443 3380 	orr.w	r3, r3, #65536	; 0x10000
+ 8000908:	f8c4 3800 	str.w	r3, [r4, #2048]	; 0x800
+                    reg_get() { volatile register_value_type* pa = reinterpret_cast<register_value_type*>(address); return *pa; }
+ 800090c:	f8d4 3800 	ldr.w	r3, [r4, #2048]	; 0x800
+                                       UINT32_C(17)>::bit_get() == false)
+ 8000910:	039a      	lsls	r2, r3, #14
+ 8000912:	d401      	bmi.n	8000918 <_ZN4mcal3osc4initEPKv+0x1c>
+ 8000914:	bf00      	nop
+ 8000916:	e7f9      	b.n	800090c <_ZN4mcal3osc4initEPKv+0x10>
+    const mcal::osc::detail::stm32f4xx_clock_settings my_clock_settings(UINT16_C(168), UINT8_C(8));
+ 8000918:	2208      	movs	r2, #8
+ 800091a:	21a8      	movs	r1, #168	; 0xa8
+ 800091c:	eb0d 0002 	add.w	r0, sp, r2
+ 8000920:	f000 f8ff 	bl	8000b22 <_ZN4mcal3osc6detail24stm32f4xx_clock_settingsC1Eth>
+    if(my_clock_settings.get_clock_settings_are_valid())
+ 8000924:	f89d 3008 	ldrb.w	r3, [sp, #8]
+ 8000928:	2b00      	cmp	r3, #0
+ 800092a:	d03a      	beq.n	80009a2 <_ZN4mcal3osc4initEPKv+0xa6>
+
+          ~stm32f4xx_clock_settings();
+
+          std::uint32_t get_param_m() const { return static_cast<std::uint32_t>(param_m); }
+          std::uint32_t get_param_n() const { return static_cast<std::uint32_t>(param_n); }
+          std::uint32_t get_param_p() const { return static_cast<std::uint32_t>(param_p); }
+ 800092c:	f89d 300e 	ldrb.w	r3, [sp, #14]
+                                   | static_cast<std::uint32_t>(static_cast<std::uint32_t>((my_clock_settings.get_param_p() >> 1) - 1) << 16)
+ 8000930:	085b      	lsrs	r3, r3, #1
+ 8000932:	1e5a      	subs	r2, r3, #1
+          std::uint32_t get_param_m() const { return static_cast<std::uint32_t>(param_m); }
+ 8000934:	f89d 300a 	ldrb.w	r3, [sp, #10]
+ 8000938:	ea43 4302 	orr.w	r3, r3, r2, lsl #16
+          std::uint32_t get_param_n() const { return static_cast<std::uint32_t>(param_n); }
+ 800093c:	f8bd 200c 	ldrh.w	r2, [sp, #12]
+ 8000940:	ea43 1382 	orr.w	r3, r3, r2, lsl #6
+          std::uint32_t get_param_q() const { return static_cast<std::uint32_t>(param_q); }
+ 8000944:	f89d 200f 	ldrb.w	r2, [sp, #15]
+                                   | static_cast<std::uint32_t>(my_clock_settings.get_param_q() << 24));
+ 8000948:	ea43 6302 	orr.w	r3, r3, r2, lsl #24
+ 800094c:	f443 0380 	orr.w	r3, r3, #4194304	; 0x400000
+      struct reg_access_dynamic final
+      {
+        static register_value_type
+                    reg_get(const register_address_type address) { return *reinterpret_cast<volatile register_value_type*>(address); }
+
+        static void reg_set(const register_address_type address, const register_value_type value) { volatile register_value_type* pa = reinterpret_cast<volatile register_value_type*>(address); *pa =       value; }
+ 8000950:	f8c4 3804 	str.w	r3, [r4, #2052]	; 0x804
+        static void reg_or () { volatile register_value_type* pa = reinterpret_cast<volatile register_value_type*>(address); *pa = *pa | value; }
+ 8000954:	f8d4 3808 	ldr.w	r3, [r4, #2056]	; 0x808
+                    reg_get() { volatile register_value_type* pa = reinterpret_cast<register_value_type*>(address); return *pa; }
+ 8000958:	4a14      	ldr	r2, [pc, #80]	; (80009ac <_ZN4mcal3osc4initEPKv+0xb0>)
+        static void reg_or () { volatile register_value_type* pa = reinterpret_cast<volatile register_value_type*>(address); *pa = *pa | value; }
+ 800095a:	f443 4314 	orr.w	r3, r3, #37888	; 0x9400
+ 800095e:	f8c4 3808 	str.w	r3, [r4, #2056]	; 0x808
+ 8000962:	f8d4 3800 	ldr.w	r3, [r4, #2048]	; 0x800
+ 8000966:	f043 7380 	orr.w	r3, r3, #16777216	; 0x1000000
+ 800096a:	f8c4 3800 	str.w	r3, [r4, #2048]	; 0x800
+                    reg_get() { volatile register_value_type* pa = reinterpret_cast<register_value_type*>(address); return *pa; }
+ 800096e:	f8d2 3800 	ldr.w	r3, [r2, #2048]	; 0x800
+                                         UINT32_C(25)>::bit_get() == false)
+ 8000972:	019b      	lsls	r3, r3, #6
+ 8000974:	d401      	bmi.n	800097a <_ZN4mcal3osc4initEPKv+0x7e>
+ 8000976:	bf00      	nop
+ 8000978:	e7f9      	b.n	800096e <_ZN4mcal3osc4initEPKv+0x72>
+ 800097a:	f8d2 3808 	ldr.w	r3, [r2, #2056]	; 0x808
+          *pa = register_value_type(register_value_type(reg_get() & register_value_type(~mask_value)) | register_value_type(value & mask_value));
+ 800097e:	f023 0303 	bic.w	r3, r3, #3
+ 8000982:	f043 0302 	orr.w	r3, r3, #2
+ 8000986:	f8c2 3808 	str.w	r3, [r2, #2056]	; 0x808
+      volatile std::uint32_t mcal_osc_rcc_cfgr = UINT32_C(0);
+ 800098a:	2300      	movs	r3, #0
+                    reg_get() { volatile register_value_type* pa = reinterpret_cast<register_value_type*>(address); return *pa; }
+ 800098c:	4a07      	ldr	r2, [pc, #28]	; (80009ac <_ZN4mcal3osc4initEPKv+0xb0>)
+ 800098e:	9301      	str	r3, [sp, #4]
+      while(mcal_osc_rcc_cfgr != UINT32_C(0x00000008))
+ 8000990:	9b01      	ldr	r3, [sp, #4]
+ 8000992:	2b08      	cmp	r3, #8
+ 8000994:	d005      	beq.n	80009a2 <_ZN4mcal3osc4initEPKv+0xa6>
+ 8000996:	f8d2 3808 	ldr.w	r3, [r2, #2056]	; 0x808
+                                       mcal::reg::rcc_cfgr>::reg_get() & UINT32_C(0x0000000C);
+ 800099a:	f003 030c 	and.w	r3, r3, #12
+        mcal_osc_rcc_cfgr =
+ 800099e:	9301      	str	r3, [sp, #4]
+      while(mcal_osc_rcc_cfgr != UINT32_C(0x00000008))
+ 80009a0:	e7f6      	b.n	8000990 <_ZN4mcal3osc4initEPKv+0x94>
+    const mcal::osc::detail::stm32f4xx_clock_settings my_clock_settings(UINT16_C(168), UINT8_C(8));
+ 80009a2:	a802      	add	r0, sp, #8
+ 80009a4:	f000 f90c 	bl	8000bc0 <_ZN4mcal3osc6detail24stm32f4xx_clock_settingsD1Ev>
+  // Configure the system clock for 168MHz using the hse-pll.
+  const bool system_clock_is_ok = set_the_system_clock();
+
+  static_cast<void>(system_clock_is_ok);
+}
+ 80009a8:	b004      	add	sp, #16
+ 80009aa:	bd10      	pop	{r4, pc}
+ 80009ac:	40023000 	.word	0x40023000
+
+080009b0 <_ZN4mcal4port4initEPKv>:
+        static void reg_or () { volatile register_value_type* pa = reinterpret_cast<volatile register_value_type*>(address); *pa = *pa | value; }
+ 80009b0:	4a03      	ldr	r2, [pc, #12]	; (80009c0 <_ZN4mcal4port4initEPKv+0x10>)
+ 80009b2:	f8d2 3830 	ldr.w	r3, [r2, #2096]	; 0x830
+ 80009b6:	f043 0305 	orr.w	r3, r3, #5
+ 80009ba:	f8c2 3830 	str.w	r3, [r2, #2096]	; 0x830
+
+  mcal::reg::reg_access_static<std::uint32_t,
+                               std::uint32_t,
+                               mcal::reg::rcc_ahb1enr,
+                               UINT32_C(0x05) >::reg_or();
+}
+ 80009be:	4770      	bx	lr
+ 80009c0:	40023000 	.word	0x40023000
+
+080009c4 <_ZN4mcal3spi4initEPKv>:
+
+#include <mcal_spi/mcal_spi_software_dummy.h>
+
+void mcal::spi::init(const mcal::spi::config_type*)
+{
+}
+ 80009c4:	4770      	bx	lr
+	...
+
+080009c8 <_ZN4mcal3wdg4initEPKv>:
+        static void reg_set() { volatile register_value_type* pa = reinterpret_cast<volatile register_value_type*>(address); *pa =       value; }
+ 80009c8:	4b08      	ldr	r3, [pc, #32]	; (80009ec <_ZN4mcal3wdg4initEPKv+0x24>)
+ 80009ca:	f245 5255 	movw	r2, #21845	; 0x5555
+ 80009ce:	601a      	str	r2, [r3, #0]
+ 80009d0:	2200      	movs	r2, #0
+ 80009d2:	605a      	str	r2, [r3, #4]
+ 80009d4:	f44f 727a 	mov.w	r2, #1000	; 0x3e8
+ 80009d8:	609a      	str	r2, [r3, #8]
+ 80009da:	f64c 42cc 	movw	r2, #52428	; 0xcccc
+
+#include <mcal_reg.h>
+#include <mcal_wdg.h>
+
+void mcal::wdg::init(const config_type*)
+{
+ 80009de:	b082      	sub	sp, #8
+ 80009e0:	601a      	str	r2, [r3, #0]
+                    reg_get() { volatile register_value_type* pa = reinterpret_cast<register_value_type*>(address); return *pa; }
+ 80009e2:	68db      	ldr	r3, [r3, #12]
+
+  // Perform a dummy-read of the status register.
+  volatile const std::uint32_t dummy_read =
+    mcal::reg::reg_access_static<std::uint32_t,
+                                 std::uint32_t,
+                                 mcal::reg::iwdg_sr>::reg_get();
+ 80009e4:	9301      	str	r3, [sp, #4]
+
+  static_cast<void>(dummy_read);
+ 80009e6:	9b01      	ldr	r3, [sp, #4]
+}
+ 80009e8:	b002      	add	sp, #8
+ 80009ea:	4770      	bx	lr
+ 80009ec:	40003000 	.word	0x40003000
+
+080009f0 <_ZN4mcal3wdg6secure7triggerEv>:
+        static void reg_set() { volatile register_value_type* pa = reinterpret_cast<volatile register_value_type*>(address); *pa =       value; }
+ 80009f0:	4b02      	ldr	r3, [pc, #8]	; (80009fc <_ZN4mcal3wdg6secure7triggerEv+0xc>)
+ 80009f2:	f64a 22aa 	movw	r2, #43690	; 0xaaaa
+ 80009f6:	601a      	str	r2, [r3, #0]
+  // Reload the watchdog counter with value in iwdg_rlr
+  mcal::reg::reg_access_static<std::uint32_t,
+                               std::uint32_t,
+                               mcal::reg::iwdg_kr,
+                               0x0000AAAAUL>::reg_set();
+}
+ 80009f8:	4770      	bx	lr
+ 80009fa:	bf00      	nop
+ 80009fc:	40003000 	.word	0x40003000
+
+08000a00 <_ZN4mcal4initEv>:
+//
+
+#include <mcal/mcal.h>
+
+void mcal::init()
+{
+ 8000a00:	b508      	push	{r3, lr}
+  // Therefore, the following subroutines have already been called:
+  //   mcal::wdg::init(nullptr);
+  //   mcal::port::init(nullptr);
+  //   mcal::osc::init(nullptr);
+
+  mcal::irq::init(nullptr);
+ 8000a02:	2000      	movs	r0, #0
+ 8000a04:	f7ff ff32 	bl	800086c <_ZN4mcal3irq4initEPKv>
+
+  mcal::gpt::init(nullptr);
+ 8000a08:	2000      	movs	r0, #0
+ 8000a0a:	f7ff fee9 	bl	80007e0 <_ZN4mcal3gpt4initEPKv>
+  mcal::spi::init(nullptr);
+  mcal::pwm::init(nullptr);
+  mcal::eep::init(nullptr);
+
+  mcal::cpu::post_init();
+}
+ 8000a0e:	e8bd 4008 	ldmia.w	sp!, {r3, lr}
+  mcal::spi::init(nullptr);
+ 8000a12:	2000      	movs	r0, #0
+ 8000a14:	f7ff bfd6 	b.w	80009c4 <_ZN4mcal3spi4initEPKv>
+
+08000a18 <_ZN2os8start_osEv>:
+  // The index of the running task.
+  task_index_type os_task_index;
+}
+
+void os::start_os()
+{
+ 8000a18:	b5f7      	push	{r0, r1, r2, r4, r5, r6, r7, lr}
+      const function_type my_func;
+      const tick_type     my_cycle;
+            timer_type    my_timer;
+            event_type    my_event;
+
+      void initialize() const { my_init(); }
+ 8000a1a:	4e10      	ldr	r6, [pc, #64]	; (8000a5c <_ZN2os8start_osEv+0x44>)
+ 8000a1c:	2400      	movs	r4, #0
+ 8000a1e:	f856 3024 	ldr.w	r3, [r6, r4, lsl #2]
+             typename unary_function_type>
+    unary_function_type for_each(iterator_type       first,
+                                 iterator_type       last,
+                                 unary_function_type unary_function)
+    {
+      for( ; first != last; ++first)
+ 8000a22:	3405      	adds	r4, #5
+ 8000a24:	4798      	blx	r3
+ 8000a26:	2c0f      	cmp	r4, #15
+ 8000a28:	d1f9      	bne.n	8000a1e <_ZN2os8start_osEv+0x6>
+                                          });
+
+  static_cast<void>(it_init_func);
+
+  // Initialize the idle task.
+  OS_IDLE_TASK_INIT();
+ 8000a2a:	f000 f86b 	bl	8000b04 <_ZN3sys4idle9task_initEv>
+    // In this way, each task in the loop will be checked for being
+    // ready using the same time-point.
+
+    const os::tick_type timepoint_of_ckeck_ready = os::timer_type::get_mark();
+
+    os_task_index = static_cast<task_index_type>(0U);
+ 8000a2e:	4d0c      	ldr	r5, [pc, #48]	; (8000a60 <_ZN2os8start_osEv+0x48>)
+ 8000a30:	2700      	movs	r7, #0
+        return static_cast<tick_type>(mcal::gpt::secure::get_time_elapsed());
+ 8000a32:	f7ff fef1 	bl	8000818 <_ZN4mcal3gpt6secure16get_time_elapsedEv>
+ 8000a36:	2400      	movs	r4, #0
+ 8000a38:	9001      	str	r0, [sp, #4]
+ 8000a3a:	602f      	str	r7, [r5, #0]
+    const auto it_ready_task =
+      std::find_if(os_task_list.begin(),
+                   os_task_list.end(),
+                   [&timepoint_of_ckeck_ready](task_control_block& tcb) -> bool
+                   {
+                     const bool task_is_ready = tcb.execute(timepoint_of_ckeck_ready);
+ 8000a3c:	a901      	add	r1, sp, #4
+ 8000a3e:	1930      	adds	r0, r6, r4
+ 8000a40:	f000 f848 	bl	8000ad4 <_ZN2os18task_control_block7executeERKj>
+
+                     ++os_task_index;
+ 8000a44:	682b      	ldr	r3, [r5, #0]
+ 8000a46:	3301      	adds	r3, #1
+ 8000a48:	602b      	str	r3, [r5, #0]
+             typename unary_function_type>
+    input_iterator find_if(input_iterator      first,
+                           input_iterator      last,
+                           unary_function_type unary_function)
+    {
+      while((first != last) && (!unary_function(*first)))
+ 8000a4a:	2800      	cmp	r0, #0
+ 8000a4c:	d1f1      	bne.n	8000a32 <_ZN2os8start_osEv+0x1a>
+ 8000a4e:	3414      	adds	r4, #20
+ 8000a50:	2c3c      	cmp	r4, #60	; 0x3c
+ 8000a52:	d1f3      	bne.n	8000a3c <_ZN2os8start_osEv+0x24>
+                   });
+
+    // If no ready-task was found, then service the idle task.
+    if(it_ready_task == os_task_list.end())
+    {
+      OS_IDLE_TASK_FUNC();
+ 8000a54:	f000 f857 	bl	8000b06 <_ZN3sys4idle9task_funcEv>
+    }
+  }
+ 8000a58:	e7eb      	b.n	8000a32 <_ZN2os8start_osEv+0x1a>
+ 8000a5a:	bf00      	nop
+ 8000a5c:	20000048 	.word	0x20000048
+ 8000a60:	20000084 	.word	0x20000084
+
+08000a64 <_GLOBAL__sub_I__ZN2os8start_osEv>:
+
+    it_running_task->my_event = event_type(it_running_task->my_event & event_clear_mask);
+
+    mcal::irq::enable_all();
+  }
+}
+ 8000a64:	b538      	push	{r3, r4, r5, lr}
+                                                   my_event() { }
+ 8000a66:	4c13      	ldr	r4, [pc, #76]	; (8000ab4 <_GLOBAL__sub_I__ZN2os8start_osEv+0x50>)
+ 8000a68:	4b13      	ldr	r3, [pc, #76]	; (8000ab8 <_GLOBAL__sub_I__ZN2os8start_osEv+0x54>)
+ 8000a6a:	6023      	str	r3, [r4, #0]
+ 8000a6c:	4b13      	ldr	r3, [pc, #76]	; (8000abc <_GLOBAL__sub_I__ZN2os8start_osEv+0x58>)
+ 8000a6e:	6063      	str	r3, [r4, #4]
+ 8000a70:	f642 63e0 	movw	r3, #12000	; 0x2ee0
+ 8000a74:	60a3      	str	r3, [r4, #8]
+ 8000a76:	f7ff fecf 	bl	8000818 <_ZN4mcal3gpt6secure16get_time_elapsedEv>
+ 8000a7a:	4b11      	ldr	r3, [pc, #68]	; (8000ac0 <_GLOBAL__sub_I__ZN2os8start_osEv+0x5c>)
+ 8000a7c:	6163      	str	r3, [r4, #20]
+ 8000a7e:	4b11      	ldr	r3, [pc, #68]	; (8000ac4 <_GLOBAL__sub_I__ZN2os8start_osEv+0x60>)
+ 8000a80:	61a3      	str	r3, [r4, #24]
+ 8000a82:	2500      	movs	r5, #0
+ 8000a84:	4b10      	ldr	r3, [pc, #64]	; (8000ac8 <_GLOBAL__sub_I__ZN2os8start_osEv+0x64>)
+ 8000a86:	61e3      	str	r3, [r4, #28]
+ 8000a88:	60e0      	str	r0, [r4, #12]
+ 8000a8a:	6125      	str	r5, [r4, #16]
+ 8000a8c:	f7ff fec4 	bl	8000818 <_ZN4mcal3gpt6secure16get_time_elapsedEv>
+ 8000a90:	4b0e      	ldr	r3, [pc, #56]	; (8000acc <_GLOBAL__sub_I__ZN2os8start_osEv+0x68>)
+ 8000a92:	62a3      	str	r3, [r4, #40]	; 0x28
+ 8000a94:	4b0e      	ldr	r3, [pc, #56]	; (8000ad0 <_GLOBAL__sub_I__ZN2os8start_osEv+0x6c>)
+ 8000a96:	62e3      	str	r3, [r4, #44]	; 0x2c
+      timer(const tick_type& tick_value) : my_tick(my_now() + tick_value) { }
+ 8000a98:	f200 107b 	addw	r0, r0, #379	; 0x17b
+ 8000a9c:	f646 1378 	movw	r3, #27000	; 0x6978
+ 8000aa0:	6220      	str	r0, [r4, #32]
+ 8000aa2:	6265      	str	r5, [r4, #36]	; 0x24
+ 8000aa4:	6323      	str	r3, [r4, #48]	; 0x30
+        return static_cast<tick_type>(mcal::gpt::secure::get_time_elapsed());
+ 8000aa6:	f7ff feb7 	bl	8000818 <_ZN4mcal3gpt6secure16get_time_elapsedEv>
+      timer(const tick_type& tick_value) : my_tick(my_now() + tick_value) { }
+ 8000aaa:	f200 201d 	addw	r0, r0, #541	; 0x21d
+ 8000aae:	6360      	str	r0, [r4, #52]	; 0x34
+ 8000ab0:	63a5      	str	r5, [r4, #56]	; 0x38
+ 8000ab2:	bd38      	pop	{r3, r4, r5, pc}
+ 8000ab4:	20000048 	.word	0x20000048
+ 8000ab8:	080006d9 	.word	0x080006d9
+ 8000abc:	080006e9 	.word	0x080006e9
+ 8000ac0:	08000671 	.word	0x08000671
+ 8000ac4:	080006a9 	.word	0x080006a9
+ 8000ac8:	000b71b0 	.word	0x000b71b0
+ 8000acc:	08000b0b 	.word	0x08000b0b
+ 8000ad0:	08000b0d 	.word	0x08000b0d
+
+08000ad4 <_ZN2os18task_control_block7executeERKj>:
+//
+
+#include <os/os_task_control_block.h>
+
+bool os::task_control_block::execute(const os::tick_type& timepoint_of_ckeck_ready)
+{
+ 8000ad4:	b570      	push	{r4, r5, r6, lr}
+  // Check for a task event.
+  const bool task_does_have_event = (my_event != event_type(0U));
+ 8000ad6:	6905      	ldr	r5, [r0, #16]
+{
+ 8000ad8:	4604      	mov	r4, r0
+ 8000ada:	460e      	mov	r6, r1
+
+  if(task_does_have_event)
+ 8000adc:	b10d      	cbz	r5, 8000ae2 <_ZN2os18task_control_block7executeERKj+0xe>
+  {
+    // Call the task function because of an event.
+    my_func();
+ 8000ade:	6843      	ldr	r3, [r0, #4]
+ 8000ae0:	4798      	blx	r3
+  }
+
+  // Check for a task timeout.
+  const bool task_does_have_timeout = (   (my_cycle != os::tick_type(0U))
+ 8000ae2:	68a3      	ldr	r3, [r4, #8]
+                                       &&  my_timer.timeout_of_specific_timepoint(timepoint_of_ckeck_ready));
+ 8000ae4:	b153      	cbz	r3, 8000afc <_ZN2os18task_control_block7executeERKj+0x28>
+        const tick_type delta = timepoint - my_tick;
+ 8000ae6:	68e1      	ldr	r1, [r4, #12]
+ 8000ae8:	6832      	ldr	r2, [r6, #0]
+ 8000aea:	1a52      	subs	r2, r2, r1
+ 8000aec:	2a00      	cmp	r2, #0
+ 8000aee:	db05      	blt.n	8000afc <_ZN2os18task_control_block7executeERKj+0x28>
+        my_tick += tick_value;
+ 8000af0:	440b      	add	r3, r1
+ 8000af2:	60e3      	str	r3, [r4, #12]
+  {
+    // Increment the task's interval timer with the task cycle.
+    my_timer.start_interval(my_cycle);
+
+    // Call the task function because of a timer timeout.
+    my_func();
+ 8000af4:	6863      	ldr	r3, [r4, #4]
+ 8000af6:	4798      	blx	r3
+  }
+
+  return (task_does_have_event || task_does_have_timeout);
+ 8000af8:	2001      	movs	r0, #1
+}
+ 8000afa:	bd70      	pop	{r4, r5, r6, pc}
+  return (task_does_have_event || task_does_have_timeout);
+ 8000afc:	1e28      	subs	r0, r5, #0
+ 8000afe:	bf18      	it	ne
+ 8000b00:	2001      	movne	r0, #1
+ 8000b02:	e7fa      	b.n	8000afa <_ZN2os18task_control_block7executeERKj+0x26>
+
+08000b04 <_ZN3sys4idle9task_initEv>:
+    void task_init();
+    void task_func();
+  }
+}
+
+void sys::idle::task_init() { }
+ 8000b04:	4770      	bx	lr
+
+08000b06 <_ZN3sys4idle9task_funcEv>:
+
+void sys::idle::task_func()
+{
+  // Service the watchdog.
+  mcal::wdg::secure::trigger();
+ 8000b06:	f7ff bf73 	b.w	80009f0 <_ZN4mcal3wdg6secure7triggerEv>
+
+08000b0a <_ZN3sys3mon9task_initEv>:
+  }
+}
+
+void sys::mon::task_init()
+{
+}
+ 8000b0a:	4770      	bx	lr
+
+08000b0c <_ZN3sys3mon9task_funcEv>:
+ 8000b0c:	4770      	bx	lr
+
+08000b0e <main>:
+#if defined(__GNUC__) && defined(__XTENSA__)
+int app_main_loop(void)
+#else
+int main(void)
+#endif
+{
+ 8000b0e:	b508      	push	{r3, lr}
+  // Initialize the microcontroller abstraction layer.
+  mcal::init();
+ 8000b10:	f7ff ff76 	bl	8000a00 <_ZN4mcal4initEv>
+
+  // Start the multitasking scheduler. (This does not return.)
+  // Handle an unexpected return from main() in the startup code.
+  os::start_os();
+ 8000b14:	f7ff ff80 	bl	8000a18 <_ZN2os8start_osEv>
+
+  return 0;
+}
+ 8000b18:	2000      	movs	r0, #0
+ 8000b1a:	bd08      	pop	{r3, pc}
+
+08000b1c <_ZdlPv>:
+void operator delete(void*, void*) noexcept;
+#if(__cplusplus >= 201400L)
+void operator delete(void*, std::size_t) noexcept;
+#endif
+
+void operator delete(void*)              noexcept { }
+ 8000b1c:	4770      	bx	lr
+
+08000b1e <atexit>:
+  char*       __cxa_demangle      (const char*, char*, size_t*, int*);
+
+  // Implementations of patched functions.
+
+  void        abort               (void)                              { for(;;) { mcal::cpu::nop(); } }
+  int         atexit              (void (*)())                        { return 0; }
+ 8000b1e:	2000      	movs	r0, #0
+ 8000b20:	4770      	bx	lr
+
+08000b22 <_ZN4mcal3osc6detail24stm32f4xx_clock_settingsC1Eth>:
+{
+  std::uint16_t f_vco           = UINT16_C(0);
+  std::uint16_t delta_f_vco_min = (std::numeric_limits<std::uint16_t>::max)();
+
+  // Initialize the parameter p.
+  param_p = UINT8_C(2);
+ 8000b22:	0049      	lsls	r1, r1, #1
+mcal::osc::detail::stm32f4xx_clock_settings::stm32f4xx_clock_settings(const std::uint16_t f_pll,
+ 8000b24:	b5f0      	push	{r4, r5, r6, r7, lr}
+  param_p = UINT8_C(2);
+ 8000b26:	2302      	movs	r3, #2
+ 8000b28:	b28d      	uxth	r5, r1
+ 8000b2a:	7183      	strb	r3, [r0, #6]
+ 8000b2c:	4629      	mov	r1, r5
+  std::uint16_t delta_f_vco_min = (std::numeric_limits<std::uint16_t>::max)();
+ 8000b2e:	f64f 77ff 	movw	r7, #65535	; 0xffff
+  std::uint16_t f_vco           = UINT16_C(0);
+ 8000b32:	2400      	movs	r4, #0
+    const std::uint16_t       f_vco_this = static_cast<std::uint16_t>(f_pll * param_p_this);
+    const std::uint16_t delta_f_vco_this = static_cast<std::uint16_t>(std::abs(static_cast<std::int32_t>(f_vco_this) - INT32_C(312)));
+
+    const bool f_vco_is_within_range = ((f_vco_this >= UINT16_C(192)) && (f_vco_this <= UINT16_C(432)));
+
+    if(f_vco_is_within_range)
+ 8000b34:	f1a1 06c0 	sub.w	r6, r1, #192	; 0xc0
+ 8000b38:	2ef0      	cmp	r6, #240	; 0xf0
+ 8000b3a:	d80a      	bhi.n	8000b52 <_ZN4mcal3osc6detail24stm32f4xx_clock_settingsC1Eth+0x30>
+    const std::uint16_t delta_f_vco_this = static_cast<std::uint16_t>(std::abs(static_cast<std::int32_t>(f_vco_this) - INT32_C(312)));
+ 8000b3c:	f5a1 769c 	sub.w	r6, r1, #312	; 0x138
+  }
+
+  namespace std
+  {
+    inline int         abs(int       a) { return ((a < 0) ? -a : a); }
+    inline long        abs(long      a) { return ((a < 0) ? -a : a); }
+ 8000b40:	2e00      	cmp	r6, #0
+ 8000b42:	bfb8      	it	lt
+ 8000b44:	4276      	neglt	r6, r6
+ 8000b46:	b2b6      	uxth	r6, r6
+    {
+      if(delta_f_vco_this < delta_f_vco_min)
+ 8000b48:	42be      	cmp	r6, r7
+      {
+        delta_f_vco_min = delta_f_vco_this;
+
+        param_p = param_p_this;
+ 8000b4a:	bf3e      	ittt	cc
+ 8000b4c:	7183      	strbcc	r3, [r0, #6]
+
+        f_vco = f_vco_this;
+ 8000b4e:	4637      	movcc	r7, r6
+ 8000b50:	460c      	movcc	r4, r1
+                   param_p_this  = static_cast<std::uint8_t>(param_p_this + UINT8_C(2)))
+ 8000b52:	3302      	adds	r3, #2
+ 8000b54:	b2db      	uxtb	r3, r3
+                   param_p_this <= UINT8_C(8);
+ 8000b56:	4429      	add	r1, r5
+ 8000b58:	2b0a      	cmp	r3, #10
+ 8000b5a:	b289      	uxth	r1, r1
+ 8000b5c:	d1ea      	bne.n	8000b34 <_ZN4mcal3osc6detail24stm32f4xx_clock_settingsC1Eth+0x12>
+      }
+    }
+  }
+
+  clock_settings_are_valid = (f_vco != UINT16_C(0));
+ 8000b5e:	1e26      	subs	r6, r4, #0
+ 8000b60:	bf18      	it	ne
+ 8000b62:	2601      	movne	r6, #1
+
+  f_usb_is_exactly_48 = false;
+ 8000b64:	2100      	movs	r1, #0
+  param_q = UINT8_C(2);
+ 8000b66:	2302      	movs	r3, #2
+  clock_settings_are_valid = (f_vco != UINT16_C(0));
+ 8000b68:	7006      	strb	r6, [r0, #0]
+  f_usb_is_exactly_48 = false;
+ 8000b6a:	7041      	strb	r1, [r0, #1]
+  param_q = UINT8_C(2);
+ 8000b6c:	71c3      	strb	r3, [r0, #7]
+
+  std::uint16_t f_usb           = UINT16_C(0);
+  std::uint16_t delta_f_usb_min = (std::numeric_limits<std::uint16_t>::max)();
+ 8000b6e:	f64f 7cff 	movw	ip, #65535	; 0xffff
+  // Use an iterative analysis to find the optimal value of f_usb in
+  // relation to the value of f_vco and the value of param_q.
+  // Thereby select the optimal value of param_q.
+  for(std::uint8_t param_q_this = UINT8_C(2); param_q_this <= UINT8_C(15); ++param_q_this)
+  {
+    const std::uint16_t       f_usb_this = static_cast<std::uint16_t>(f_vco / param_q_this);
+ 8000b72:	fbb4 f7f3 	udiv	r7, r4, r3
+    const std::uint16_t delta_f_usb_this = static_cast<std::uint16_t>(std::abs(static_cast<std::int32_t>(f_usb_this) - INT32_C(48)));
+ 8000b76:	f1a7 0530 	sub.w	r5, r7, #48	; 0x30
+ 8000b7a:	2d00      	cmp	r5, #0
+ 8000b7c:	bfb8      	it	lt
+ 8000b7e:	426d      	neglt	r5, r5
+ 8000b80:	b2ad      	uxth	r5, r5
+
+    if(delta_f_usb_this < delta_f_usb_min)
+ 8000b82:	4565      	cmp	r5, ip
+ 8000b84:	fa5f fe83 	uxtb.w	lr, r3
+ 8000b88:	d20d      	bcs.n	8000ba6 <_ZN4mcal3osc6detail24stm32f4xx_clock_settingsC1Eth+0x84>
+    const std::uint16_t       f_usb_this = static_cast<std::uint16_t>(f_vco / param_q_this);
+ 8000b8a:	b2b9      	uxth	r1, r7
+
+      param_q = param_q_this;
+
+      f_usb = f_usb_this;
+
+      f_usb_is_exactly_48 = (f_usb == UINT16_C(48));
+ 8000b8c:	2930      	cmp	r1, #48	; 0x30
+ 8000b8e:	bf14      	ite	ne
+ 8000b90:	f04f 0c00 	movne.w	ip, #0
+ 8000b94:	f04f 0c01 	moveq.w	ip, #1
+
+      if(f_usb_is_exactly_48)
+ 8000b98:	2f30      	cmp	r7, #48	; 0x30
+      param_q = param_q_this;
+ 8000b9a:	f880 e007 	strb.w	lr, [r0, #7]
+      f_usb_is_exactly_48 = (f_usb == UINT16_C(48));
+ 8000b9e:	f880 c001 	strb.w	ip, [r0, #1]
+      if(f_usb_is_exactly_48)
+ 8000ba2:	d007      	beq.n	8000bb4 <_ZN4mcal3osc6detail24stm32f4xx_clock_settingsC1Eth+0x92>
+ 8000ba4:	46ac      	mov	ip, r5
+  for(std::uint8_t param_q_this = UINT8_C(2); param_q_this <= UINT8_C(15); ++param_q_this)
+ 8000ba6:	3301      	adds	r3, #1
+ 8000ba8:	2b10      	cmp	r3, #16
+ 8000baa:	d1e2      	bne.n	8000b72 <_ZN4mcal3osc6detail24stm32f4xx_clock_settingsC1Eth+0x50>
+        break;
+      }
+    }
+  }
+
+  clock_settings_are_valid = (clock_settings_are_valid && (f_usb != UINT16_C(0)));
+ 8000bac:	b134      	cbz	r4, 8000bbc <_ZN4mcal3osc6detail24stm32f4xx_clock_settingsC1Eth+0x9a>
+ 8000bae:	1e0e      	subs	r6, r1, #0
+ 8000bb0:	bf18      	it	ne
+ 8000bb2:	2601      	movne	r6, #1
+ 8000bb4:	7006      	strb	r6, [r0, #0]
+
+  // TBD: Consider using more highly-refined integer mathematics in order to
+  // calculate numbers that are more exact yet still within range.
+  param_m = f_hsx;
+ 8000bb6:	7082      	strb	r2, [r0, #2]
+  param_n = f_vco;
+ 8000bb8:	8084      	strh	r4, [r0, #4]
+}
+ 8000bba:	bdf0      	pop	{r4, r5, r6, r7, pc}
+  clock_settings_are_valid = (clock_settings_are_valid && (f_usb != UINT16_C(0)));
+ 8000bbc:	4626      	mov	r6, r4
+ 8000bbe:	e7f9      	b.n	8000bb4 <_ZN4mcal3osc6detail24stm32f4xx_clock_settingsC1Eth+0x92>
+
+08000bc0 <_ZN4mcal3osc6detail24stm32f4xx_clock_settingsD1Ev>:
+
+mcal::osc::detail::stm32f4xx_clock_settings::~stm32f4xx_clock_settings() { }
+ 8000bc0:	4770      	bx	lr
+	...
+
+08000bc4 <_ZN3crt8init_ramEv>:
+{
+  void init_ram();
+}
+
+void crt::init_ram()
+{
+ 8000bc4:	b508      	push	{r3, lr}
+        *result = *first;
+ 8000bc6:	4807      	ldr	r0, [pc, #28]	; (8000be4 <_ZN3crt8init_ramEv+0x20>)
+ 8000bc8:	4a07      	ldr	r2, [pc, #28]	; (8000be8 <_ZN3crt8init_ramEv+0x24>)
+ 8000bca:	4908      	ldr	r1, [pc, #32]	; (8000bec <_ZN3crt8init_ramEv+0x28>)
+ 8000bcc:	1a12      	subs	r2, r2, r0
+ 8000bce:	f7ff fb33 	bl	8000238 <memcpy>
+        *first = forward_value_type(value);
+ 8000bd2:	4807      	ldr	r0, [pc, #28]	; (8000bf0 <_ZN3crt8init_ramEv+0x2c>)
+ 8000bd4:	4a07      	ldr	r2, [pc, #28]	; (8000bf4 <_ZN3crt8init_ramEv+0x30>)
+  // Clear the bss segment.
+  // Note that the bss segment is aligned by 4.
+  std::fill(static_cast<memory_aligned_type*>(static_cast<void*>(&_bss_begin)),
+            static_cast<memory_aligned_type*>(static_cast<void*>(&_bss_end)),
+            static_cast<memory_aligned_type>(0U));
+}
+ 8000bd6:	e8bd 4008 	ldmia.w	sp!, {r3, lr}
+ 8000bda:	1a12      	subs	r2, r2, r0
+ 8000bdc:	2100      	movs	r1, #0
+ 8000bde:	f000 b82b 	b.w	8000c38 <memset>
+ 8000be2:	bf00      	nop
+ 8000be4:	20000000 	.word	0x20000000
+ 8000be8:	20000004 	.word	0x20000004
+ 8000bec:	08000cfc 	.word	0x08000cfc
+ 8000bf0:	20000008 	.word	0x20000008
+ 8000bf4:	20000098 	.word	0x20000098
+
+08000bf8 <_ZN3crt10init_ctorsEv>:
+{
+  void init_ctors();
+}
+
+void crt::init_ctors()
+{
+ 8000bf8:	b538      	push	{r3, r4, r5, lr}
+ 8000bfa:	4c04      	ldr	r4, [pc, #16]	; (8000c0c <_ZN3crt10init_ctorsEv+0x14>)
+      for( ; first != last; ++first)
+ 8000bfc:	4d04      	ldr	r5, [pc, #16]	; (8000c10 <_ZN3crt10init_ctorsEv+0x18>)
+ 8000bfe:	42ac      	cmp	r4, r5
+ 8000c00:	d003      	beq.n	8000c0a <_ZN3crt10init_ctorsEv+0x12>
+  std::for_each(ctor_type::const_reverse_iterator(_ctors_end),
+                ctor_type::const_reverse_iterator(_ctors_begin),
+                [](const ctor_type::function_type pf)
+                {
+                  pf();
+ 8000c02:	f854 3d04 	ldr.w	r3, [r4, #-4]!
+ 8000c06:	4798      	blx	r3
+      STL_LOCAL_CONSTEXPR iterator_type base() const { return current; }
+
+      STL_LOCAL_CONSTEXPR_ALGORITHMS reference operator* () const { iterator_type tmp = current; return *--tmp; }
+      STL_LOCAL_CONSTEXPR            pointer   operator->() const { return &(operator*()); }
+
+      STL_LOCAL_CONSTEXPR_ALGORITHMS reverse_iterator& operator++() { --current; return *this; }
+ 8000c08:	e7f9      	b.n	8000bfe <_ZN3crt10init_ctorsEv+0x6>
+                });
+}
+ 8000c0a:	bd38      	pop	{r3, r4, r5, pc}
+ 8000c0c:	08000238 	.word	0x08000238
+ 8000c10:	08000230 	.word	0x08000230
+
+08000c14 <__vector_unused_irq>:
+ 8000c14:	bf00      	nop
+ 8000c16:	e7fd      	b.n	8000c14 <__vector_unused_irq>
+
+08000c18 <__nmi_handler>:
+ 8000c18:	bf00      	nop
+ 8000c1a:	e7fd      	b.n	8000c18 <__nmi_handler>
+
+08000c1c <__hard_fault_handler>:
+ 8000c1c:	bf00      	nop
+ 8000c1e:	e7fd      	b.n	8000c1c <__hard_fault_handler>
+
+08000c20 <__mem_manage_handler>:
+ 8000c20:	bf00      	nop
+ 8000c22:	e7fd      	b.n	8000c20 <__mem_manage_handler>
+
+08000c24 <__bus_fault_handler>:
+ 8000c24:	bf00      	nop
+ 8000c26:	e7fd      	b.n	8000c24 <__bus_fault_handler>
+
+08000c28 <__usage_fault_handler>:
+ 8000c28:	bf00      	nop
+ 8000c2a:	e7fd      	b.n	8000c28 <__usage_fault_handler>
+
+08000c2c <__svc_handler>:
+ 8000c2c:	bf00      	nop
+ 8000c2e:	e7fd      	b.n	8000c2c <__svc_handler>
+
+08000c30 <__debug_mon_handler>:
+ 8000c30:	bf00      	nop
+ 8000c32:	e7fd      	b.n	8000c30 <__debug_mon_handler>
+
+08000c34 <__pend_sv_handler>:
+ 8000c34:	bf00      	nop
+ 8000c36:	e7fd      	b.n	8000c34 <__pend_sv_handler>
+
+08000c38 <memset>:
+ 8000c38:	0783      	lsls	r3, r0, #30
+ 8000c3a:	b530      	push	{r4, r5, lr}
+ 8000c3c:	d048      	beq.n	8000cd0 <memset+0x98>
+ 8000c3e:	1e54      	subs	r4, r2, #1
+ 8000c40:	2a00      	cmp	r2, #0
+ 8000c42:	d03f      	beq.n	8000cc4 <memset+0x8c>
+ 8000c44:	b2ca      	uxtb	r2, r1
+ 8000c46:	4603      	mov	r3, r0
+ 8000c48:	e001      	b.n	8000c4e <memset+0x16>
+ 8000c4a:	3c01      	subs	r4, #1
+ 8000c4c:	d33a      	bcc.n	8000cc4 <memset+0x8c>
+ 8000c4e:	f803 2b01 	strb.w	r2, [r3], #1
+ 8000c52:	079d      	lsls	r5, r3, #30
+ 8000c54:	d1f9      	bne.n	8000c4a <memset+0x12>
+ 8000c56:	2c03      	cmp	r4, #3
+ 8000c58:	d92d      	bls.n	8000cb6 <memset+0x7e>
+ 8000c5a:	b2cd      	uxtb	r5, r1
+ 8000c5c:	ea45 2505 	orr.w	r5, r5, r5, lsl #8
+ 8000c60:	2c0f      	cmp	r4, #15
+ 8000c62:	ea45 4505 	orr.w	r5, r5, r5, lsl #16
+ 8000c66:	d936      	bls.n	8000cd6 <memset+0x9e>
+ 8000c68:	f1a4 0210 	sub.w	r2, r4, #16
+ 8000c6c:	f022 0c0f 	bic.w	ip, r2, #15
+ 8000c70:	f103 0e20 	add.w	lr, r3, #32
+ 8000c74:	44e6      	add	lr, ip
+ 8000c76:	ea4f 1c12 	mov.w	ip, r2, lsr #4
+ 8000c7a:	f103 0210 	add.w	r2, r3, #16
+ 8000c7e:	e942 5504 	strd	r5, r5, [r2, #-16]
+ 8000c82:	e942 5502 	strd	r5, r5, [r2, #-8]
+ 8000c86:	3210      	adds	r2, #16
+ 8000c88:	4572      	cmp	r2, lr
+ 8000c8a:	d1f8      	bne.n	8000c7e <memset+0x46>
+ 8000c8c:	f10c 0201 	add.w	r2, ip, #1
+ 8000c90:	f014 0f0c 	tst.w	r4, #12
+ 8000c94:	eb03 1202 	add.w	r2, r3, r2, lsl #4
+ 8000c98:	f004 0c0f 	and.w	ip, r4, #15
+ 8000c9c:	d013      	beq.n	8000cc6 <memset+0x8e>
+ 8000c9e:	f1ac 0304 	sub.w	r3, ip, #4
+ 8000ca2:	f023 0303 	bic.w	r3, r3, #3
+ 8000ca6:	3304      	adds	r3, #4
+ 8000ca8:	4413      	add	r3, r2
+ 8000caa:	f842 5b04 	str.w	r5, [r2], #4
+ 8000cae:	4293      	cmp	r3, r2
+ 8000cb0:	d1fb      	bne.n	8000caa <memset+0x72>
+ 8000cb2:	f00c 0403 	and.w	r4, ip, #3
+ 8000cb6:	b12c      	cbz	r4, 8000cc4 <memset+0x8c>
+ 8000cb8:	b2ca      	uxtb	r2, r1
+ 8000cba:	441c      	add	r4, r3
+ 8000cbc:	f803 2b01 	strb.w	r2, [r3], #1
+ 8000cc0:	429c      	cmp	r4, r3
+ 8000cc2:	d1fb      	bne.n	8000cbc <memset+0x84>
+ 8000cc4:	bd30      	pop	{r4, r5, pc}
+ 8000cc6:	4664      	mov	r4, ip
+ 8000cc8:	4613      	mov	r3, r2
+ 8000cca:	2c00      	cmp	r4, #0
+ 8000ccc:	d1f4      	bne.n	8000cb8 <memset+0x80>
+ 8000cce:	e7f9      	b.n	8000cc4 <memset+0x8c>
+ 8000cd0:	4603      	mov	r3, r0
+ 8000cd2:	4614      	mov	r4, r2
+ 8000cd4:	e7bf      	b.n	8000c56 <memset+0x1e>
+ 8000cd6:	461a      	mov	r2, r3
+ 8000cd8:	46a4      	mov	ip, r4
+ 8000cda:	e7e0      	b.n	8000c9e <memset+0x66>
+
+08000cdc <_ZTVN4mcal3led8led_portINS_4port8port_pinImmLm1073872896ELm5EEEEE>:
+	...
+ 8000ce4:	0879 0800 0871 0800 0877 0800 0891 0800     y...q...w.......
