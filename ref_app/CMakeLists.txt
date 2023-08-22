@@ -121,6 +121,7 @@ set(CMAKE_EXE_LINKER_FLAGS "${LDFLAGS} ${TARGET_LDFLAGS}" CACHE STRING "" FORCE)
 set(app_src
     ${PATH_APP}/app/benchmark/app_benchmark
     ${PATH_APP}/app/benchmark/app_benchmark_boost_math_cbrt_tgamma
+    ${PATH_APP}/app/benchmark/app_benchmark_boost_math_cyl_bessel_j
     ${PATH_APP}/app/benchmark/app_benchmark_boost_multiprecision_cbrt
     ${PATH_APP}/app/benchmark/app_benchmark_complex
     ${PATH_APP}/app/benchmark/app_benchmark_crc
@@ -232,7 +233,7 @@ elseif(("${CMAKE_EXECUTABLE_SUFFIX}" STREQUAL ".elf") OR ("${CMAKE_EXECUTABLE_SU
         ${BIN_FILE}
 
         DESTINATION
-        
+
         ${CMAKE_CURRENT_SOURCE_DIR}/bin/${APP}-${NAME}-${CMAKE_BUILD_TYPE}
     )
 

@@ -1,5 +1,5 @@
-﻿#
-#  Copyright Christopher Kormanyos 2007 - 2022.
+#
+#  Copyright Christopher Kormanyos 2007 - 2023.
 #  Distributed under the Boost Software License,
 #  Version 1.0. (See accompanying file LICENSE_1_0.txt
 #  or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -11,14 +11,17 @@
 
 FILES_CPP  = $(PATH_APP)/app/benchmark/app_benchmark                                 \
              $(PATH_APP)/app/benchmark/app_benchmark_boost_math_cbrt_tgamma          \
+             $(PATH_APP)/app/benchmark/app_benchmark_boost_math_cyl_bessel_j         \
              $(PATH_APP)/app/benchmark/app_benchmark_boost_multiprecision_cbrt       \
              $(PATH_APP)/app/benchmark/app_benchmark_complex                         \
              $(PATH_APP)/app/benchmark/app_benchmark_crc                             \
+             $(PATH_APP)/app/benchmark/app_benchmark_ecc_generic_ecc                 \
              $(PATH_APP)/app/benchmark/app_benchmark_fast_math                       \
              $(PATH_APP)/app/benchmark/app_benchmark_filter                          \
              $(PATH_APP)/app/benchmark/app_benchmark_fixed_point                     \
              $(PATH_APP)/app/benchmark/app_benchmark_float                           \
              $(PATH_APP)/app/benchmark/app_benchmark_hash                            \
+             $(PATH_APP)/app/benchmark/app_benchmark_hash_sha256                     \
              $(PATH_APP)/app/benchmark/app_benchmark_none                            \
              $(PATH_APP)/app/benchmark/app_benchmark_pi_agm                          \
              $(PATH_APP)/app/benchmark/app_benchmark_pi_spigot                       \

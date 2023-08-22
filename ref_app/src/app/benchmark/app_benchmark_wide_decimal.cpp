@@ -16,12 +16,13 @@
 #define WIDE_DECIMAL_DISABLE_DYNAMIC_MEMORY_ALLOCATION
 #define WIDE_DECIMAL_DISABLE_CONSTRUCT_FROM_STRING
 #define WIDE_DECIMAL_DISABLE_CACHED_CONSTANTS
+#define WIDE_DECIMAL_DISABLE_USE_STD_FUNCTION
 #define WIDE_DECIMAL_NAMESPACE ckormanyos
 
 #include <math/wide_decimal/decwide_t.h>
 #include <util/memory/util_n_slot_array_allocator.h>
 
-bool app::benchmark::run_wide_decimal()
+auto app::benchmark::run_wide_decimal() -> bool
 {
   using local_limb_type = std::uint16_t;
 

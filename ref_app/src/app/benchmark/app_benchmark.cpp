@@ -1,5 +1,5 @@
-///////////////////////////////////////////////////////////////////////////////
-//  Copyright Christopher Kormanyos 2007 - 2021.
+﻿///////////////////////////////////////////////////////////////////////////////
+//  Copyright Christopher Kormanyos 2007 - 2023.
 //  Distributed under the Boost Software License,
 //  Version 1.0. (See accompanying file LICENSE_1_0.txt
 //  or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -9,27 +9,23 @@
 #include <mcal_benchmark.h>
 #include <mcal_cpu.h>
 
-namespace
-{
-  using port_type = mcal::benchmark::benchmark_port_type;
-}
+namespace app { namespace benchmark {
 
-namespace app
-{
-  namespace benchmark
-  {
-    void task_init();
-    void task_func();
-  }
-}
+using port_type = mcal::benchmark::benchmark_port_type;
 
-void app::benchmark::task_init()
+void task_init();
+void task_func();
+
+} // namespace benchmark
+} // namespace app
+
+auto app::benchmark::task_init() -> void
 {
   // Set the benchmark port pin direction to output.
   port_type::set_direction_output();
 }
 
-void app::benchmark::task_func()
+auto app::benchmark::task_func() -> void
 {
   // Set the benchmark port pin level to high.
   port_type::set_pin_high();
@@ -108,12 +104,24 @@ void app::benchmark::task_func()
 
   const bool result_is_ok = app::benchmark::run_boost_multiprecision_cbrt();
 
+  #elif(APP_BENCHMARK_TYPE == APP_BENCHMARK_TYPE_BOOST_MATH_CYL_BESSEL_J)
+
+  const bool result_is_ok = app::benchmark::run_boost_math_cbrt_cyl_bessel_j();
+
+  #elif(APP_BENCHMARK_TYPE == APP_BENCHMARK_TYPE_HASH_SHA256)
+
+  const bool result_is_ok = app::benchmark::run_hash_sha256();
+
+  #elif(APP_BENCHMARK_TYPE == APP_BENCHMARK_TYPE_ECC_GENERIC_ECC)
+
+  const bool result_is_ok = app::benchmark::run_ecc_generic_ecc();
+
   #endif
 
   // Set the benchmark port pin level to low.
   port_type::set_pin_low();
 
-  if(result_is_ok == false)
+  if(!result_is_ok)
   {
     // Purposefully crash the system (watchdog) if the benchmark fails.
     for(;;)

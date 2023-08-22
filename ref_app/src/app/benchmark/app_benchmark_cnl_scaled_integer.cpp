@@ -17,18 +17,18 @@
 namespace
 {
   template<typename NumericType>
-  NumericType quadratic(const NumericType a,
-                        const NumericType b,
-                        const NumericType c,
-                        const NumericType x)
+  auto quadratic(const NumericType a,
+                 const NumericType b,
+                 const NumericType c,
+                 const NumericType x) -> NumericType
   {
     return NumericType((NumericType(a * x) + b) * x) + c;
   }
 
   template<typename NumericType>
-  bool is_close_fraction(const NumericType a,
+  auto is_close_fraction(const NumericType a,
                          const NumericType b,
-                         const NumericType tol = NumericType(std::numeric_limits<NumericType>::epsilon() * 100))
+                         const NumericType tol = NumericType(std::numeric_limits<NumericType>::epsilon() * 100)) -> bool
   {
     using std::abs;
 
@@ -55,7 +55,7 @@ extern fixed_point_dec_type c_dec;
 extern fixed_point_dec_type x_dec;
 extern fixed_point_dec_type r_dec;
 
-bool app::benchmark::run_cnl_scaled_integer()
+auto app::benchmark::run_cnl_scaled_integer() -> bool
 {
   static std::uint_fast8_t app_benchmark_cnl_scaled_integer_type_toggler;
 
@@ -98,21 +98,58 @@ fixed_point_dec_type c_dec(fixed_point_dec_type(56) / 10);
 fixed_point_dec_type x_dec(fixed_point_dec_type( 1) /  2);
 fixed_point_dec_type r_dec(fixed_point_dec_type(76) / 10);
 
+
 #if defined(APP_BENCHMARK_STANDALONE_MAIN)
-int main()
+constexpr auto app_benchmark_standalone_foodcafe = static_cast<std::uint32_t>(UINT32_C(0xF00DCAFE));
+
+extern "C"
 {
-  // g++ -Wall -O3 -march=native -I./ref_app/src/mcal/host -I./ref_app/src -DAPP_BENCHMARK_TYPE=APP_BENCHMARK_TYPE_CNL_SCALED_INTEGER -DAPP_BENCHMARK_STANDALONE_MAIN ./ref_app/src/app/benchmark/app_benchmark_cnl_scaled_integer.cpp -o ./ref_app/bin/app_benchmark_cnl_scaled_integer.exe
+  extern volatile std::uint32_t app_benchmark_standalone_result;
 
-  bool result_is_ok = true;
+  auto app_benchmark_run_standalone       (void) -> bool;
+  auto app_benchmark_get_standalone_result(void) -> bool;
 
-  for(unsigned i = 0U; i < 64U; ++i)
+  auto app_benchmark_run_standalone(void) -> bool
   {
-    result_is_ok &= app::benchmark::run_cnl_scaled_integer();
+    auto result_is_ok = true;
+
+    for(unsigned i = 0U; i < 64U; ++i)
+    {
+      result_is_ok &= app::benchmark::run_cnl_scaled_integer();
+    }
+
+    app_benchmark_standalone_result =
+      static_cast<std::uint32_t>
+      (
+        result_is_ok ? app_benchmark_standalone_foodcafe : static_cast<std::uint32_t>(UINT32_C(0xFFFFFFFF))
+      );
+
+    return result_is_ok;
   }
 
-  return result_is_ok ? 0 : -1;
+  auto app_benchmark_get_standalone_result(void) -> bool
+  {
+    volatile auto result_is_ok =
+      (app_benchmark_standalone_result == static_cast<std::uint32_t>(UINT32_C(0xF00DCAFE)));
+
+    return result_is_ok;
+  }
 }
 
-#endif
+int main()
+{
+  auto result_is_ok = true;
+
+  result_is_ok = (::app_benchmark_run_standalone       () && result_is_ok);
+  result_is_ok = (::app_benchmark_get_standalone_result() && result_is_ok);
+
+  return (result_is_ok ? 0 : -1);
+}
+
+extern "C"
+{
+  volatile std::uint32_t app_benchmark_standalone_result;
+}
+#endif // APP_BENCHMARK_STANDALONE_MAIN
 
 #endif // APP_BENCHMARK_TYPE_CNL_SCALED_INTEGER

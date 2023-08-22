@@ -11,6 +11,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{FF08
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{05C8F17D-422D-4E38-BC39-07809736C953}"
 	ProjectSection(SolutionItems) = preProject
+		..\.github\workflows\CodeQL.yml = ..\.github\workflows\CodeQL.yml
+		..\.github\workflows\real-time-cpp-examples.yml = ..\.github\workflows\real-time-cpp-examples.yml
+		..\.github\workflows\real-time-cpp-snippets.yml = ..\.github\workflows\real-time-cpp-snippets.yml
+		..\.github\workflows\real-time-cpp-sonar.yml = ..\.github\workflows\real-time-cpp-sonar.yml
 		..\.github\workflows\real-time-cpp.yml = ..\.github\workflows\real-time-cpp.yml
 	EndProjectSection
 EndProject
@@ -21,7 +25,19 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_doc", "_doc", "{AF95AFE8-A
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{114FF69D-9BD4-4C58-B23A-636DFA3B62EA}"
 	ProjectSection(SolutionItems) = preProject
+		..\.clang-tidy = ..\.clang-tidy
 		..\CMakeLists.txt = ..\CMakeLists.txt
+		..\lgtm.yml = ..\lgtm.yml
+		..\sonar-project.properties = ..\sonar-project.properties
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".tidy", ".tidy", "{7B349636-E848-4CDE-9C88-2F993F4DAC51}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "make", "make", "{F07B22A7-7A9D-4FF4-B893-8E53AA5A9407}"
+	ProjectSection(SolutionItems) = preProject
+		..\.tidy\make\make_tidy_01_generic.gmk = ..\.tidy\make\make_tidy_01_generic.gmk
+		..\.tidy\make\make_tidy_02_files.gmk = ..\.tidy\make\make_tidy_02_files.gmk
+		..\.tidy\make\make_tidy_03_flags.gmk = ..\.tidy\make\make_tidy_03_flags.gmk
 	EndProjectSection
 EndProject
 Global
@@ -34,12 +50,15 @@ Global
 		target avr|x64 = target avr|x64
 		target bcm2835_raspi_b|x64 = target bcm2835_raspi_b|x64
 		target lpc11c24|x64 = target lpc11c24|x64
+		target nxp_imxrt1062|x64 = target nxp_imxrt1062|x64
+		target riscvfe310|x64 = target riscvfe310|x64
 		target rl78|x64 = target rl78|x64
 		target rx63n|x64 = target rx63n|x64
 		target stm32f100|x64 = target stm32f100|x64
 		target stm32f407|x64 = target stm32f407|x64
 		target stm32f429|x64 = target stm32f429|x64
 		target stm32f446|x64 = target stm32f446|x64
+		target stm32h7a3|x64 = target stm32h7a3|x64
 		target stm32l100c|x64 = target stm32l100c|x64
 		target stm32l152|x64 = target stm32l152|x64
 		target v850es_fx2|x64 = target v850es_fx2|x64
@@ -57,12 +76,15 @@ Global
 		{C8B59726-9319-45C3-8F11-F9F388FB6A2C}.target avr|x64.ActiveCfg = Release|x64
 		{C8B59726-9319-45C3-8F11-F9F388FB6A2C}.target bcm2835_raspi_b|x64.ActiveCfg = Release|x64
 		{C8B59726-9319-45C3-8F11-F9F388FB6A2C}.target lpc11c24|x64.ActiveCfg = Release|x64
+		{C8B59726-9319-45C3-8F11-F9F388FB6A2C}.target nxp_imxrt1062|x64.ActiveCfg = Release|x64
+		{C8B59726-9319-45C3-8F11-F9F388FB6A2C}.target riscvfe310|x64.ActiveCfg = Release|x64
 		{C8B59726-9319-45C3-8F11-F9F388FB6A2C}.target rl78|x64.ActiveCfg = Release|x64
 		{C8B59726-9319-45C3-8F11-F9F388FB6A2C}.target rx63n|x64.ActiveCfg = Release|x64
 		{C8B59726-9319-45C3-8F11-F9F388FB6A2C}.target stm32f100|x64.ActiveCfg = Release|x64
 		{C8B59726-9319-45C3-8F11-F9F388FB6A2C}.target stm32f407|x64.ActiveCfg = Release|x64
 		{C8B59726-9319-45C3-8F11-F9F388FB6A2C}.target stm32f429|x64.ActiveCfg = Release|x64
 		{C8B59726-9319-45C3-8F11-F9F388FB6A2C}.target stm32f446|x64.ActiveCfg = Release|x64
+		{C8B59726-9319-45C3-8F11-F9F388FB6A2C}.target stm32h7a3|x64.ActiveCfg = Release|x64
 		{C8B59726-9319-45C3-8F11-F9F388FB6A2C}.target stm32l100c|x64.ActiveCfg = Release|x64
 		{C8B59726-9319-45C3-8F11-F9F388FB6A2C}.target stm32l152|x64.ActiveCfg = Release|x64
 		{C8B59726-9319-45C3-8F11-F9F388FB6A2C}.target v850es_fx2|x64.ActiveCfg = Release|x64
@@ -82,6 +104,10 @@ Global
 		{30CE370B-40F3-4BCD-8986-64AAFF8971BD}.target bcm2835_raspi_b|x64.Build.0 = target bcm2835_raspi_b|x64
 		{30CE370B-40F3-4BCD-8986-64AAFF8971BD}.target lpc11c24|x64.ActiveCfg = target lpc11c24|x64
 		{30CE370B-40F3-4BCD-8986-64AAFF8971BD}.target lpc11c24|x64.Build.0 = target lpc11c24|x64
+		{30CE370B-40F3-4BCD-8986-64AAFF8971BD}.target nxp_imxrt1062|x64.ActiveCfg = target nxp_imxrt1062|x64
+		{30CE370B-40F3-4BCD-8986-64AAFF8971BD}.target nxp_imxrt1062|x64.Build.0 = target nxp_imxrt1062|x64
+		{30CE370B-40F3-4BCD-8986-64AAFF8971BD}.target riscvfe310|x64.ActiveCfg = target riscvfe310|x64
+		{30CE370B-40F3-4BCD-8986-64AAFF8971BD}.target riscvfe310|x64.Build.0 = target riscvfe310|x64
 		{30CE370B-40F3-4BCD-8986-64AAFF8971BD}.target rl78|x64.ActiveCfg = target rl78|x64
 		{30CE370B-40F3-4BCD-8986-64AAFF8971BD}.target rl78|x64.Build.0 = target rl78|x64
 		{30CE370B-40F3-4BCD-8986-64AAFF8971BD}.target rx63n|x64.ActiveCfg = target rx63n|x64
@@ -94,6 +120,8 @@ Global
 		{30CE370B-40F3-4BCD-8986-64AAFF8971BD}.target stm32f429|x64.Build.0 = target stm32f429|x64
 		{30CE370B-40F3-4BCD-8986-64AAFF8971BD}.target stm32f446|x64.ActiveCfg = target stm32f446|x64
 		{30CE370B-40F3-4BCD-8986-64AAFF8971BD}.target stm32f446|x64.Build.0 = target stm32f446|x64
+		{30CE370B-40F3-4BCD-8986-64AAFF8971BD}.target stm32h7a3|x64.ActiveCfg = target stm32h7a3|x64
+		{30CE370B-40F3-4BCD-8986-64AAFF8971BD}.target stm32h7a3|x64.Build.0 = target stm32h7a3|x64
 		{30CE370B-40F3-4BCD-8986-64AAFF8971BD}.target stm32l100c|x64.ActiveCfg = target stm32l100c|x64
 		{30CE370B-40F3-4BCD-8986-64AAFF8971BD}.target stm32l100c|x64.Build.0 = target stm32l100c|x64
 		{30CE370B-40F3-4BCD-8986-64AAFF8971BD}.target stm32l152|x64.ActiveCfg = target stm32l152|x64
@@ -110,6 +138,7 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{05C8F17D-422D-4E38-BC39-07809736C953} = {FF08B990-868C-473F-86D1-41CBE07DBB04}
+		{F07B22A7-7A9D-4FF4-B893-8E53AA5A9407} = {7B349636-E848-4CDE-9C88-2F993F4DAC51}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B366D59E-C623-4FD4-BF1E-302144448A9E}

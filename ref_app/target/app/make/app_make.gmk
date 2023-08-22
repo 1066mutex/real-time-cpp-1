@@ -1,5 +1,5 @@
-﻿#
-#  Copyright Christopher Kormanyos 2007 - 2022.
+#
+#  Copyright Christopher Kormanyos 2007 - 2023.
 #  Distributed under the Boost Software License,
 #  Version 1.0. (See accompanying file LICENSE_1_0.txt
 #  or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -141,7 +141,7 @@ C_INCLUDES = $(TGT_INCLUDES)                    \
 ifeq ($(WARN_FLAGS),)
 WARN_FLAGS =  -Wall                             \
               -Wextra                           \
-              -pedantic                         \
+              -Wpedantic                        \
               -Wmain                            \
               -Wundef                           \
               -Wconversion                      \
@@ -190,7 +190,8 @@ AFLAGS      = $(GCCFLAGS)                       \
 
 LDFLAGS     = $(CXXFLAGS)                       \
               $(TGT_LDFLAGS)                    \
-              -x none
+              -x none                           \
+              -Wl,--print-memory-usage
 
 # ------------------------------------------------------------------------------
 # Main-Dependencies (app: all)
@@ -216,7 +217,7 @@ clean_prj:
 	@-$(MKDIR) -p $(PATH_OBJ)
 	@-$(MKDIR) -p $(PATH_ERR)
 	@-$(MKDIR) -p $(PATH_LST)
-	@-$(RM) -r $(PATH_BIN)   > NUL  2> NUL
+	@-$(RM) -r $(PATH_BIN) 2>NUL
 	@-$(MKDIR) -p $(PATH_BIN)
 
 
@@ -230,10 +231,10 @@ clean_all:
 	@-$(MKDIR) -p $(PATH_OBJ)
 	@-$(MKDIR) -p $(PATH_ERR)
 	@-$(MKDIR) -p $(PATH_LST)
-	@-$(RM) -r $(PATH_OBJ)   > NUL  2> NUL
-	@-$(RM) -r $(PATH_ERR)   > NUL  2> NUL
-	@-$(RM) -r $(PATH_LST)   > NUL  2> NUL
-	@-$(RM) -r $(PATH_BIN)   > NUL  2> NUL
+	@-$(RM) -r $(PATH_OBJ) 2>NUL
+	@-$(RM) -r $(PATH_ERR) 2>NUL
+	@-$(RM) -r $(PATH_LST) 2>NUL
+	@-$(RM) -r $(PATH_BIN) 2>NUL
 	@-$(MKDIR) -p $(PATH_BIN)
 
 
@@ -266,8 +267,10 @@ version:
 $(APP).$(TGT_SUFFIX) : $(LINKER_DEFINITION_FILE) $(FILES_O)
 	@-$(ECHO) +++ linking application to generate: $(APP).$(TGT_SUFFIX)
 	@-$(CC) $(LDFLAGS) $(FILES_O) -o $(APP).$(TGT_SUFFIX)
+ifneq ($(findstr risc,$(GCC_TARGET)),)
 	@-$(ECHO) +++ generating assembly list file: $(APP).lss
 	@-$(OBJDUMP) -h -S $(APP).$(TGT_SUFFIX) > $(APP).lss
+endif
 
 
 # ------------------------------------------------------------------------------

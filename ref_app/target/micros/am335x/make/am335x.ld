@@ -9,8 +9,6 @@
 
 /* Linker script for Bare-Metal BeagleBone(R) AM335x ARM(R) A8 MCU */
 
-ENTRY(__my_startup)
-
 INPUT(libc.a libm.a libgcc.a)
 
 OUTPUT_FORMAT("elf32-littlearm", "elf32-littlearm", "elf32-littlearm")

@@ -1,13 +1,13 @@
-# Benchmarks and Performance Classes
+﻿# Benchmarks and Performance Classes
 
 ## Benchmarks
 
   - The benchmarks provide code that exercises microcontroller performance.
   - Various efficiency aspects are emphasized such as integral and floating-point calculations, looping, branching, etc.
   - Each benchmark is implemented as a single callable function to be called from a scheduled task in the multitasking scheduler configuration.
-  - Every benchmark file can also be compiled separately as a standalone C++11 project.
+  - Every benchmark file can also be compiled separately as a standalone C++14 project.
   - A benchmark digital I/O pin is toggled hi/lo at begin/end of the benchmark run providing for oscilloscope real-time measurement.
-  - The benchmarks provide scalable, portable C++11 means for identifying the performance class of the microcontroller.
+  - The benchmarks provide scalable, portable C++14 means for identifying the performance class of the microcontroller.
 
 ## Benchmark details
 
@@ -24,21 +24,25 @@
   - ![app_benchmark_hash.cpp](./app_benchmark_hash.cpp) via `#define APP_BENCHMARK_TYPE_HASH` computes a 160-bit hash checksum of a 3-character message.
   - ![app_benchmark_wide_decimal.cpp](./app_benchmark_wide_decimal.cpp) via `#define APP_BENCHMARK_TYPE_WIDE_DECIMAL` computes a 100 decimal digit square root using the [`decwide_t`](../../math/wide_decimal/decwide_t.h) template class.
   - ![app_benchmark_trapezoid_integral.cpp](./app_benchmark_trapezoid_integral.cpp) via `#define APP_BENCHMARK_TYPE_TRAPEZOID_INTEGRAL` computes the numerical floating-point result of a Bessel function using a recursive trapezoid integration routine.
-  - ![app_benchmark_pi_agm.cpp](./app_benchmark_pi_agm.cpp) via `#define APP_BENCHMARK_TYPE_PI_AGM` computes 53 decimal digits of pi using a Gaus AGM method with the [`decwide_t`](../../math/wide_decimal/decwide_t.h) template class having a so-called _limb type_ of `std::uint16_t`.
-  - ![app_benchmark_boost_math_cbrt_tgamma.cpp](./app_benchmark_boost_math_cbrt_tgamma.cpp) via `#define APP_BENCHMARK_TYPE_BOOST_MATH_CBRT_TGAMMA` uses [Boost.Math](https://www.boost.org/doc/libs/1_77_0/libs/math/doc/html/index.html) to compute the cube root of various Gamma functions values, where we note that heavy-weight error-handling has been patched for bare metal builds with the file [error_handling.hpp](../../util/boost_metal_bindings/boost/math/policies/error_handling.hpp).
+  - ![app_benchmark_pi_agm.cpp](./app_benchmark_pi_agm.cpp) via `#define APP_BENCHMARK_TYPE_PI_AGM` computes 53 decimal digits of pi (or optionally 101 decimal digits of pi) using a Gauss AGM method with the [`decwide_t`](../../math/wide_decimal/decwide_t.h) template class having a so-called _limb type_ of `std::uint16_t`.
+  - ![app_benchmark_boost_math_cbrt_tgamma.cpp](./app_benchmark_boost_math_cbrt_tgamma.cpp) via `#define APP_BENCHMARK_TYPE_BOOST_MATH_CBRT_TGAMMA` uses [Boost.Math](https://www.boost.org/doc/libs/1_81_0/libs/math/doc/html/index.html) to compute the cube root of various Gamma functions values.
+  - ![app_benchmark_boost_math_cyl_bessel_j.cpp](./app_benchmark_boost_math_cyl_bessel_j.cpp) via `#define APP_BENCHMARK_TYPE_BOOST_MATH_CYL_BESSEL_J` also uses [Boost.Math](https://www.boost.org/doc/libs/1_81_0/libs/math/doc/html/index.html) to calculate cylindrical Bessel functions of small, non-integer order.
   - ![app_benchmark_cnl_scaled_integer.cpp](./app_benchmark_cnl_scaled_integer.cpp) via `#define APP_BENCHMARK_TYPE_CNL_SCALED_INTEGER` brings a small subset of the [CNL Library](https://github.com/johnmcfarlane/cnl) _onto the metal_ by exercising various elementary quadratic calculations with the fixed-point representations of [`cnl::scaled_integer`](https://github.com/johnmcfarlane/cnl/tree/main/include/cnl/_impl/scaled_integer).
-  - ![app_benchmark_soft_double_h2f1.cpp](./app_benchmark_soft_double_h2f1.cpp) via `#define APP_BENCHMARK_TYPE_SOFT_DOUBLE_H2F1` calculates an <img src="https://render.githubusercontent.com/render/math?math=\approx\,15"> decimal digit hypergeometric function value using a classic iterative rational approximation scheme. This calculation is also included as an example in the [soft_double](https://github.com/ckormanyos/soft_double) project.
+  - ![app_benchmark_soft_double_h2f1.cpp](./app_benchmark_soft_double_h2f1.cpp) via `#define APP_BENCHMARK_TYPE_SOFT_DOUBLE_H2F1` calculates an ${\approx}~{15}$ decimal digit hypergeometric function value using a classic iterative rational approximation scheme. This calculation is also included as an example in the [soft_double](https://github.com/ckormanyos/soft_double) project.
+  - ![app_benchmark_boost_multiprecision_cbrt.cpp](./app_benchmark_boost_multiprecision_cbrt.cpp) via `#define APP_BENCHMARK_TYPE_BOOST_MULTIPRECISION_CBRT` uses [Boost.Multiprecision](https://www.boost.org/doc/libs/1_81_0/libs/multiprecision/doc/html/index.html) in combination with [Boost.Math](https://www.boost.org/doc/libs/1_81_0/libs/math/doc/html/index.html) to compute $101$ decimal digits of a cube root function.
+  - ![app_benchmark_hash_sha256.cpp](./app_benchmark_hash_sha256.cpp) via `#define APP_BENCHMARK_TYPE_HASH_SHA256` computes a 256-bit hash checksum of a 3-character message.
+  - ![app_benchmark_ecc_generic_ecc.cpp](./app_benchmark_ecc_generic_ecc.cpp) via `#define APP_BENCHMARK_TYPE_ECC_GENERIC_ECC` provides an intuitive view on elliptic-curve algebra, depicting a well-known 256-bit cryptographic key-gen/sign/verify method. This benchmark is actually too lengthy to run on most of our embedded targets (other than BBB or RPI-zero) and adaptions of OS/watchdog are required in order to run this benchmark on the metal.
+
 
 ## Performance classes
 
 Most of the benchmarks run on each supported target system.
 Experience with runs on the individual target systems reveal
-a wide range of microcontroller _performance classes_.
+a wide range of microcontroller _performance_ _classes_.
 
 Consider, for instance, the [`APP_BENCHMARK_TYPE_PI_AGM`](./app_benchmark_pi_agm.cpp)
-benchmark. This program compute 53 decimal digits of the mathematical constant
-<img src="https://render.githubusercontent.com/render/math?math=\pi">
-using a Gauss AGM method with help
+benchmark. This program compute $53$ decimal digits of the mathematical constant
+$\pi$ using a Gauss AGM method with help
 from the [`decwide_t`](../../math/wide_decimal/decwide_t.h) template class.
 
 The [PDF image](./images/app_benchmark_pi_agm.pdf)
@@ -48,6 +52,6 @@ performance classes:
 the 8-bit MICROCHIP(R) AVR controller of the Arduino
 and the 32-bit ARM(R) 8 controller
 of the BeagleBone Black Edition, Rev. C.
-The <img src="https://render.githubusercontent.com/render/math?math=\pi">
-calculation requires approximately 470ms and 1.5ms,
+The $\pi$ calculation requires approximately
+$470~\text{ms}$ and $1.5~\text{ms}$,
 respectively, on these two microcontroller systems.

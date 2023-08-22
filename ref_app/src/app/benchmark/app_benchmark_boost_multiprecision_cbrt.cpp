@@ -1,4 +1,4 @@
-﻿///////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
 //  Copyright Christopher Kormanyos 2021 - 2022.
 //  Distributed under the Boost Software License,
 //  Version 1.0. (See accompanying file LICENSE_1_0.txt
@@ -37,10 +37,6 @@
 #define BOOST_NO_EXCEPTIONS
 #endif
 
-#if !defined(BOOST_MATH_DISABLE_ERROR_HANDLING)
-#define BOOST_MATH_DISABLE_ERROR_HANDLING
-#endif
-
 #if !defined(BOOST_NO_CXX11_THREAD_LOCAL)
 #define BOOST_NO_CXX11_THREAD_LOCAL
 #endif
@@ -53,7 +49,7 @@
 #include <boost/multiprecision/cpp_dec_float.hpp>
 #endif
 
-bool app::benchmark::run_boost_multiprecision_cbrt()
+auto app::benchmark::run_boost_multiprecision_cbrt() -> bool
 {
   using big_float_backend_type =
   #if defined(APP_BENCHMARK_TYPE_BOOST_BOOST_MULTIPRECISION_CBRT_USE_BIN_FLOAT)
@@ -109,7 +105,6 @@ int main()
 #endif
 
 #if defined(__GNUC__)
-// -Wfloat-equal
 #pragma GCC diagnostic pop
 #endif
 

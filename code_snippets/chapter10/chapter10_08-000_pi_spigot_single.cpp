@@ -1,11 +1,13 @@
 ///////////////////////////////////////////////////////////////////////////////
-//  Copyright Christopher Kormanyos 2019 - 2021.
+//  Copyright Christopher Kormanyos 2019 - 2023.
 //  Distributed under the Boost Software License,
 //  Version 1.0. (See accompanying file LICENSE_1_0.txt
 //  or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
 
 // chapter10_08-000_pi_spigot_single.cpp
+
+// See also https://godbolt.org/z/sx6vaE999
 
 // This program can be used to compute many thousands
 // of decimal digits of digits of pi. Although it uses
@@ -151,7 +153,7 @@ protected:
 
     for(std::size_t i = std::size_t(0U); i < std::size_t(n); ++i)
     {
-      output_first[my_j + i] =
+      *(output_first + static_cast<std::ptrdiff_t>(static_cast<std::size_t>(my_j) + i)) =
         output_value_type(std::uint32_t(next_digits / scale10) % UINT32_C(10));
 
       scale10 /= UINT32_C(10);
@@ -177,9 +179,8 @@ public:
   virtual ~pi_spigot_single() = default;
 
   template<typename ItIn,
-            typename ItOut>
-  void calculate(ItIn  input_first,
-                  ItOut output_first)
+           typename ItOut>
+  void calculate(ItIn  input_first, ItOut output_first)
   {
     // Use pi_spigot::calculate() to calculate
     // result_digit decimal digits of pi.

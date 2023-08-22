@@ -182,23 +182,26 @@
     <Filter Include="src\math\softfloat">
       <UniqueIdentifier>{edc2180f-2a1e-4ee1-8b2f-e51592be2ebf}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\util\boost_metal_bindings">
-      <UniqueIdentifier>{46a2d805-8bc6-4d6e-a05f-ccc9153db65d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\util\boost_metal_bindings\boost">
-      <UniqueIdentifier>{64c8e075-90ba-43ca-ab80-388357d3b0c8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\util\boost_metal_bindings\boost\math">
-      <UniqueIdentifier>{56834106-6f69-45d7-a76e-6a98c3fb64e6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\util\boost_metal_bindings\boost\math\policies">
-      <UniqueIdentifier>{72c5030d-41c0-4152-9a9c-0cf5f18cd189}</UniqueIdentifier>
-    </Filter>
     <Filter Include="src\cmake">
       <UniqueIdentifier>{f93f7228-dccf-4716-a98e-7f05d4c20a8c}</UniqueIdentifier>
     </Filter>
     <Filter Include="src\mcal\v850es_fx2">
       <UniqueIdentifier>{8e53b3f3-75d7-4f06-923e-237c9c103735}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\mcal\stm32h7a3">
+      <UniqueIdentifier>{02419671-0191-4497-bd3d-09e3ff4a4d61}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\mcal\riscvfe310">
+      <UniqueIdentifier>{67b61401-3c8f-42ec-ba55-e2f18af39387}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\math\checksums\generic_ecc">
+      <UniqueIdentifier>{670dd0a9-e49b-4103-b26c-c437459bc844}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\mcal_vfd">
+      <UniqueIdentifier>{f6877e42-0bc8-4704-ae4d-7dbf77b803d7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\mcal\nxp_imxrt1062">
+      <UniqueIdentifier>{5590de56-a0fc-4a52-b84d-742784937219}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -497,9 +500,6 @@
       <Filter>src\mcal\stm32f446</Filter>
     </ClCompile>
     <ClCompile Include="src\mcal\stm32f446\mcal_osc.cpp">
-      <Filter>src\mcal\stm32f446</Filter>
-    </ClCompile>
-    <ClCompile Include="src\mcal\stm32f446\mcal_osc_detail.cpp">
       <Filter>src\mcal\stm32f446</Filter>
     </ClCompile>
     <ClCompile Include="src\mcal\stm32f446\mcal_port.cpp">
@@ -870,6 +870,108 @@
     </ClCompile>
     <ClCompile Include="src\mcal\v850es_fx2\mcal_gpt_tick.c">
       <Filter>src\mcal\v850es_fx2</Filter>
+    </ClCompile>
+    <ClCompile Include="src\mcal\stm32h7a3\mcal_led.cpp">
+      <Filter>src\mcal\stm32h7a3</Filter>
+    </ClCompile>
+    <ClCompile Include="src\mcal\stm32h7a3\mcal_osc.cpp">
+      <Filter>src\mcal\stm32h7a3</Filter>
+    </ClCompile>
+    <ClCompile Include="src\mcal\stm32h7a3\mcal_port.cpp">
+      <Filter>src\mcal\stm32h7a3</Filter>
+    </ClCompile>
+    <ClCompile Include="src\mcal\stm32h7a3\mcal_pwm.cpp">
+      <Filter>src\mcal\stm32h7a3</Filter>
+    </ClCompile>
+    <ClCompile Include="src\mcal\stm32h7a3\mcal_spi.cpp">
+      <Filter>src\mcal\stm32h7a3</Filter>
+    </ClCompile>
+    <ClCompile Include="src\mcal\stm32h7a3\mcal_wdg.cpp">
+      <Filter>src\mcal\stm32h7a3</Filter>
+    </ClCompile>
+    <ClCompile Include="src\mcal\stm32h7a3\mcal_cpu.cpp">
+      <Filter>src\mcal\stm32h7a3</Filter>
+    </ClCompile>
+    <ClCompile Include="src\mcal\stm32h7a3\mcal_eep.cpp">
+      <Filter>src\mcal\stm32h7a3</Filter>
+    </ClCompile>
+    <ClCompile Include="src\mcal\stm32h7a3\mcal_gpt.cpp">
+      <Filter>src\mcal\stm32h7a3</Filter>
+    </ClCompile>
+    <ClCompile Include="src\mcal\stm32h7a3\mcal_irq.cpp">
+      <Filter>src\mcal\stm32h7a3</Filter>
+    </ClCompile>
+    <ClCompile Include="src\mcal\riscvfe310\mcal_gpt.cpp">
+      <Filter>src\mcal\riscvfe310</Filter>
+    </ClCompile>
+    <ClCompile Include="src\mcal\riscvfe310\mcal_led.cpp">
+      <Filter>src\mcal\riscvfe310</Filter>
+    </ClCompile>
+    <ClCompile Include="src\mcal\riscvfe310\mcal_cpu.cpp">
+      <Filter>src\mcal\riscvfe310</Filter>
+    </ClCompile>
+    <ClCompile Include="src\mcal\riscvfe310\mcal_eep.cpp">
+      <Filter>src\mcal\riscvfe310</Filter>
+    </ClCompile>
+    <ClCompile Include="src\mcal\riscvfe310\mcal_irq.cpp">
+      <Filter>src\mcal\riscvfe310</Filter>
+    </ClCompile>
+    <ClCompile Include="src\mcal\riscvfe310\mcal_osc.cpp">
+      <Filter>src\mcal\riscvfe310</Filter>
+    </ClCompile>
+    <ClCompile Include="src\mcal\riscvfe310\mcal_port.cpp">
+      <Filter>src\mcal\riscvfe310</Filter>
+    </ClCompile>
+    <ClCompile Include="src\mcal\riscvfe310\mcal_pwm.cpp">
+      <Filter>src\mcal\riscvfe310</Filter>
+    </ClCompile>
+    <ClCompile Include="src\mcal\riscvfe310\mcal_spi.cpp">
+      <Filter>src\mcal\riscvfe310</Filter>
+    </ClCompile>
+    <ClCompile Include="src\mcal\riscvfe310\mcal_wdg.cpp">
+      <Filter>src\mcal\riscvfe310</Filter>
+    </ClCompile>
+    <ClCompile Include="src\app\benchmark\app_benchmark_boost_math_cyl_bessel_j.cpp">
+      <Filter>src\app\benchmark</Filter>
+    </ClCompile>
+    <ClCompile Include="src\app\benchmark\app_benchmark_hash_sha256.cpp">
+      <Filter>src\app\benchmark</Filter>
+    </ClCompile>
+    <ClCompile Include="src\app\benchmark\app_benchmark_ecc_generic_ecc.cpp">
+      <Filter>src\app\benchmark</Filter>
+    </ClCompile>
+    <ClCompile Include="src\sys\start\coverity.c">
+      <Filter>src\sys\start</Filter>
+    </ClCompile>
+    <ClCompile Include="src\mcal\nxp_imxrt1062\mcal_eep.cpp">
+      <Filter>src\mcal\nxp_imxrt1062</Filter>
+    </ClCompile>
+    <ClCompile Include="src\mcal\nxp_imxrt1062\mcal_gpt.cpp">
+      <Filter>src\mcal\nxp_imxrt1062</Filter>
+    </ClCompile>
+    <ClCompile Include="src\mcal\nxp_imxrt1062\mcal_irq.cpp">
+      <Filter>src\mcal\nxp_imxrt1062</Filter>
+    </ClCompile>
+    <ClCompile Include="src\mcal\nxp_imxrt1062\mcal_led.cpp">
+      <Filter>src\mcal\nxp_imxrt1062</Filter>
+    </ClCompile>
+    <ClCompile Include="src\mcal\nxp_imxrt1062\mcal_osc.cpp">
+      <Filter>src\mcal\nxp_imxrt1062</Filter>
+    </ClCompile>
+    <ClCompile Include="src\mcal\nxp_imxrt1062\mcal_port.cpp">
+      <Filter>src\mcal\nxp_imxrt1062</Filter>
+    </ClCompile>
+    <ClCompile Include="src\mcal\nxp_imxrt1062\mcal_pwm.cpp">
+      <Filter>src\mcal\nxp_imxrt1062</Filter>
+    </ClCompile>
+    <ClCompile Include="src\mcal\nxp_imxrt1062\mcal_spi.cpp">
+      <Filter>src\mcal\nxp_imxrt1062</Filter>
+    </ClCompile>
+    <ClCompile Include="src\mcal\nxp_imxrt1062\mcal_wdg.cpp">
+      <Filter>src\mcal\nxp_imxrt1062</Filter>
+    </ClCompile>
+    <ClCompile Include="src\mcal\nxp_imxrt1062\mcal_cpu.cpp">
+      <Filter>src\mcal\nxp_imxrt1062</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1351,9 +1453,6 @@
       <Filter>src\mcal\stm32f446</Filter>
     </ClInclude>
     <ClInclude Include="src\mcal\stm32f446\mcal_osc.h">
-      <Filter>src\mcal\stm32f446</Filter>
-    </ClInclude>
-    <ClInclude Include="src\mcal\stm32f446\mcal_osc_detail.h">
       <Filter>src\mcal\stm32f446</Filter>
     </ClInclude>
     <ClInclude Include="src\mcal\stm32f446\mcal_port.h">
@@ -1965,9 +2064,6 @@
     <ClInclude Include="src\math\softfloat\soft_double.h">
       <Filter>src\math\softfloat</Filter>
     </ClInclude>
-    <ClInclude Include="src\util\boost_metal_bindings\boost\math\policies\error_handling.hpp">
-      <Filter>src\util\boost_metal_bindings\boost\math\policies</Filter>
-    </ClInclude>
     <ClInclude Include="src\mcal\v850es_fx2\mcal_benchmark.h">
       <Filter>src\mcal\v850es_fx2</Filter>
     </ClInclude>
@@ -2012,6 +2108,159 @@
     </ClInclude>
     <ClInclude Include="src\math\wide_decimal\decwide_t_detail_namespace.h">
       <Filter>src\math\wide_decimal</Filter>
+    </ClInclude>
+    <ClInclude Include="src\mcal\stm32h7a3\mcal_led.h">
+      <Filter>src\mcal\stm32h7a3</Filter>
+    </ClInclude>
+    <ClInclude Include="src\mcal\stm32h7a3\mcal_memory_progmem.h">
+      <Filter>src\mcal\stm32h7a3</Filter>
+    </ClInclude>
+    <ClInclude Include="src\mcal\stm32h7a3\mcal_osc.h">
+      <Filter>src\mcal\stm32h7a3</Filter>
+    </ClInclude>
+    <ClInclude Include="src\mcal\stm32h7a3\mcal_port.h">
+      <Filter>src\mcal\stm32h7a3</Filter>
+    </ClInclude>
+    <ClInclude Include="src\mcal\stm32h7a3\mcal_pwm.h">
+      <Filter>src\mcal\stm32h7a3</Filter>
+    </ClInclude>
+    <ClInclude Include="src\mcal\stm32h7a3\mcal_reg.h">
+      <Filter>src\mcal\stm32h7a3</Filter>
+    </ClInclude>
+    <ClInclude Include="src\mcal\stm32h7a3\mcal_ser.h">
+      <Filter>src\mcal\stm32h7a3</Filter>
+    </ClInclude>
+    <ClInclude Include="src\mcal\stm32h7a3\mcal_spi.h">
+      <Filter>src\mcal\stm32h7a3</Filter>
+    </ClInclude>
+    <ClInclude Include="src\mcal\stm32h7a3\mcal_wdg.h">
+      <Filter>src\mcal\stm32h7a3</Filter>
+    </ClInclude>
+    <ClInclude Include="src\mcal\stm32h7a3\mcal_benchmark.h">
+      <Filter>src\mcal\stm32h7a3</Filter>
+    </ClInclude>
+    <ClInclude Include="src\mcal\stm32h7a3\mcal_cpu.h">
+      <Filter>src\mcal\stm32h7a3</Filter>
+    </ClInclude>
+    <ClInclude Include="src\mcal\stm32h7a3\mcal_eep.h">
+      <Filter>src\mcal\stm32h7a3</Filter>
+    </ClInclude>
+    <ClInclude Include="src\mcal\stm32h7a3\mcal_gpt.h">
+      <Filter>src\mcal\stm32h7a3</Filter>
+    </ClInclude>
+    <ClInclude Include="src\mcal\stm32h7a3\mcal_irq.h">
+      <Filter>src\mcal\stm32h7a3</Filter>
+    </ClInclude>
+    <ClInclude Include="src\mcal\mcal_gpt_arm_sys_tick.h">
+      <Filter>src\mcal</Filter>
+    </ClInclude>
+    <ClInclude Include="src\mcal\riscvfe310\mcal_port.h">
+      <Filter>src\mcal\riscvfe310</Filter>
+    </ClInclude>
+    <ClInclude Include="src\mcal\riscvfe310\mcal_reg.h">
+      <Filter>src\mcal\riscvfe310</Filter>
+    </ClInclude>
+    <ClInclude Include="src\mcal\riscvfe310\mcal_gpt.h">
+      <Filter>src\mcal\riscvfe310</Filter>
+    </ClInclude>
+    <ClInclude Include="src\mcal\riscvfe310\mcal_led.h">
+      <Filter>src\mcal\riscvfe310</Filter>
+    </ClInclude>
+    <ClInclude Include="src\mcal\riscvfe310\mcal_benchmark.h">
+      <Filter>src\mcal\riscvfe310</Filter>
+    </ClInclude>
+    <ClInclude Include="src\mcal\riscvfe310\mcal_cpu.h">
+      <Filter>src\mcal\riscvfe310</Filter>
+    </ClInclude>
+    <ClInclude Include="src\mcal\riscvfe310\mcal_eep.h">
+      <Filter>src\mcal\riscvfe310</Filter>
+    </ClInclude>
+    <ClInclude Include="src\mcal\riscvfe310\mcal_irq.h">
+      <Filter>src\mcal\riscvfe310</Filter>
+    </ClInclude>
+    <ClInclude Include="src\mcal\riscvfe310\mcal_memory_progmem.h">
+      <Filter>src\mcal\riscvfe310</Filter>
+    </ClInclude>
+    <ClInclude Include="src\mcal\riscvfe310\mcal_osc.h">
+      <Filter>src\mcal\riscvfe310</Filter>
+    </ClInclude>
+    <ClInclude Include="src\mcal\riscvfe310\mcal_pwm.h">
+      <Filter>src\mcal\riscvfe310</Filter>
+    </ClInclude>
+    <ClInclude Include="src\mcal\riscvfe310\mcal_ser.h">
+      <Filter>src\mcal\riscvfe310</Filter>
+    </ClInclude>
+    <ClInclude Include="src\mcal\riscvfe310\mcal_spi.h">
+      <Filter>src\mcal\riscvfe310</Filter>
+    </ClInclude>
+    <ClInclude Include="src\mcal\riscvfe310\mcal_wdg.h">
+      <Filter>src\mcal\riscvfe310</Filter>
+    </ClInclude>
+    <ClInclude Include="src\math\checksums\hash\hash_sha256.h">
+      <Filter>src\math\checksums\hash</Filter>
+    </ClInclude>
+    <ClInclude Include="src\math\checksums\generic_ecc\digital_signature_generic_ecc.h">
+      <Filter>src\math\checksums\generic_ecc</Filter>
+    </ClInclude>
+    <ClInclude Include="src\math\checksums\generic_ecc\ecc_elliptic_curve.h">
+      <Filter>src\math\checksums\generic_ecc</Filter>
+    </ClInclude>
+    <ClInclude Include="src\math\checksums\generic_ecc\digital_signature_base.h">
+      <Filter>src\math\checksums\generic_ecc</Filter>
+    </ClInclude>
+    <ClInclude Include="src\util\utility\util_display.h">
+      <Filter>src\util\utility</Filter>
+    </ClInclude>
+    <ClInclude Include="src\mcal_vfd\mcal_vfd_base.h">
+      <Filter>src\mcal_vfd</Filter>
+    </ClInclude>
+    <ClInclude Include="src\mcal_vfd\mcal_vfd_nec_fm20x2kb.h">
+      <Filter>src\mcal_vfd</Filter>
+    </ClInclude>
+    <ClInclude Include="src\mcal\nxp_imxrt1062\mcal_cpu.h">
+      <Filter>src\mcal\nxp_imxrt1062</Filter>
+    </ClInclude>
+    <ClInclude Include="src\mcal\nxp_imxrt1062\mcal_eep.h">
+      <Filter>src\mcal\nxp_imxrt1062</Filter>
+    </ClInclude>
+    <ClInclude Include="src\mcal\nxp_imxrt1062\mcal_gpt.h">
+      <Filter>src\mcal\nxp_imxrt1062</Filter>
+    </ClInclude>
+    <ClInclude Include="src\mcal\nxp_imxrt1062\mcal_irq.h">
+      <Filter>src\mcal\nxp_imxrt1062</Filter>
+    </ClInclude>
+    <ClInclude Include="src\mcal\nxp_imxrt1062\mcal_led.h">
+      <Filter>src\mcal\nxp_imxrt1062</Filter>
+    </ClInclude>
+    <ClInclude Include="src\mcal\nxp_imxrt1062\mcal_memory_progmem.h">
+      <Filter>src\mcal\nxp_imxrt1062</Filter>
+    </ClInclude>
+    <ClInclude Include="src\mcal\nxp_imxrt1062\mcal_osc.h">
+      <Filter>src\mcal\nxp_imxrt1062</Filter>
+    </ClInclude>
+    <ClInclude Include="src\mcal\nxp_imxrt1062\mcal_port.h">
+      <Filter>src\mcal\nxp_imxrt1062</Filter>
+    </ClInclude>
+    <ClInclude Include="src\mcal\nxp_imxrt1062\mcal_pwm.h">
+      <Filter>src\mcal\nxp_imxrt1062</Filter>
+    </ClInclude>
+    <ClInclude Include="src\mcal\nxp_imxrt1062\mcal_reg.h">
+      <Filter>src\mcal\nxp_imxrt1062</Filter>
+    </ClInclude>
+    <ClInclude Include="src\mcal\nxp_imxrt1062\mcal_ser.h">
+      <Filter>src\mcal\nxp_imxrt1062</Filter>
+    </ClInclude>
+    <ClInclude Include="src\mcal\nxp_imxrt1062\mcal_spi.h">
+      <Filter>src\mcal\nxp_imxrt1062</Filter>
+    </ClInclude>
+    <ClInclude Include="src\mcal\nxp_imxrt1062\mcal_wdg.h">
+      <Filter>src\mcal\nxp_imxrt1062</Filter>
+    </ClInclude>
+    <ClInclude Include="src\mcal\nxp_imxrt1062\mcal_benchmark.h">
+      <Filter>src\mcal\nxp_imxrt1062</Filter>
+    </ClInclude>
+    <ClInclude Include="src\mcal_led\mcal_led_rgb_base.h">
+      <Filter>src\mcal_led</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -2181,6 +2430,18 @@
       <Filter>src\cmake</Filter>
     </None>
     <None Include="src\util\STL\cinttypes">
+      <Filter>src\util\STL</Filter>
+    </None>
+    <None Include="cmake\stm32h7a3.cmake">
+      <Filter>src\cmake</Filter>
+    </None>
+    <None Include="cmake\riscvfe310.cmake">
+      <Filter>src\cmake</Filter>
+    </None>
+    <None Include="cmake\nxp_imxrt1062.cmake">
+      <Filter>src\cmake</Filter>
+    </None>
+    <None Include="src\util\STL\ciso646">
       <Filter>src\util\STL</Filter>
     </None>
   </ItemGroup>

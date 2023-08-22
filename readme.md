@@ -1,13 +1,35 @@
-﻿Companion code for the book [Real-Time C++](https://www.springer.com/de/book/9783662629956)\
-[![Build Status](https://github.com/ckormanyos/real-time-cpp/actions/workflows/real-time-cpp.yml/badge.svg)](https://github.com/ckormanyos/real-time-cpp/actions)
+﻿Real-Time-C++
 ==================
+
+<p align="center">
+    <a href="https://github.com/ckormanyos/real-time-cpp/actions">
+        <img src="https://github.com/ckormanyos/real-time-cpp/actions/workflows/real-time-cpp.yml/badge.svg" alt="Build Status"></a>
+    <a href="https://github.com/ckormanyos/real-time-cpp/actions">
+        <img src="https://github.com/ckormanyos/real-time-cpp/actions/workflows/real-time-cpp-examples.yml/badge.svg" alt="Build Examples"></a>
+    <a href="https://github.com/ckormanyos/real-time-cpp/actions">
+        <img src="https://github.com/ckormanyos/real-time-cpp/actions/workflows/real-time-cpp-snippets.yml/badge.svg" alt="Build Snippets"></a>
+    <a href="https://github.com/ckormanyos/real-time-cpp/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc">
+        <img src="https://custom-icon-badges.herokuapp.com/github/issues-raw/ckormanyos/real-time-cpp?logo=github" alt="Issues" /></a>
+    <a href="https://github.com/ckormanyos/real-time-cpp/actions/workflows/codeql.yml">
+        <img src="https://github.com/ckormanyos/real-time-cpp/actions/workflows/codeql.yml/badge.svg" alt="CodeQL"></a>
+    <a href="https://scan.coverity.com/projects/ckormanyos-real-time-cpp">
+        <img src="https://scan.coverity.com/projects/24862/badge.svg" alt="Coverity Scan"></a>
+    <a href="https://sonarcloud.io/summary/new_code?id=ckormanyos_real-time-cpp">
+        <img src="https://sonarcloud.io/api/project_badges/measure?project=ckormanyos_real-time-cpp&metric=alert_status" alt="Quality Gate Status"></a>
+    <a href="https://github.com/ckormanyos/real-time-cpp/blob/master/LICENSE_1_0.txt">
+        <img src="https://img.shields.io/badge/license-BSL%201.0-blue.svg" alt="Boost Software License 1.0"></a>
+    <a href="https://img.shields.io/github/commit-activity/y/ckormanyos/real-time-cpp">
+        <img src="https://img.shields.io/github/commit-activity/y/ckormanyos/real-time-cpp" alt="GitHub commit activity" /></a>
+    <a href="https://github.com/ckormanyos/real-time-cpp">
+        <img src="https://img.shields.io/github/languages/code-size/ckormanyos/real-time-cpp" alt="GitHub code size in bytes" /></a>
+</p>
 
 This is the companion code
 for the book C.M. Kormanyos,
 [Real-Time C++](https://www.springer.com/de/book/9783662629956):
 Efficient Object-Oriented
 and Template Microcontroller Programming, Fourth Edition
-(Springer, Heidelberg, 2021). ISBN 9783662629956
+(Springer, Heidelberg, 2021) ISBN 9783662629956.
 
 This repository has three main parts.
   - Reference Application `ref_app` located in [./ref_app](./ref_app)
@@ -27,8 +49,9 @@ initializes a skinny microcontroller abstraction layer (MCAL). Control is
 then passed to a simple multitasking scheduler that schedules the
 LED application, calls a cyclic a benchmark task, and services the watchdog.
 
-The LED application toggles a user-LED with a frequency of 1/2 Hz
-The result is LED on for one second, LED off for one second --- cyclically and perpetually
+The LED application toggles a user-LED with a frequency of $\frac{1}{2}~\text{Hz}$
+The result is LED on for one second, LED off for one second.
+The LED application runs cyclically and perpetually
 without break or pause.
 
 ## Portability
@@ -55,7 +78,9 @@ The reference application supports the following targets:
 | `bcm2835_raspi_b`                      | RaspberryPi(R) Zero with ARM1176-JZFS(TM)                   |
 | `Debug`/`Release`                      | PC on `Win*` via MSVC x64 compiler `Debug`/`Release`        |
 | `host`                                 | PC/Workstation on `Win*`/`mingw64`/`*nix` via host compiler |
-| `lpc11c24`                             | NXP(R) OM13093 LPC11C24 board ARM(R) Cortex(TM)-M0          |
+| `lpc11c24`                             | NXP(R) OM13093 LPC11C24 board ARM(R) Cortex(R)-M0           |
+| `nxp_imxrt1062`                        | Teensy 4.0 Board / NXP(R) iMXRT1062 ARM(R) Cortex(R)-M7     |
+| `riscvfe310`                           | SiFive RISC-V FE310 SoC                                     |
 | `rl78`                                 | Renesas(R) RL78/G13                                         |
 | `rx63n`                                | Renesas(R) RX630/RX631                                      |
 | `stm32f100`                            | ST Microelectronics(R) STM32F100 ARM(R) Cortex(R)-M3        |
@@ -64,6 +89,7 @@ The reference application supports the following targets:
 | `stm32f407`                            | ST Microelectronics(R) STM32F407 ARM(R) Cortex(R)-M4        |
 | `stm32f429`                            | ST Microelectronics(R) STM32F429 ARM(R) Cortex(R)-M4        |
 | `stm32f446`                            | ST Microelectronics(R) STM32F446 ARM(R) Cortex(R)-M4        |
+| `stm32h7a3`                            | ST Microelectronics(R) STM32H7A3 ARM(R) Cortex(R)-M7        |
 | `v850es_fx2`                           | Renesas(R) Electronics V850es/Fx2 upd703231                 |
 | `x86_64-w64-mingw32`                   | PC on `Win*`/`mingw64` via GNU/GCC x86_x64 compiler         |
 | `xtensa32`                             | Espressif (XTENSA) NodeMCU ESP32                            |
@@ -142,6 +168,72 @@ cd ref_app
 ./target/build/build.sh stm32f446 rebuild
 ```
 
+### Example build on MacOS for `target stm32f446`
+
+We will now exemplify how to build the reference application in a command shell
+in MacOS for an ARM(R) target. Consider, for example, the build variant
+`target stm32f446`. The NUCLEO-F446RE board from STMicroelectronics(R)
+can conveniently be used for this.
+
+Clone or get the [ckormanyos/real-time-cpp](https://github.com/ckormanyos/real-time-cpp)
+repository.
+
+The default version 3.81 of GNUmake on MacOS can (now) be used.
+The make files used in this repository have been made
+compatible with it. For background information, see also
+[issue 273](https://github.com/ckormanyos/real-time-cpp/issues/273).
+
+Build the target with a direct call to `make`.
+
+```sh
+cd real-time-cpp
+cd ref_app
+make -f target/app/make/app_make_linux.gmk rebuild TGT=stm32f446
+```
+
+If the toolchain is needed then it must be installed or retrieved
+prior to building the target of the reference application.
+
+You can `wget` (or with a slightly different procedure optionally install)
+the `gcc-arm-none-eabi` toolchain if needed.
+In this case, I have found it convenient to use
+a modern `gcc-arm-none-eabi` for MacOS which can be found at
+[Arm GNU Toolchain Downloads](https://developer.arm.com/tools-and-software/open-source-software/developer-tools/gnu-toolchain/downloads).
+
+The `arm-non-eabi` toolchain can be fetched via `wget`
+and successfully used locally in the shell. If this is desired,
+follow the step-by-step procedure below.
+
+Step 1: Make a local directory (such as `macos-gnu-arm-toolchain`) and `cd` into it.
+
+```sh
+cd real-time-cpp
+mkdir -p macos-gnu-arm-toolchain
+cd macos-gnu-arm-toolchain
+```
+
+Step 2: Fetch the toolchain's tarball with `wget`, unpack it
+and add the compiler's `bin`-directory to the shell's executable path.
+
+```sh
+wget --no-check-certificate https://developer.arm.com/-/media/Files/downloads/gnu/12.2.rel1/binrel/arm-gnu-toolchain-12.2.rel1-darwin-x86_64-arm-none-eabi.tar.xz
+tar -xvf arm-gnu-toolchain-12.2.rel1-darwin-x86_64-arm-none-eabi.tar.xz
+PATH=$(pwd)/arm-gnu-toolchain-12.2.rel1-darwin-x86_64-arm-none-eabi/bin:$PATH
+```
+
+Step 3: Optionally `echo` the `PATH` for a quick path-check.
+It can also be helpful to query `arm-non-eabi-g++`'s version
+in order to verify that the toolchain is correctly added
+to this shell's local `PATH`.
+
+```sh
+echo $PATH
+arm-none-eabi-g++ -v
+```
+
+Now repeat (or retry) the commands to build the target,
+as shown above with a direct call to `make`.
+
 ### Build with VisualStudio(R) Project and CMD Batch
 
 To get started with the reference application on `Win*`
@@ -207,7 +299,7 @@ Switch these options to the ones intended for the `stm32f446` ARM(R)-based targe
 ```
 
 Let's clarify the commands in their entirety in order to run a CMake build for `stm32f446`
-(i.e., ST Microelectronics(R) STM32F446 ARM(R) featuring Cortex(TM)-M4).
+(i.e., ST Microelectronics(R) STM32F446 ARM(R) featuring Cortex(R)-M4).
 
 ```sh
 cd real-time-cpp
@@ -223,11 +315,31 @@ Also building with CMake for `x86_64-w64-mingw32`
 or `host` from MSYS, Cygwin or any similar `*nix`-like
 shell or console should work too.
 
-### Build with ATMEL(R) AtmelStudio(R)
+The following command sequence will build for the
+native `host` on a `*nix`-like shell or console.
+
+```sh
+cd real-time-cpp
+mkdir build
+cd build
+cmake ../ref_app -DTARGET=host -DCMAKE_TOOLCHAIN_FILE=../ref_app/cmake/gcc-toolchain.cmake
+make -j ref_app
+```
+
+### Build with MICROCHIP's ATMEL Studio
 
 There is also a workspace solution for ATMEL(R) AtmelStudio(R) 7.
 It is called `ref_app.atsln` and is also located
 in the [./ref_app](./ref_app) directory.
+There are ATMEL Studio projects for
+both the reference application as well as for each of the examples.
+ATMEL Studio projects in this repository support
+the AVR target only.
+
+If you decide to use ATMEL Studio, you do not need to use or include
+any additional libraries for these projects
+(other than those that are ordinarily installed
+during the standard installation of ATMEL Studio).
 
 ## Target Details
 
@@ -244,39 +356,43 @@ The program toggles the yellow LED on `portb.5`.
 The MICROCHIP(R) [former ATMEL(R)] ATmega4809 configuration
 called `target atmega4809` runs
 on an ARDUINO(R) EVERY compatible board clocked
-with the internal resonator at 20MHz.
+with the internal resonator at $20~\text{MHz}$.
 The program toggles the yellow LED on `porte.2` (i.e., `D5`).
 
 The Espressif (XTENSA) NodeMCU ESP32 implementation uses
 a subset of the Espressif SDK to run the reference application
 with a single OS task exclusively on 1 of its cores.
 
-The NXP(R) OM13093 LPC11C24 board ARM(R) Cortex(TM)-M0 configuration
+The NXP(R) OM13093 LPC11C24 board ARM(R) Cortex(R)-M0 configuration
 called "target lpc11c24" toggles the LED on `port0.8`.
 
-The ARM(R) Cortex(TM)-M3 configuration (called `target stm32f100`) runs on
+The ARM(R) Cortex(R)-M3 configuration (called `target stm32f100`) runs on
 the STM32VLDISCOVERY board commercially available from ST Microelectronics(R).
 The program toggles the blue LED on `portc.8`.
 
-The second ARM(R) Cortex(TM)-M3 configuration (called `target stm32l100c`)
+The second ARM(R) Cortex(R)-M3 configuration (called `target stm32l100c`)
 runs on the STM32L100 DISCOVERY board commercially available from
 ST Microelectronics(R). The program toggles the blue LED on `portc.8`.
 
-The third ARM(R) Cortex(TM)-M3 configuration (called `target stm32l152`)
+The third ARM(R) Cortex(R)-M3 configuration (called `target stm32l152`)
 runs on the STM32L152C-DISCO board commercially available from
 ST Microelectronics(R). The program toggles the blue LED on `portb.6`.
 
-The first ARM(R) Cortex(TM)-M4 configuration (called `target stm32f407`) runs on
+The first ARM(R) Cortex(R)-M4 configuration (called `target stm32f407`) runs on
 the STM32F4DISCOVERY board commercially available from ST Microelectronics(R).
 The program toggles the blue LED on `portd.15`.
 
-Another ARM(R) Cortex(TM)-M4 configuration (called `target stm32f446`) runs on
+Another ARM(R) Cortex(R)-M4 configuration (called `target stm32f446`) runs on
 the STM32F446 Nucleo-64 board commercially available from ST Microelectronics(R).
 The program toggles the green LED on `porta.5`.
 
+The first ARM(R) Cortex(R)-M7 configuration (called `target stm32h7a3`) runs on
+the STM32H7A3 Nucleo-144 board commercially available from ST Microelectronics(R).
+The program toggles the green LED on `portb.0`.
+
 The ARM(R) A8 configuration (called `target am335x`) runs on the BeagleBone
 board (black edition). For the white edition, the CPU clock needs to be reduced
-from 900MHz to something like 600MHz. This project creates a bare-metal program
+from $900~\text{MHz}$ to something like $600~\text{MHz}$. This project creates a bare-metal program
 for the BeagleBone that runs independently from any kind of `*nix` distro on
 the board. Our program is designed to boot the BeagleBone from a raw binary file
 called _MLO_ stored on a FAT32 SDHC microcard. The binary file includes a
@@ -303,6 +419,13 @@ The program toggles the GPIO status LED  at GPIO index `0x47`.
 Target `v850es_fx2` uses a classic Renesas(R) V850es/Fx2 core.
 The upd703231 microcontroller derivative on an F-Line _Drive_ _It_
 starter kit is used.
+
+The `riscvfe310` target utilizes the SiFive RISC-V FE310 SoC
+on Spark Fun's commercially available _Red_ _Thing_ _Plus_ Board.
+The blue LED on port `GPIO0.5` is toggled.
+
+Target `nxp_imxrt1062` runs on the Teensy 4.0 board from Spark Fun.
+The orange user-LED is toggled.
 
 For other compatible boards, feel free contact me directly or submit
 an issue requesting support for your desired target system.
@@ -371,11 +494,25 @@ depending on the particular OS/build/target-configuration.
 
 ### Build Status
 
-Here is the build status badge.
+At the moment, there are three major builds. Each build emphasizes
+different capabilities of the companion code.
 
-[![Build Status](https://github.com/ckormanyos/real-time-cpp/actions/workflows/real-time-cpp.yml/badge.svg)](https://github.com/ckormanyos/real-time-cpp/actions)
+  - Build `ref_app` and benchmarks for various targets and host(s) on  both `*nix` as well as `Win*`.
+  - Build the examples on `*nix`.
+  - Build the code snippets on `*nix`.
 
-The build status badge represents the state of the nightly CI builds and tests.
+Here are the build status badges.
+
+<p align="center">
+    <a href="https://github.com/ckormanyos/real-time-cpp/actions">
+        <img src="https://github.com/ckormanyos/real-time-cpp/actions/workflows/real-time-cpp.yml/badge.svg" alt="Build Status"></a>
+    <a href="https://github.com/ckormanyos/real-time-cpp/actions">
+        <img src="https://github.com/ckormanyos/real-time-cpp/actions/workflows/real-time-cpp-examples.yml/badge.svg" alt="Build Examples"></a>
+    <a href="https://github.com/ckormanyos/real-time-cpp/actions">
+        <img src="https://github.com/ckormanyos/real-time-cpp/actions/workflows/real-time-cpp-snippets.yml/badge.svg" alt="Build Snippets"></a>
+</p>
+
+The build status badges represent the state of the nightly CI builds and tests.
 
 ## GNU/GCC Compilers
 
@@ -423,12 +560,12 @@ when selecting the Microsoft(R) VisualStudio(R) project
 ## C++ Language Adherence
 
 A GNU/GCC port (or other compiler)
-with a high level of C++11 awareness and adherence
-such as GCC 5 through 11 (higher generally being more advantageous)
-or MSVC 14 or higher is required for building the reference application
+with a high level of C++11/14 awareness and adherence
+such as GCC 5 through 13 (higher generally being more advantageous)
+or MSVC 14.2 or higher is required for building the reference application
 (and the examples and code snippets).
 
-Some of the code snippets demonstrate language elements not only from C++11,
-but also from C++14, 17, 20. A compiler with C++17 support (such as GCC 6, 7, or 8)
-or even C++20 support (such as GCC 10 or 11, clang 12 or MSVC 14.2) can, therefore,
-be beneficial for success with *all* of the code snippets.
+Some of the code snippets demonstrate language elements not only from C++11/14,
+but also from C++17, 20, 23. A compiler with C++17 support
+or even C++20, 23 support (such as GCC 13, clang 15, MSVC 14.3, or beyond) can,
+therefore, be beneficial for success with *all* of the code snippets.

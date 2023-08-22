@@ -187,6 +187,36 @@
     <Filter Include="micros\v850es_fx2\startup">
       <UniqueIdentifier>{9e52b1bf-fd57-474f-91d6-677c425f54e9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="micros\stm32h7a3">
+      <UniqueIdentifier>{d8403855-6ae4-419d-a00f-c5a20006bb76}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="micros\stm32h7a3\make">
+      <UniqueIdentifier>{6bd3de44-163e-4637-b64c-d1b6b9474464}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="micros\stm32h7a3\startup">
+      <UniqueIdentifier>{6c38201f-e52f-4dcd-8802-12544cc6c099}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="micros\riscvfe310">
+      <UniqueIdentifier>{555a27b8-f410-42e5-9855-90fcad8d25e5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="micros\riscvfe310\make">
+      <UniqueIdentifier>{2df2c49c-b1ff-40ee-82df-01e55e210f91}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="micros\riscvfe310\startup">
+      <UniqueIdentifier>{8d939918-1160-4e85-89a2-0dc14dba8062}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="micros\stm32h7a3\make\single">
+      <UniqueIdentifier>{f64f0280-3cc8-4e24-8487-a3687bad71b9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="micros\nxp_imxrt1062">
+      <UniqueIdentifier>{e0829884-bb9f-46d7-913c-60e2de2ee286}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="micros\nxp_imxrt1062\make">
+      <UniqueIdentifier>{b6b66698-d8c3-413f-9a56-fb0160ddcfef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="micros\nxp_imxrt1062\startup">
+      <UniqueIdentifier>{c1ad125d-ff5b-4c6d-a130-eecf66eaf6d5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="target\app\make\app_files.gmk">
@@ -441,6 +471,42 @@
     <None Include="target\micros\v850es_fx2\startup\errno.s">
       <Filter>micros\v850es_fx2\startup</Filter>
     </None>
+    <None Include="target\build\test_app_benchmarks_emulator.py">
+      <Filter>build</Filter>
+    </None>
+    <None Include="target\micros\stm32h7a3\make\stm32h7a3_files.gmk">
+      <Filter>micros\stm32h7a3\make</Filter>
+    </None>
+    <None Include="target\micros\stm32h7a3\make\stm32h7a3_flags.gmk">
+      <Filter>micros\stm32h7a3\make</Filter>
+    </None>
+    <None Include="target\micros\stm32h7a3\make\stm32h7a3.ld">
+      <Filter>micros\stm32h7a3\make</Filter>
+    </None>
+    <None Include="target\micros\riscvfe310\make\riscvfe310_flags.gmk">
+      <Filter>micros\riscvfe310\make</Filter>
+    </None>
+    <None Include="target\micros\riscvfe310\make\riscvfe310.ld">
+      <Filter>micros\riscvfe310\make</Filter>
+    </None>
+    <None Include="target\micros\riscvfe310\make\riscvfe310_files.gmk">
+      <Filter>micros\riscvfe310\make</Filter>
+    </None>
+    <None Include="target\micros\stm32h7a3\make\stm32h7a3_with_stdlib.ld">
+      <Filter>micros\stm32h7a3\make</Filter>
+    </None>
+    <None Include="target\micros\stm32f429\make\stm32f429_with_stdlib.ld">
+      <Filter>micros\stm32f429\make</Filter>
+    </None>
+    <None Include="target\micros\nxp_imxrt1062\make\nxp_imxrt1062.ld">
+      <Filter>micros\nxp_imxrt1062\make</Filter>
+    </None>
+    <None Include="target\micros\nxp_imxrt1062\make\nxp_imxrt1062_files.gmk">
+      <Filter>micros\nxp_imxrt1062\make</Filter>
+    </None>
+    <None Include="target\micros\nxp_imxrt1062\make\nxp_imxrt1062_flags.gmk">
+      <Filter>micros\nxp_imxrt1062\make</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Target\Micros\AVR\Startup\int_vect.cpp">
@@ -622,6 +688,48 @@
     </ClCompile>
     <ClCompile Include="target\micros\v850es_fx2\startup\crt0_init_ram.cpp">
       <Filter>micros\v850es_fx2\startup</Filter>
+    </ClCompile>
+    <ClCompile Include="target\micros\stm32h7a3\startup\crt1.cpp">
+      <Filter>micros\stm32h7a3\startup</Filter>
+    </ClCompile>
+    <ClCompile Include="target\micros\stm32h7a3\startup\int_vect.cpp">
+      <Filter>micros\stm32h7a3\startup</Filter>
+    </ClCompile>
+    <ClCompile Include="target\micros\stm32h7a3\startup\crt0.cpp">
+      <Filter>micros\stm32h7a3\startup</Filter>
+    </ClCompile>
+    <ClCompile Include="target\micros\stm32h7a3\startup\crt0_init_ram.cpp">
+      <Filter>micros\stm32h7a3\startup</Filter>
+    </ClCompile>
+    <ClCompile Include="target\micros\riscvfe310\startup\crt0.cpp">
+      <Filter>micros\riscvfe310\startup</Filter>
+    </ClCompile>
+    <ClCompile Include="target\micros\riscvfe310\startup\crt0_init_ram.cpp">
+      <Filter>micros\riscvfe310\startup</Filter>
+    </ClCompile>
+    <ClCompile Include="target\micros\riscvfe310\startup\crt1.cpp">
+      <Filter>micros\riscvfe310\startup</Filter>
+    </ClCompile>
+    <ClCompile Include="target\micros\riscvfe310\startup\int_vect.cpp">
+      <Filter>micros\riscvfe310\startup</Filter>
+    </ClCompile>
+    <ClCompile Include="target\micros\stm32h7a3\make\single\crt.cpp">
+      <Filter>micros\stm32h7a3\make\single</Filter>
+    </ClCompile>
+    <ClCompile Include="target\micros\nxp_imxrt1062\startup\crt0.cpp">
+      <Filter>micros\nxp_imxrt1062\startup</Filter>
+    </ClCompile>
+    <ClCompile Include="target\micros\nxp_imxrt1062\startup\crt0_init_ram.cpp">
+      <Filter>micros\nxp_imxrt1062\startup</Filter>
+    </ClCompile>
+    <ClCompile Include="target\micros\nxp_imxrt1062\startup\crt1.cpp">
+      <Filter>micros\nxp_imxrt1062\startup</Filter>
+    </ClCompile>
+    <ClCompile Include="target\micros\nxp_imxrt1062\startup\int_vect.cpp">
+      <Filter>micros\nxp_imxrt1062\startup</Filter>
+    </ClCompile>
+    <ClCompile Include="target\micros\nxp_imxrt1062\startup\bootdata.cpp">
+      <Filter>micros\nxp_imxrt1062\startup</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

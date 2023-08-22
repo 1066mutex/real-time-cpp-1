@@ -1,6 +1,5 @@
-
 /*
- Copyright Christopher Kormanyos 2007 - 2022.
+ Copyright Christopher Kormanyos 2007 - 2023.
  Distributed under the Boost Software License,
  Version 1.0. (See accompanying file LICENSE_1_0.txt
  or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -15,21 +14,15 @@ INPUT(libc.a libm.a libgcc.a)
 OUTPUT_FORMAT("elf32-littlearm", "elf32-littlearm", "elf32-littlearm")
 OUTPUT_ARCH(arm)
 
-/* The beginning and end of the program ROM area */
-/* Set up a ROM area with a size of 64K */
-_rom_begin = 0x08000000;
-_rom_end   = 0x08010000;
-
 /* The beginning and end (i.e., the top) of the stack */
 /* Set up a stack with a size of 4K */
-_stack_begin = 0x20007000;
-_stack_end   = 0x20008000;
 
-__initial_stack_pointer = 0x20008000 - 4;
+__initial_stack_pointer = 0x20002000 - 4;
 
 MEMORY
 {
-  ROM(rx)  : ORIGIN = 0x08000000, LENGTH = 64K
+  VEC(rx)  : ORIGIN = 0x08000000, LENGTH = 0x300
+  ROM(rx)  : ORIGIN = 0x08000300, LENGTH = 32K - 0x300
   RAM(rwx) : ORIGIN = 0x20000000, LENGTH = 0x7000
 }
 
@@ -42,9 +35,9 @@ SECTIONS
   .isr_vector :
   {
     *(.isr_vector)
-    . = ALIGN(0x10);
+    . = ALIGN(0x100);
     KEEP(*(.isr_vector))
-  } > ROM = 0xAAAA
+  } > VEC = 0xAAAA
 
   /* startup */
   .startup :

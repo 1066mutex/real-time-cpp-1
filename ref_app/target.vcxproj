@@ -5,6 +5,18 @@
       <Configuration>target atmega4809</Configuration>
       <Platform>x64</Platform>
     </ProjectConfiguration>
+    <ProjectConfiguration Include="target nxp_imxrt1062|x64">
+      <Configuration>target nxp_imxrt1062</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="target riscvfe310|x64">
+      <Configuration>target riscvfe310</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="target stm32h7a3|x64">
+      <Configuration>target stm32h7a3</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
     <ProjectConfiguration Include="target stm32l100c|x64">
       <Configuration>target stm32l100c</Configuration>
       <Platform>x64</Platform>
@@ -75,7 +87,7 @@
     <RootNamespace>Target</RootNamespace>
     <Keyword>Win32Proj</Keyword>
     <ProjectName>target</ProjectName>
-    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='target avr|x64'" Label="Configuration">
@@ -112,67 +124,85 @@
     <ConfigurationType>Makefile</ConfigurationType>
     <CharacterSet>Unicode</CharacterSet>
     <WholeProgramOptimization>true</WholeProgramOptimization>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='target riscvfe310|x64'" Label="Configuration">
+    <ConfigurationType>Makefile</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <PlatformToolset>v142</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='target stm32l100c|x64'" Label="Configuration">
     <ConfigurationType>Makefile</ConfigurationType>
     <CharacterSet>Unicode</CharacterSet>
     <WholeProgramOptimization>true</WholeProgramOptimization>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='target lpc11c24|x64'" Label="Configuration">
     <ConfigurationType>Makefile</ConfigurationType>
     <CharacterSet>Unicode</CharacterSet>
     <WholeProgramOptimization>true</WholeProgramOptimization>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='target stm32l152|x64'" Label="Configuration">
     <ConfigurationType>Makefile</ConfigurationType>
     <CharacterSet>Unicode</CharacterSet>
     <WholeProgramOptimization>true</WholeProgramOptimization>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='target stm32f407|x64'" Label="Configuration">
     <ConfigurationType>Makefile</ConfigurationType>
     <CharacterSet>Unicode</CharacterSet>
     <WholeProgramOptimization>true</WholeProgramOptimization>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='target x86_64-w64-mingw32|x64'" Label="Configuration">
     <ConfigurationType>Makefile</ConfigurationType>
     <CharacterSet>Unicode</CharacterSet>
     <WholeProgramOptimization>true</WholeProgramOptimization>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='target stm32f446|x64'" Label="Configuration">
     <ConfigurationType>Makefile</ConfigurationType>
     <CharacterSet>Unicode</CharacterSet>
     <WholeProgramOptimization>true</WholeProgramOptimization>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='target nxp_imxrt1062|x64'" Label="Configuration">
+    <ConfigurationType>Makefile</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='target stm32h7a3|x64'" Label="Configuration">
+    <ConfigurationType>Makefile</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <PlatformToolset>v142</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='target xtensa32|x64'" Label="Configuration">
     <ConfigurationType>Makefile</ConfigurationType>
     <CharacterSet>Unicode</CharacterSet>
     <WholeProgramOptimization>true</WholeProgramOptimization>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='target stm32f429|x64'" Label="Configuration">
     <ConfigurationType>Makefile</ConfigurationType>
     <CharacterSet>Unicode</CharacterSet>
     <WholeProgramOptimization>true</WholeProgramOptimization>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='target am335x|x64'" Label="Configuration">
     <ConfigurationType>Makefile</ConfigurationType>
     <CharacterSet>Unicode</CharacterSet>
     <WholeProgramOptimization>true</WholeProgramOptimization>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='target bcm2835_raspi_b|x64'" Label="Configuration">
     <ConfigurationType>Makefile</ConfigurationType>
     <CharacterSet>Unicode</CharacterSet>
     <WholeProgramOptimization>true</WholeProgramOptimization>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Target|Win32'">
     <ConfigurationType>Makefile</ConfigurationType>
@@ -184,27 +214,27 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='target avr|x64'" Label="Configuration">
     <ConfigurationType>Makefile</ConfigurationType>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='target atmega4809|x64'" Label="Configuration">
     <ConfigurationType>Makefile</ConfigurationType>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='target atmega2560|x64'" Label="Configuration">
     <ConfigurationType>Makefile</ConfigurationType>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='target rl78|x64'" Label="Configuration">
     <ConfigurationType>Makefile</ConfigurationType>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='target rx63n|x64'" Label="Configuration">
     <ConfigurationType>Makefile</ConfigurationType>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='target v850es_fx2|x64'" Label="Configuration">
     <ConfigurationType>Makefile</ConfigurationType>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Target AVR32|Win32'">
     <ConfigurationType>Makefile</ConfigurationType>
@@ -238,6 +268,9 @@
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='target stm32f100|x64'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='target riscvfe310|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='target stm32l100c|x64'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
@@ -254,6 +287,12 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='target stm32f446|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='target nxp_imxrt1062|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='target stm32h7a3|x64'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='target xtensa32|x64'" Label="PropertySheets">
@@ -278,12 +317,15 @@
     <NMakeBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='target rx63n|x64'">Build\Build.bat AVR</NMakeBuildCommandLine>
     <NMakeBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='target v850es_fx2|x64'">Build\Build.bat AVR</NMakeBuildCommandLine>
     <NMakeBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='target stm32f100|x64'">target\build\build.bat stm32f100</NMakeBuildCommandLine>
+    <NMakeBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='target riscvfe310|x64'">target\build\build.bat riscvfe310</NMakeBuildCommandLine>
     <NMakeBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='target stm32l100c|x64'">target\build\build.bat stm32l100c</NMakeBuildCommandLine>
     <NMakeBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='target lpc11c24|x64'">target\build\build.bat lpc11c24</NMakeBuildCommandLine>
     <NMakeBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='target stm32l152|x64'">target\build\build.bat stm32l152</NMakeBuildCommandLine>
     <NMakeBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='target stm32f407|x64'">target\build\build.bat stm32f407</NMakeBuildCommandLine>
     <NMakeBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='target x86_64-w64-mingw32|x64'">target\build\build.bat x86_64-w64-mingw32</NMakeBuildCommandLine>
     <NMakeBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='target stm32f446|x64'">target\build\build.bat stm32f446</NMakeBuildCommandLine>
+    <NMakeBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='target nxp_imxrt1062|x64'">target\build\build.bat nxp_imxrt1062</NMakeBuildCommandLine>
+    <NMakeBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='target stm32h7a3|x64'">target\build\build.bat stm32h7a3</NMakeBuildCommandLine>
     <NMakeBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='target xtensa32|x64'">target\build\build.bat xtensa32</NMakeBuildCommandLine>
     <NMakeBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='target stm32f429|x64'">target\build\build.bat stm32f429</NMakeBuildCommandLine>
     <NMakeBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='target am335x|x64'">target\build\build.bat am335x</NMakeBuildCommandLine>
@@ -295,12 +337,15 @@
     <NMakeReBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='target rx63n|x64'">Build\Build.bat AVR rebuild</NMakeReBuildCommandLine>
     <NMakeReBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='target v850es_fx2|x64'">Build\Build.bat AVR rebuild</NMakeReBuildCommandLine>
     <NMakeReBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='target stm32f100|x64'">target\build\build.bat stm32f100 rebuild</NMakeReBuildCommandLine>
+    <NMakeReBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='target riscvfe310|x64'">target\build\build.bat riscvfe310 rebuild</NMakeReBuildCommandLine>
     <NMakeReBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='target stm32l100c|x64'">target\build\build.bat stm32l100c rebuild</NMakeReBuildCommandLine>
     <NMakeReBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='target lpc11c24|x64'">target\build\build.bat lpc11c24 rebuild</NMakeReBuildCommandLine>
     <NMakeReBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='target stm32l152|x64'">target\build\build.bat stm32l152 rebuild</NMakeReBuildCommandLine>
     <NMakeReBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='target stm32f407|x64'">target\build\build.bat stm32f407 rebuild</NMakeReBuildCommandLine>
     <NMakeReBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='target x86_64-w64-mingw32|x64'">target\build\build.bat x86_64-w64-mingw32 rebuild</NMakeReBuildCommandLine>
     <NMakeReBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='target stm32f446|x64'">target\build\build.bat stm32f446 rebuild</NMakeReBuildCommandLine>
+    <NMakeReBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='target nxp_imxrt1062|x64'">target\build\build.bat nxp_imxrt1062 rebuild</NMakeReBuildCommandLine>
+    <NMakeReBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='target stm32h7a3|x64'">target\build\build.bat stm32h7a3 rebuild</NMakeReBuildCommandLine>
     <NMakeReBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='target xtensa32|x64'">target\build\build.bat xtensa32 rebuild</NMakeReBuildCommandLine>
     <NMakeReBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='target stm32f429|x64'">target\build\build.bat stm32f429 rebuild
 </NMakeReBuildCommandLine>
@@ -313,12 +358,15 @@
     <NMakeCleanCommandLine Condition="'$(Configuration)|$(Platform)'=='target rx63n|x64'">Target\Build\Build.bat rx63n clean_all</NMakeCleanCommandLine>
     <NMakeCleanCommandLine Condition="'$(Configuration)|$(Platform)'=='target v850es_fx2|x64'">Target\Build\Build.bat v850es_fx2 clean_all</NMakeCleanCommandLine>
     <NMakeCleanCommandLine Condition="'$(Configuration)|$(Platform)'=='target stm32f100|x64'">target\build\build.bat stm32f100 clean_all</NMakeCleanCommandLine>
+    <NMakeCleanCommandLine Condition="'$(Configuration)|$(Platform)'=='target riscvfe310|x64'">target\build\build.bat riscvfe310 clean_all</NMakeCleanCommandLine>
     <NMakeCleanCommandLine Condition="'$(Configuration)|$(Platform)'=='target stm32l100c|x64'">target\build\build.bat stm32l100c clean_all</NMakeCleanCommandLine>
     <NMakeCleanCommandLine Condition="'$(Configuration)|$(Platform)'=='target lpc11c24|x64'">target\build\build.bat lpc11c24 clean_all</NMakeCleanCommandLine>
     <NMakeCleanCommandLine Condition="'$(Configuration)|$(Platform)'=='target stm32l152|x64'">target\build\build.bat stm32l152 clean_all</NMakeCleanCommandLine>
     <NMakeCleanCommandLine Condition="'$(Configuration)|$(Platform)'=='target stm32f407|x64'">target\build\build.bat stm32f407 clean_all</NMakeCleanCommandLine>
     <NMakeCleanCommandLine Condition="'$(Configuration)|$(Platform)'=='target x86_64-w64-mingw32|x64'">target\build\build.bat x86_64-w64-mingw32 clean_all</NMakeCleanCommandLine>
     <NMakeCleanCommandLine Condition="'$(Configuration)|$(Platform)'=='target stm32f446|x64'">target\build\build.bat stm32f446 clean_all</NMakeCleanCommandLine>
+    <NMakeCleanCommandLine Condition="'$(Configuration)|$(Platform)'=='target nxp_imxrt1062|x64'">target\build\build.bat nxp_imxrt1062 clean_all</NMakeCleanCommandLine>
+    <NMakeCleanCommandLine Condition="'$(Configuration)|$(Platform)'=='target stm32h7a3|x64'">target\build\build.bat stm32h7a3 clean_all</NMakeCleanCommandLine>
     <NMakeCleanCommandLine Condition="'$(Configuration)|$(Platform)'=='target xtensa32|x64'">target\build\build.bat xtensa32 clean_all</NMakeCleanCommandLine>
     <NMakeCleanCommandLine Condition="'$(Configuration)|$(Platform)'=='target stm32f429|x64'">target\build\build.bat stm32f429 clean_all
 </NMakeCleanCommandLine>
@@ -331,12 +379,15 @@
     <NMakeOutput Condition="'$(Configuration)|$(Platform)'=='target rx63n|x64'">$(SolutionDir)bin\ref_app.hex</NMakeOutput>
     <NMakeOutput Condition="'$(Configuration)|$(Platform)'=='target v850es_fx2|x64'">$(SolutionDir)bin\ref_app.hex</NMakeOutput>
     <NMakeOutput Condition="'$(Configuration)|$(Platform)'=='target stm32f100|x64'">$(SolutionDir)bin\ref_app.hex</NMakeOutput>
+    <NMakeOutput Condition="'$(Configuration)|$(Platform)'=='target riscvfe310|x64'">$(SolutionDir)bin\ref_app.hex</NMakeOutput>
     <NMakeOutput Condition="'$(Configuration)|$(Platform)'=='target stm32l100c|x64'">$(SolutionDir)bin\ref_app.hex</NMakeOutput>
     <NMakeOutput Condition="'$(Configuration)|$(Platform)'=='target lpc11c24|x64'">$(SolutionDir)bin\ref_app.hex</NMakeOutput>
     <NMakeOutput Condition="'$(Configuration)|$(Platform)'=='target stm32l152|x64'">$(SolutionDir)bin\ref_app.hex</NMakeOutput>
     <NMakeOutput Condition="'$(Configuration)|$(Platform)'=='target stm32f407|x64'">$(SolutionDir)bin\ref_app.hex</NMakeOutput>
     <NMakeOutput Condition="'$(Configuration)|$(Platform)'=='target x86_64-w64-mingw32|x64'">$(SolutionDir)bin\ref_app.exe</NMakeOutput>
     <NMakeOutput Condition="'$(Configuration)|$(Platform)'=='target stm32f446|x64'">$(SolutionDir)bin\ref_app.hex</NMakeOutput>
+    <NMakeOutput Condition="'$(Configuration)|$(Platform)'=='target nxp_imxrt1062|x64'">$(SolutionDir)bin\ref_app.hex</NMakeOutput>
+    <NMakeOutput Condition="'$(Configuration)|$(Platform)'=='target stm32h7a3|x64'">$(SolutionDir)bin\ref_app.hex</NMakeOutput>
     <NMakeOutput Condition="'$(Configuration)|$(Platform)'=='target xtensa32|x64'">$(SolutionDir)bin\ref_app.hex</NMakeOutput>
     <NMakeOutput Condition="'$(Configuration)|$(Platform)'=='target stm32f429|x64'">$(SolutionDir)bin\ref_app.hex</NMakeOutput>
     <NMakeOutput Condition="'$(Configuration)|$(Platform)'=='target am335x|x64'">$(SolutionDir)bin\ref_app.hex</NMakeOutput>
@@ -348,12 +399,15 @@
     <NMakePreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='target rx63n|x64'">$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
     <NMakePreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='target v850es_fx2|x64'">$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
     <NMakePreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='target stm32f100|x64'" />
+    <NMakePreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='target riscvfe310|x64'" />
     <NMakePreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='target stm32l100c|x64'" />
     <NMakePreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='target lpc11c24|x64'" />
     <NMakePreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='target stm32l152|x64'" />
     <NMakePreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='target stm32f407|x64'" />
     <NMakePreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='target x86_64-w64-mingw32|x64'" />
     <NMakePreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='target stm32f446|x64'" />
+    <NMakePreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='target nxp_imxrt1062|x64'" />
+    <NMakePreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='target stm32h7a3|x64'" />
     <NMakePreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='target xtensa32|x64'">ESP_PLATFORM; MBEDTLS_CONFIG_FILE="mbedtls/esp_config.h"; HAVE_CONFIG_H; GCC_NOT_5_2_0=1; WITH_POSIX; F_CPU=240000000L; ARDUINO=10813; ARDUINO_ESP32_DEV; ARDUINO_ARCH_ESP32; ARDUINO_BOARD="ESP32_DEV"; ARDUINO_VARIANT="esp32"; ESP32; CORE_DEBUG_LEVEL=0</NMakePreprocessorDefinitions>
     <NMakePreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='target stm32f429|x64'" />
     <NMakePreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='target am335x|x64'" />
@@ -365,12 +419,15 @@
     <NMakeIncludeSearchPath Condition="'$(Configuration)|$(Platform)'=='target rx63n|x64'">$(ProjectDir)/Cpp; $(ProjectDir)/Cpp/Hal/AVR;$(NMakeIncludeSearchPath)</NMakeIncludeSearchPath>
     <NMakeIncludeSearchPath Condition="'$(Configuration)|$(Platform)'=='target v850es_fx2|x64'">$(ProjectDir)/Cpp; $(ProjectDir)/Cpp/Hal/AVR;$(NMakeIncludeSearchPath)</NMakeIncludeSearchPath>
     <NMakeIncludeSearchPath Condition="'$(Configuration)|$(Platform)'=='target stm32f100|x64'">$(SolutionDir)src\util\STL_C++XX_stdfloat;$(SolutionDir)src\util\STL;$(SolutionDir)/src;$(SolutionDir)/src/mcal/stm32f100</NMakeIncludeSearchPath>
+    <NMakeIncludeSearchPath Condition="'$(Configuration)|$(Platform)'=='target riscvfe310|x64'">$(SolutionDir)src\util\STL_C++XX_stdfloat;$(SolutionDir)src\util\STL;$(SolutionDir)/src;$(SolutionDir)/src/mcal/riscvfe310</NMakeIncludeSearchPath>
     <NMakeIncludeSearchPath Condition="'$(Configuration)|$(Platform)'=='target stm32l100c|x64'">$(SolutionDir)src\util\STL_C++XX_stdfloat;$(SolutionDir)src\util\STL;$(SolutionDir)/src;$(SolutionDir)/src/mcal/stm32f100</NMakeIncludeSearchPath>
     <NMakeIncludeSearchPath Condition="'$(Configuration)|$(Platform)'=='target lpc11c24|x64'">$(SolutionDir)src\util\STL_C++XX_stdfloat;$(SolutionDir)src\util\STL;$(SolutionDir)src;$(SolutionDir)src\mcal\lpc11c24</NMakeIncludeSearchPath>
     <NMakeIncludeSearchPath Condition="'$(Configuration)|$(Platform)'=='target stm32l152|x64'">$(SolutionDir)src\util\STL_C++XX_stdfloat;$(SolutionDir)src\util\STL;$(SolutionDir)src;$(SolutionDir)src\mcal\stm32l152</NMakeIncludeSearchPath>
     <NMakeIncludeSearchPath Condition="'$(Configuration)|$(Platform)'=='target stm32f407|x64'">$(SolutionDir)src\util\STL_C++XX_stdfloat;$(SolutionDir)src\util\STL;$(SolutionDir)/src;$(SolutionDir)/src/mcal/stm32f407</NMakeIncludeSearchPath>
     <NMakeIncludeSearchPath Condition="'$(Configuration)|$(Platform)'=='target x86_64-w64-mingw32|x64'">$(SolutionDir)src\util\STL_C++XX_stdfloat;$(SolutionDir)/src;$(SolutionDir)src\mcal\x86_64-w64-mingw32</NMakeIncludeSearchPath>
     <NMakeIncludeSearchPath Condition="'$(Configuration)|$(Platform)'=='target stm32f446|x64'">$(SolutionDir)src\util\STL_C++XX_stdfloat;$(SolutionDir)src\util\STL;$(SolutionDir)/src;$(SolutionDir)/src/mcal/stm32f446</NMakeIncludeSearchPath>
+    <NMakeIncludeSearchPath Condition="'$(Configuration)|$(Platform)'=='target nxp_imxrt1062|x64'">$(SolutionDir)src\util\STL_C++XX_stdfloat;$(SolutionDir)src\util\STL;$(SolutionDir)/src;$(SolutionDir)/src/mcal/stm32f446</NMakeIncludeSearchPath>
+    <NMakeIncludeSearchPath Condition="'$(Configuration)|$(Platform)'=='target stm32h7a3|x64'">$(SolutionDir)src\util\STL_C++XX_stdfloat;$(SolutionDir)src\util\STL;$(SolutionDir)/src;$(SolutionDir)/src/mcal/stm32f446</NMakeIncludeSearchPath>
     <NMakeIncludeSearchPath Condition="'$(Configuration)|$(Platform)'=='target xtensa32|x64'">$(ProjectDir)/src/util/STL_C++XX_stdfloat; $(ProjectDir)/src/util/STL; $(ProjectDir)/src; $(ProjectDir)/src/mcal/xtensa32;</NMakeIncludeSearchPath>
     <NMakeIncludeSearchPath Condition="'$(Configuration)|$(Platform)'=='target stm32f429|x64'">$(SolutionDir)src\util\STL_C++XX_stdfloat;$(SolutionDir)src\util\STL;$(SolutionDir)/src;$(SolutionDir)/src/mcal/stm32f429</NMakeIncludeSearchPath>
     <NMakeIncludeSearchPath Condition="'$(Configuration)|$(Platform)'=='target am335x|x64'">$(SolutionDir)/src;$(SolutionDir)/src/mcal/am335x</NMakeIncludeSearchPath>
@@ -382,12 +439,15 @@
     <NMakeForcedIncludes Condition="'$(Configuration)|$(Platform)'=='target rx63n|x64'">$(NMakeForcedIncludes)</NMakeForcedIncludes>
     <NMakeForcedIncludes Condition="'$(Configuration)|$(Platform)'=='target v850es_fx2|x64'">$(NMakeForcedIncludes)</NMakeForcedIncludes>
     <NMakeForcedIncludes Condition="'$(Configuration)|$(Platform)'=='target stm32f100|x64'" />
+    <NMakeForcedIncludes Condition="'$(Configuration)|$(Platform)'=='target riscvfe310|x64'" />
     <NMakeForcedIncludes Condition="'$(Configuration)|$(Platform)'=='target stm32l100c|x64'" />
     <NMakeForcedIncludes Condition="'$(Configuration)|$(Platform)'=='target lpc11c24|x64'" />
     <NMakeForcedIncludes Condition="'$(Configuration)|$(Platform)'=='target stm32l152|x64'" />
     <NMakeForcedIncludes Condition="'$(Configuration)|$(Platform)'=='target stm32f407|x64'" />
     <NMakeForcedIncludes Condition="'$(Configuration)|$(Platform)'=='target x86_64-w64-mingw32|x64'" />
     <NMakeForcedIncludes Condition="'$(Configuration)|$(Platform)'=='target stm32f446|x64'" />
+    <NMakeForcedIncludes Condition="'$(Configuration)|$(Platform)'=='target nxp_imxrt1062|x64'" />
+    <NMakeForcedIncludes Condition="'$(Configuration)|$(Platform)'=='target stm32h7a3|x64'" />
     <NMakeForcedIncludes Condition="'$(Configuration)|$(Platform)'=='target xtensa32|x64'" />
     <NMakeForcedIncludes Condition="'$(Configuration)|$(Platform)'=='target stm32f429|x64'" />
     <NMakeForcedIncludes Condition="'$(Configuration)|$(Platform)'=='target am335x|x64'" />
@@ -399,12 +459,15 @@
     <NMakeAssemblySearchPath Condition="'$(Configuration)|$(Platform)'=='target rx63n|x64'">$(NMakeAssemblySearchPath)</NMakeAssemblySearchPath>
     <NMakeAssemblySearchPath Condition="'$(Configuration)|$(Platform)'=='target v850es_fx2|x64'">$(NMakeAssemblySearchPath)</NMakeAssemblySearchPath>
     <NMakeAssemblySearchPath Condition="'$(Configuration)|$(Platform)'=='target stm32f100|x64'" />
+    <NMakeAssemblySearchPath Condition="'$(Configuration)|$(Platform)'=='target riscvfe310|x64'" />
     <NMakeAssemblySearchPath Condition="'$(Configuration)|$(Platform)'=='target stm32l100c|x64'" />
     <NMakeAssemblySearchPath Condition="'$(Configuration)|$(Platform)'=='target lpc11c24|x64'" />
     <NMakeAssemblySearchPath Condition="'$(Configuration)|$(Platform)'=='target stm32l152|x64'" />
     <NMakeAssemblySearchPath Condition="'$(Configuration)|$(Platform)'=='target stm32f407|x64'" />
     <NMakeAssemblySearchPath Condition="'$(Configuration)|$(Platform)'=='target x86_64-w64-mingw32|x64'" />
     <NMakeAssemblySearchPath Condition="'$(Configuration)|$(Platform)'=='target stm32f446|x64'" />
+    <NMakeAssemblySearchPath Condition="'$(Configuration)|$(Platform)'=='target nxp_imxrt1062|x64'" />
+    <NMakeAssemblySearchPath Condition="'$(Configuration)|$(Platform)'=='target stm32h7a3|x64'" />
     <NMakeAssemblySearchPath Condition="'$(Configuration)|$(Platform)'=='target xtensa32|x64'" />
     <NMakeAssemblySearchPath Condition="'$(Configuration)|$(Platform)'=='target stm32f429|x64'" />
     <NMakeAssemblySearchPath Condition="'$(Configuration)|$(Platform)'=='target am335x|x64'" />
@@ -416,12 +479,15 @@
     <NMakeForcedUsingAssemblies Condition="'$(Configuration)|$(Platform)'=='target rx63n|x64'">$(NMakeForcedUsingAssemblies)</NMakeForcedUsingAssemblies>
     <NMakeForcedUsingAssemblies Condition="'$(Configuration)|$(Platform)'=='target v850es_fx2|x64'">$(NMakeForcedUsingAssemblies)</NMakeForcedUsingAssemblies>
     <NMakeForcedUsingAssemblies Condition="'$(Configuration)|$(Platform)'=='target stm32f100|x64'" />
+    <NMakeForcedUsingAssemblies Condition="'$(Configuration)|$(Platform)'=='target riscvfe310|x64'" />
     <NMakeForcedUsingAssemblies Condition="'$(Configuration)|$(Platform)'=='target stm32l100c|x64'" />
     <NMakeForcedUsingAssemblies Condition="'$(Configuration)|$(Platform)'=='target lpc11c24|x64'" />
     <NMakeForcedUsingAssemblies Condition="'$(Configuration)|$(Platform)'=='target stm32l152|x64'" />
     <NMakeForcedUsingAssemblies Condition="'$(Configuration)|$(Platform)'=='target stm32f407|x64'" />
     <NMakeForcedUsingAssemblies Condition="'$(Configuration)|$(Platform)'=='target x86_64-w64-mingw32|x64'" />
     <NMakeForcedUsingAssemblies Condition="'$(Configuration)|$(Platform)'=='target stm32f446|x64'" />
+    <NMakeForcedUsingAssemblies Condition="'$(Configuration)|$(Platform)'=='target nxp_imxrt1062|x64'" />
+    <NMakeForcedUsingAssemblies Condition="'$(Configuration)|$(Platform)'=='target stm32h7a3|x64'" />
     <NMakeForcedUsingAssemblies Condition="'$(Configuration)|$(Platform)'=='target xtensa32|x64'" />
     <NMakeForcedUsingAssemblies Condition="'$(Configuration)|$(Platform)'=='target stm32f429|x64'" />
     <NMakeForcedUsingAssemblies Condition="'$(Configuration)|$(Platform)'=='target am335x|x64'" />
@@ -582,6 +648,11 @@
       <Path>$(SolutionDir)tmp\log\ref_app.log</Path>
     </BuildLog>
   </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='target riscvfe310|x64'">
+    <BuildLog>
+      <Path>$(SolutionDir)tmp\log\ref_app.log</Path>
+    </BuildLog>
+  </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='target stm32l100c|x64'">
     <BuildLog>
       <Path>$(SolutionDir)tmp\log\ref_app.log</Path>
@@ -608,6 +679,16 @@
     </BuildLog>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='target stm32f446|x64'">
+    <BuildLog>
+      <Path>$(SolutionDir)tmp\log\ref_app.log</Path>
+    </BuildLog>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='target nxp_imxrt1062|x64'">
+    <BuildLog>
+      <Path>$(SolutionDir)tmp\log\ref_app.log</Path>
+    </BuildLog>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='target stm32h7a3|x64'">
     <BuildLog>
       <Path>$(SolutionDir)tmp\log\ref_app.log</Path>
     </BuildLog>
@@ -651,6 +732,7 @@
     <None Include="target\build\build.sh" />
     <None Include="target\build\test_app_benchmarks.sh" />
     <None Include="target\build\test_app_benchmarks_avr.sh" />
+    <None Include="target\build\test_app_benchmarks_emulator.py" />
     <None Include="target\build\test_app_benchmarks_stm32f446.sh" />
     <None Include="target\micros\am335x\make\am335x.ld" />
     <None Include="target\micros\am335x\make\am335x_files.gmk" />
@@ -678,6 +760,12 @@
     <None Include="target\micros\lpc11c24\make\lpc11c24.ld" />
     <None Include="target\micros\lpc11c24\make\lpc11c24_files.gmk" />
     <None Include="target\micros\lpc11c24\make\lpc11c24_flags.gmk" />
+    <None Include="target\micros\nxp_imxrt1062\make\nxp_imxrt1062.ld" />
+    <None Include="target\micros\nxp_imxrt1062\make\nxp_imxrt1062_files.gmk" />
+    <None Include="target\micros\nxp_imxrt1062\make\nxp_imxrt1062_flags.gmk" />
+    <None Include="target\micros\riscvfe310\make\riscvfe310.ld" />
+    <None Include="target\micros\riscvfe310\make\riscvfe310_files.gmk" />
+    <None Include="target\micros\riscvfe310\make\riscvfe310_flags.gmk" />
     <None Include="target\micros\rx63n\make\rx63n.ld" />
     <None Include="target\micros\rx63n\make\rx63n_files.gmk" />
     <None Include="target\micros\rx63n\make\rx63n_flags.gmk" />
@@ -693,12 +781,17 @@
     <None Include="target\micros\stm32f429\make\stm32f429.ld" />
     <None Include="target\micros\stm32f429\make\stm32f429_files.gmk" />
     <None Include="target\micros\stm32f429\make\stm32f429_flags.gmk" />
+    <None Include="target\micros\stm32f429\make\stm32f429_with_stdlib.ld" />
     <None Include="target\micros\stm32f446\make\stm32f446.ld" />
     <None Include="target\micros\stm32f446\make\stm32f446_files.gmk" />
     <None Include="target\micros\stm32f446\make\stm32f446_flags.gmk" />
     <None Include="target\micros\stm32f446\make\stm32f446_with_stdlib.ld" />
     <None Include="target\micros\stm32f446\_debug\Cortex-M4F.svd" />
     <None Include="target\micros\stm32f446\_debug\stm32f446.jdebug" />
+    <None Include="target\micros\stm32h7a3\make\stm32h7a3.ld" />
+    <None Include="target\micros\stm32h7a3\make\stm32h7a3_files.gmk" />
+    <None Include="target\micros\stm32h7a3\make\stm32h7a3_flags.gmk" />
+    <None Include="target\micros\stm32h7a3\make\stm32h7a3_with_stdlib.ld" />
     <None Include="target\micros\stm32l100c\make\stm32l100c.ld" />
     <None Include="target\micros\stm32l100c\make\stm32l100c_files.gmk" />
     <None Include="target\micros\stm32l100c\make\stm32l100c_flags.gmk" />
@@ -749,6 +842,15 @@
     <ClCompile Include="target\micros\lpc11c24\startup\crt0_init_ram.cpp" />
     <ClCompile Include="target\micros\lpc11c24\startup\crt1.cpp" />
     <ClCompile Include="target\micros\lpc11c24\startup\int_vect.cpp" />
+    <ClCompile Include="target\micros\nxp_imxrt1062\startup\bootdata.cpp" />
+    <ClCompile Include="target\micros\nxp_imxrt1062\startup\crt0.cpp" />
+    <ClCompile Include="target\micros\nxp_imxrt1062\startup\crt0_init_ram.cpp" />
+    <ClCompile Include="target\micros\nxp_imxrt1062\startup\crt1.cpp" />
+    <ClCompile Include="target\micros\nxp_imxrt1062\startup\int_vect.cpp" />
+    <ClCompile Include="target\micros\riscvfe310\startup\crt0.cpp" />
+    <ClCompile Include="target\micros\riscvfe310\startup\crt0_init_ram.cpp" />
+    <ClCompile Include="target\micros\riscvfe310\startup\crt1.cpp" />
+    <ClCompile Include="target\micros\riscvfe310\startup\int_vect.cpp" />
     <ClCompile Include="target\micros\rl78\startup\crt0.cpp" />
     <ClCompile Include="target\micros\rl78\startup\crt0_init_ram.cpp" />
     <ClCompile Include="target\micros\rl78\startup\crt1.cpp" />
@@ -776,6 +878,11 @@
     <ClCompile Include="target\micros\stm32f446\startup\crt0_init_ram.cpp" />
     <ClCompile Include="target\micros\stm32f446\startup\crt1.cpp" />
     <ClCompile Include="target\micros\stm32f446\startup\int_vect.cpp" />
+    <ClCompile Include="target\micros\stm32h7a3\make\single\crt.cpp" />
+    <ClCompile Include="target\micros\stm32h7a3\startup\crt0.cpp" />
+    <ClCompile Include="target\micros\stm32h7a3\startup\crt0_init_ram.cpp" />
+    <ClCompile Include="target\micros\stm32h7a3\startup\crt1.cpp" />
+    <ClCompile Include="target\micros\stm32h7a3\startup\int_vect.cpp" />
     <ClCompile Include="target\micros\stm32l100c\startup\crt0.cpp" />
     <ClCompile Include="target\micros\stm32l100c\startup\crt0_init_ram.cpp" />
     <ClCompile Include="target\micros\stm32l100c\startup\crt1.cpp" />
